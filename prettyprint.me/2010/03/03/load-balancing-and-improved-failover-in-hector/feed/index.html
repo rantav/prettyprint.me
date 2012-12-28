@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Load balancing and improved failover in Hector</title>
+	<atom:link href="http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/feed/" rel="self" type="application/rss+xml" />
+	<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/</link>
+	<description>by Ran Tavory</description>
+	<lastBuildDate>Mon, 01 Aug 2011 08:29:01 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.2</generator>
+	<item>
+		<title>By: Hector API v2 &#124; PrettyPrint.me</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-2894</link>
+		<dc:creator>Hector API v2 &#124; PrettyPrint.me</dc:creator>
+		<pubDate>Fri, 06 Aug 2010 11:34:35 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-2894</guid>
+		<description>[...] simple load balancing [...]</description>
+		<content:encoded><![CDATA[<p>[...] simple load balancing [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: OCTO talks ! &#187; Let&#8217;s play with Cassandra&#8230; (Part 1/3)</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-2170</link>
+		<dc:creator>OCTO talks ! &#187; Let&#8217;s play with Cassandra&#8230; (Part 1/3)</dc:creator>
+		<pubDate>Wed, 09 Jun 2010 20:18:05 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-2170</guid>
+		<description>[...] library (for instance Hector in the Java World) provides connections pooling mechanisms and even kind of round-robin load [...]</description>
+		<content:encoded><![CDATA[<p>[...] library (for instance Hector in the Java World) provides connections pooling mechanisms and even kind of round-robin load [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: OCTO talks ! &#187; Jouons avec Cassandra&#8230; (1/3)</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-2169</link>
+		<dc:creator>OCTO talks ! &#187; Jouons avec Cassandra&#8230; (1/3)</dc:creator>
+		<pubDate>Wed, 09 Jun 2010 20:16:17 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-2169</guid>
+		<description>[...] librairies (par exemple Hector dans le monde Java) fournissent des mécanismes de pool de connections et même de [...]</description>
+		<content:encoded><![CDATA[<p>[...] librairies (par exemple Hector dans le monde Java) fournissent des mécanismes de pool de connections et même de [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-832</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Tue, 04 May 2010 09:55:24 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-832</guid>
+		<description>@Falk this cannot be done out of the box. I&#039;ll give you my answer, but really this is a question suitable to user@cassandra.
+
+you can do this by implementing an application level index
+Or by denormalizing the data
+Or wait until cassandra adds indexes (I think version 0.7.0, but not sure)</description>
+		<content:encoded><![CDATA[<p>@Falk this cannot be done out of the box. I&#8217;ll give you my answer, but really this is a question suitable to user@cassandra.</p>
+<p>you can do this by implementing an application level index<br />
+Or by denormalizing the data<br />
+Or wait until cassandra adds indexes (I think version 0.7.0, but not sure)</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Falk Wolsky</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-821</link>
+		<dc:creator>Falk Wolsky</dc:creator>
+		<pubDate>Mon, 03 May 2010 17:08:04 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-821</guid>
+		<description>Hello Ran,
+
+hmm. the answer on this List was &quot;not so good&quot;... ;-)
+I Think, Lucandra can be a good point to start indexing and Text-Search. I have to evaluate this.. 
+
+Ok. Please let us focus to the relation question:
+(Sample Data-Model from Arin)
+
+BlogEntries : { 
+ i-got-a-new-guitar : { // row key 
+  title: This is a blog entry about my new, awesome guitar,
+  body: this is a cool entry. etc etc yada yada
+  author: Arin Sarkissian  // a row key into the Authors CF
+ }
+}
+
+Now, the question is: See you any possibility to build a &quot;get&quot; Function with it i can find all &quot;BlogEntries&quot; from a &quot;named&quot; autor?
+
+For sample: 
+ks.getColumn(search,key,ColumnPath); (simplified) 
+&quot;search&quot; should be {column:value} / {author:Arin Sarkissian} and key for this sample can be used or not set (&quot;*&quot;).
+
+Maybe we can handle this inside a SliceRange &quot;query&quot;?
+
+Thanks in Advance</description>
+		<content:encoded><![CDATA[<p>Hello Ran,</p>
+<p>hmm. the answer on this List was &#8220;not so good&#8221;&#8230; <img src='http://prettyprint.me/wp-includes/images/smilies/icon_wink.gif' alt=';-)' class='wp-smiley' /><br />
+I Think, Lucandra can be a good point to start indexing and Text-Search. I have to evaluate this.. </p>
+<p>Ok. Please let us focus to the relation question:<br />
+(Sample Data-Model from Arin)</p>
+<p>BlogEntries : {<br />
+ i-got-a-new-guitar : { // row key<br />
+  title: This is a blog entry about my new, awesome guitar,<br />
+  body: this is a cool entry. etc etc yada yada<br />
+  author: Arin Sarkissian  // a row key into the Authors CF<br />
+ }<br />
+}</p>
+<p>Now, the question is: See you any possibility to build a &#8220;get&#8221; Function with it i can find all &#8220;BlogEntries&#8221; from a &#8220;named&#8221; autor?</p>
+<p>For sample:<br />
+ks.getColumn(search,key,ColumnPath); (simplified)<br />
+&#8220;search&#8221; should be {column:value} / {author:Arin Sarkissian} and key for this sample can be used or not set (&#8220;*&#8221;).</p>
+<p>Maybe we can handle this inside a SliceRange &#8220;query&#8221;?</p>
+<p>Thanks in Advance</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-793</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Sun, 02 May 2010 09:33:00 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-793</guid>
+		<description>Hi @Falk, this is an excellent question to user@cassandra</description>
+		<content:encoded><![CDATA[<p>Hi @Falk, this is an excellent question to user@cassandra</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Falk Wolsky</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-792</link>
+		<dc:creator>Falk Wolsky</dc:creator>
+		<pubDate>Sun, 02 May 2010 09:13:49 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-792</guid>
+		<description>Hello Ran,
+
+1) Can you provide a solution or a sample for searching (Column and SuperColumn) (Fulltext). What is the Way to realize this? Hadoop/MapReduce? See you a posibility to build/use a index for columns?
+
+2) How can be realized a &quot;relation&quot; For Sample: (http://arin.me/blog/wtf-is-a-supercolumn-cassandra-data-model) Arin describes good a simple Data-Model to build a Blog. But how can we read (filter) all Posts from &quot;BlogEntries&quot; from a single Autor? (filter the Supercolumns by a culum inside of a SuperColumn)
+
+The &quot;relation&quot; for Sample is Autor -&gt; BlogEntries...
+
+To filter the Datas there is a needing to specify in a &quot;get&quot; a Key OR a Column/Value combination...
+
+Thanks in Advance! - and thx for Hector! We love it...
+With Hector i build a (Apache)Cocoon-Transformer. 
+
+With kind regards,
+Falk</description>
+		<content:encoded><![CDATA[<p>Hello Ran,</p>
+<p>1) Can you provide a solution or a sample for searching (Column and SuperColumn) (Fulltext). What is the Way to realize this? Hadoop/MapReduce? See you a posibility to build/use a index for columns?</p>
+<p>2) How can be realized a &#8220;relation&#8221; For Sample: (<a href="http://arin.me/blog/wtf-is-a-supercolumn-cassandra-data-model" rel="nofollow">http://arin.me/blog/wtf-is-a-supercolumn-cassandra-data-model</a>) Arin describes good a simple Data-Model to build a Blog. But how can we read (filter) all Posts from &#8220;BlogEntries&#8221; from a single Autor? (filter the Supercolumns by a culum inside of a SuperColumn)</p>
+<p>The &#8220;relation&#8221; for Sample is Autor -&gt; BlogEntries&#8230;</p>
+<p>To filter the Datas there is a needing to specify in a &#8220;get&#8221; a Key OR a Column/Value combination&#8230;</p>
+<p>Thanks in Advance! &#8211; and thx for Hector! We love it&#8230;<br />
+With Hector i build a (Apache)Cocoon-Transformer. </p>
+<p>With kind regards,<br />
+Falk</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: tc</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-629</link>
+		<dc:creator>tc</dc:creator>
+		<pubDate>Sun, 18 Apr 2010 11:17:58 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-629</guid>
+		<description>you got it. Done.</description>
+		<content:encoded><![CDATA[<p>you got it. Done.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-627</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Sun, 18 Apr 2010 07:34:28 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-627</guid>
+		<description>@hc let me look into that, but in the mean time, do you mind taking the discussion to hector-users@googlegroups.com for the benefit of all?</description>
+		<content:encoded><![CDATA[<p>@hc let me look into that, but in the mean time, do you mind taking the discussion to <a href="mailto:hector-users@googlegroups.com">hector-users@googlegroups.com</a> for the benefit of all?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: tc</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/comment-page-1/#comment-618</link>
+		<dc:creator>tc</dc:creator>
+		<pubDate>Sat, 17 Apr 2010 20:29:33 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=278#comment-618</guid>
+		<description>thanx Ran .. The problem is, even though I can browse the src on your website to find CassandraHostConfigurator, it is missing in the download for 0.6.0-10.  Also the CassandraClientPoolFactory only has a createNew()  method instead of a createNew(CassandraHostConfigurator config).
+
+I guess the modification wasn&#039;t made at the time of building the jar for download.  Could you please update the download?</description>
+		<content:encoded><![CDATA[<p>thanx Ran .. The problem is, even though I can browse the src on your website to find CassandraHostConfigurator, it is missing in the download for 0.6.0-10.  Also the CassandraClientPoolFactory only has a createNew()  method instead of a createNew(CassandraHostConfigurator config).</p>
+<p>I guess the modification wasn&#8217;t made at the time of building the jar for download.  Could you please update the download?</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

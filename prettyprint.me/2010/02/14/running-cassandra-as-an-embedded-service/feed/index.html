@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Running Cassandra as an embedded service</title>
+	<atom:link href="http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/feed/" rel="self" type="application/rss+xml" />
+	<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/</link>
+	<description>by Ran Tavory</description>
+	<lastBuildDate>Mon, 01 Aug 2011 08:29:01 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.2</generator>
+	<item>
+		<title>By: mck</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-4252</link>
+		<dc:creator>mck</dc:creator>
+		<pubDate>Fri, 12 Nov 2010 12:57:35 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-4252</guid>
+		<description>0.7.0 has some differences i&#039;ve found.
+
+Instead of
+ System.setProperty(&quot;storage-config&quot;, &quot;../../test/conf&quot;);
+you&#039;ll need (because of the change to yaml)
+ System.setProperty(&quot;cassandra.config&quot;, &quot;../../test/conf/cassandra.yaml&quot;);
+
+Also if the property value is an absolute filepath it needs to be in URL format, see DatabaseDescriptor.getStorageConfigURL()</description>
+		<content:encoded><![CDATA[<p>0.7.0 has some differences i&#8217;ve found.</p>
+<p>Instead of<br />
+ System.setProperty(&#8220;storage-config&#8221;, &#8220;../../test/conf&#8221;);<br />
+you&#8217;ll need (because of the change to yaml)<br />
+ System.setProperty(&#8220;cassandra.config&#8221;, &#8220;../../test/conf/cassandra.yaml&#8221;);</p>
+<p>Also if the property value is an absolute filepath it needs to be in URL format, see DatabaseDescriptor.getStorageConfigURL()</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-3323</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Fri, 10 Sep 2010 11:54:52 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-3323</guid>
+		<description>@Kannan if memtables aren&#039;t flushed then cassandra will read the commit log when it starts up next time so data isn&#039;t lost.
+Per your code, I&#039;m now too far away from the latest on trunk so it&#039;s best to advice with dev@cassandra</description>
+		<content:encoded><![CDATA[<p>@Kannan if memtables aren&#8217;t flushed then cassandra will read the commit log when it starts up next time so data isn&#8217;t lost.<br />
+Per your code, I&#8217;m now too far away from the latest on trunk so it&#8217;s best to advice with dev@cassandra</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Kannan</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-3318</link>
+		<dc:creator>Kannan</dc:creator>
+		<pubDate>Fri, 10 Sep 2010 03:39:49 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-3318</guid>
+		<description>Thanks for the reply. I notice that if I kill the jvm and the memtable is not full yet, its not flushing the in-memory data to disk. Any ideas how to get around this ? Currently I am using something like this:
+
+for(String t: DatabaseDescriptor.getTables()) {
+  Table table = Table.open(t);
+  for(ColumnFamilyStore cfs: table.getColumnFamilyStores()) {
+	cfs.forceBlockingFlush();
+ }
+}
+
+Do you see any problems with this? Is there a better way to do it ?
+
+Thanks again</description>
+		<content:encoded><![CDATA[<p>Thanks for the reply. I notice that if I kill the jvm and the memtable is not full yet, its not flushing the in-memory data to disk. Any ideas how to get around this ? Currently I am using something like this:</p>
+<p>for(String t: DatabaseDescriptor.getTables()) {<br />
+  Table table = Table.open(t);<br />
+  for(ColumnFamilyStore cfs: table.getColumnFamilyStores()) {<br />
+	cfs.forceBlockingFlush();<br />
+ }<br />
+}</p>
+<p>Do you see any problems with this? Is there a better way to do it ?</p>
+<p>Thanks again</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-3308</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Thu, 09 Sep 2010 11:51:58 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-3308</guid>
+		<description>you mean why it cannot be killed? it&#039;s been discussed at user@cassandra a few times. Basically it&#039;s a design decision and was never considered important enough to rethink it</description>
+		<content:encoded><![CDATA[<p>you mean why it cannot be killed? it&#8217;s been discussed at user@cassandra a few times. Basically it&#8217;s a design decision and was never considered important enough to rethink it</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Kannan</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-3298</link>
+		<dc:creator>Kannan</dc:creator>
+		<pubDate>Wed, 08 Sep 2010 23:52:33 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-3298</guid>
+		<description>Thanks for putting up this embedded server, very helpful
+Any ideas why this is a cassandra design limitation ?</description>
+		<content:encoded><![CDATA[<p>Thanks for putting up this embedded server, very helpful<br />
+Any ideas why this is a cassandra design limitation ?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-2849</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Mon, 02 Aug 2010 18:57:51 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-2849</guid>
+		<description>no, that&#039;s a design limitation in cassandra</description>
+		<content:encoded><![CDATA[<p>no, that&#8217;s a design limitation in cassandra</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Michael Zehrer</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-2845</link>
+		<dc:creator>Michael Zehrer</dc:creator>
+		<pubDate>Mon, 02 Aug 2010 15:48:15 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-2845</guid>
+		<description>Is there a solution for the shutdown problem? One that does not require me to kill the JVM?</description>
+		<content:encoded><![CDATA[<p>Is there a solution for the shutdown problem? One that does not require me to kill the JVM?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Confluence: Team Message Archiver</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-2810</link>
+		<dc:creator>Confluence: Team Message Archiver</dc:creator>
+		<pubDate>Fri, 30 Jul 2010 17:38:40 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-2810</guid>
+		<description>&lt;strong&gt;Cassandra Research Links...&lt;/strong&gt;
+
+Cassandra Research Google indexing/searching...</description>
+		<content:encoded><![CDATA[<p><strong>Cassandra Research Links&#8230;</strong></p>
+<p>Cassandra Research Google indexing/searching&#8230;</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Understanding Cassandra Code Base &#124; PrettyPrint.me</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-797</link>
+		<dc:creator>Understanding Cassandra Code Base &#124; PrettyPrint.me</dc:creator>
+		<pubDate>Sun, 02 May 2010 14:20:14 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-797</guid>
+		<description>[...] have a closer look at the internal design of the system. While with some features added, such as an embedded service, I could have certainly get away without good understanding of the codebase and design, others, [...]</description>
+		<content:encoded><![CDATA[<p>[...] have a closer look at the internal design of the system. While with some features added, such as an embedded service, I could have certainly get away without good understanding of the codebase and design, others, [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: links for 2010-04-26 &#171; Daniel Harrison&#39;s Personal Blog</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/comment-page-1/#comment-732</link>
+		<dc:creator>links for 2010-04-26 &#171; Daniel Harrison&#39;s Personal Blog</dc:creator>
+		<pubDate>Tue, 27 Apr 2010 02:02:22 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=255#comment-732</guid>
+		<description>[...] Running Cassandra as an embedded service &#124; PrettyPrint.me (tags: cassandra java) [...]</description>
+		<content:encoded><![CDATA[<p>[...] Running Cassandra as an embedded service | PrettyPrint.me (tags: cassandra java) [...]</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

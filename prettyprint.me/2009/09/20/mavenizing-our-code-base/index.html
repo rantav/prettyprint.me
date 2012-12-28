@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<title>Mavenizing our code base | PrettyPrint.me</title>
+<meta name="generator" content="WordPress 3.2" /> <!-- leave this for stats -->
+<link rel="alternate" type="application/rss+xml" title="PrettyPrint.me RSS Feed" href="../../../../feed/index.html" />
+<link rel="pingback" href="../../../../xmlrpc.php" />
+<link rel="stylesheet" type="text/css" media="all" href="../../../../wp-content/themes/retrospective/style.css" />
+<!--[if lte IE 7]>
+	<link rel="stylesheet" type="text/css" media="all" href="http://prettyprint.me/wp-content/themes/retrospective/ie.css" />
+<![endif]-->
+<!--[if lte IE 6]>
+	<link rel="stylesheet" type="text/css" media="all" href="http://prettyprint.me/wp-content/themes/retrospective/ie6.css" />
+<![endif]--> 
+<meta name="verify-v1" content="iFkC+FAFtOQ601MZ4pU4juKjv2UEYbdQNeezoVgCUyE=" >
+<link rel="alternate" type="application/rss+xml" title="PrettyPrint.me &raquo; Mavenizing our code base Comments Feed" href="feed/index.html" />
+<link rel='stylesheet' id='contact-form-7-css'  href='../../../../wp-content/plugins/contact-form-7/styles747d.css?ver=2.4.5' type='text/css' media='all' />
+<script type='text/javascript' src='../../../../wp-includes/js/l10na17a.js?ver=20101110'></script>
+<script type='text/javascript' src='../../../../wp-includes/js/jquery/jquery51a2.js?ver=1.6.1'></script>
+<script type='text/javascript' src='../../../../wp-content/plugins/google-analyticator/external-tracking.min6fb3.js?ver=6.1.3'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='PrettyPrint.me' href='../../../../index.html' />
+<link rel='start' title='Hello Pretty World' href='../../../05/17/hello-pretty-world/index.html' />
+<link rel='prev' title='Experimenting with Seam Carving' href='../../../08/28/experimenting-with-seam-carving/index.html' />
+<link rel='next' title='The joy of deleting code' href='../../../10/02/the-joy-of-deleting-code/index.html' />
+<meta name="generator" content="WordPress 3.2" />
+<link rel='shortlink' href='../../../../indexada0.html?p=168' />
+
+<!-- All in One SEO Pack 1.6.13.3 by Michael Torbert of Semper Fi Web Design[209,242] -->
+<meta name="description" content="Maven is a build tool for Java. It's more than that actually, but let's just call it a build tool. In outbrain we decided we want to replace good old ant" />
+<link rel="canonical" href="index.html" />
+<!-- /all in one seo pack -->
+<meta name="tweetmeme-title" content="Mavenizing our code base" />
+<link rel="stylesheet" href="../../../../wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+<!-- Google Analytics Tracking by Google Analyticator 6.1.3: http://ronaldheft.com/code/analyticator/ -->
+<script type="text/javascript">
+	var analyticsFileTypes = [''];
+	var analyticsEventTracking = 'enabled';
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-2694026-6']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</head>
+
+<body>
+<div id="header">
+<a href="../../../../index.html" title="PrettyPrint.me">
+<div id="logo">
+<p>by Ran Tavory</p>
+</div>
+</a>
+<div id="top_navlist">
+<ul id="navlist">
+<li class="page_item page-item-213"><a href="../../../../about-2/index.html" title="About.me">About.me</a></li>
+<li class="page_item page-item-368"><a href="../../../../contact/index.html" title="Contact">Contact</a></li>
+</ul>
+</div><!--//top_navlist-->
+</div><!--//header-->
+
+<div id="container"><!--container -->
+<!-- #content -->
+<div id="content">
+
+    <div class="post" id="post-168">
+      <h1>Mavenizing our code base</h1>
+      <p class="postmetadata"> </p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="index.html"></a></div>
+<p><a title="Maven" href="http://maven.apache.org/">Maven</a> is a build tool for Java. It&#8217;s more than that actually, but let&#8217;s just call it a build tool.</p>
+<p><img class="alignnone size-full wp-image-195" title="Maven - Welcome to Apache Maven-1" src="../../../../wp-content/uploads/2009/09/Maven-Welcome-to-Apache-Maven-1.png" alt="Maven - Welcome to Apache Maven-1" width="401" height="119" /></p>
+<p>In <a href="http://www.outbrain.com/">outbrain</a> we decided we want to replace good old <a href="http://ant.apache.org/">ant</a> with maven.</p>
+<p>Changing the company wide used build tool is not a decision taken lightly and may have consequences on product release cycle, but we weighted our options and decided to go for it, so I thought it might be worth mentioning our endeavor.</p>
+<p>Everyone familiar with Java programming has probably used ant or at least heard of it. For many years it has been the de-facto standard build tool with large and growing audience, numerous plugins, excellent documentation and IDE support (for example most Java IDEs can automatically generate ant build files). But ant has its shortcomings which we, at outbrain decided we just couldn&#8217;t live with. We found maven to fill up most of the gaps.</p>
+<h2>How do ant and maven differ?</h2>
+<p>Maven is newer and was built from scratch with many of the lessons learned by ant in mind. Both projects are written and maintained by the high quality, high standard <a href="http://www.apache.org/">apache software foundation</a>, home of many other wonderful open source products. Both ant and maven are still actively developed and maintained, so it would not be fair to say that maven replaces ant, though many developers tend to think so (including myself).</p>
+<p>Ant and maven differ in many ways, but at least to me these are the winning points that actually make the difference and made choose maven:</p>
+<h3>Maven is declarative. Ant is imperative.</h3>
+<p>Here&#8217;s what an ant build file looks like for a simple java project:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="xml" style="font-family:monospace;"><span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;project</span> <span style="color: #000066;">name</span>=<span style="color: #ff0000;">&quot;MyProject&quot;</span> <span style="color: #000066;">default</span>=<span style="color: #ff0000;">&quot;dist&quot;</span> <span style="color: #000066;">basedir</span>=<span style="color: #ff0000;">&quot;.&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;description<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+    simple example build file
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/description<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+  <span style="color: #808080; font-style: italic;">&lt;!-- set global properties for this build --&gt;</span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;property</span> <span style="color: #000066;">name</span>=<span style="color: #ff0000;">&quot;src&quot;</span> <span style="color: #000066;">location</span>=<span style="color: #ff0000;">&quot;src&quot;</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;property</span> <span style="color: #000066;">name</span>=<span style="color: #ff0000;">&quot;build&quot;</span> <span style="color: #000066;">location</span>=<span style="color: #ff0000;">&quot;build&quot;</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;property</span> <span style="color: #000066;">name</span>=<span style="color: #ff0000;">&quot;dist&quot;</span>  <span style="color: #000066;">location</span>=<span style="color: #ff0000;">&quot;dist&quot;</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+&nbsp;
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;target</span> <span style="color: #000066;">name</span>=<span style="color: #ff0000;">&quot;init&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span>
+    <span style="color: #808080; font-style: italic;">&lt;!-- Create the time stamp --&gt;</span>
+    <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;tstamp</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+    <span style="color: #808080; font-style: italic;">&lt;!-- Create the build directory structure used by compile --&gt;</span>
+    <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;mkdir</span> <span style="color: #000066;">dir</span>=<span style="color: #ff0000;">&quot;${build}&quot;</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/target<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+&nbsp;
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;target</span> <span style="color: #000066;">name</span>=<span style="color: #ff0000;">&quot;compile&quot;</span> <span style="color: #000066;">depends</span>=<span style="color: #ff0000;">&quot;init&quot;</span></span>
+<span style="color: #009900;">    <span style="color: #000066;">description</span>=<span style="color: #ff0000;">&quot;compile the source &quot;</span> <span style="color: #000000; font-weight: bold;">&gt;</span></span>
+    <span style="color: #808080; font-style: italic;">&lt;!-- Compile the java code from ${src} into ${build} --&gt;</span>
+    <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;javac</span> <span style="color: #000066;">srcdir</span>=<span style="color: #ff0000;">&quot;${src}&quot;</span> <span style="color: #000066;">destdir</span>=<span style="color: #ff0000;">&quot;${build}&quot;</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/target<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+&nbsp;
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;target</span> <span style="color: #000066;">name</span>=<span style="color: #ff0000;">&quot;dist&quot;</span> <span style="color: #000066;">depends</span>=<span style="color: #ff0000;">&quot;compile&quot;</span></span>
+<span style="color: #009900;">    <span style="color: #000066;">description</span>=<span style="color: #ff0000;">&quot;generate the distribution&quot;</span> <span style="color: #000000; font-weight: bold;">&gt;</span></span>
+    <span style="color: #808080; font-style: italic;">&lt;!-- Create the distribution directory --&gt;</span>
+    <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;mkdir</span> <span style="color: #000066;">dir</span>=<span style="color: #ff0000;">&quot;${dist}/lib&quot;</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+&nbsp;
+    <span style="color: #808080; font-style: italic;">&lt;!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file --&gt;</span>
+    <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;jar</span> <span style="color: #000066;">jarfile</span>=<span style="color: #ff0000;">&quot;${dist}/lib/MyProject-${DSTAMP}.jar&quot;</span> <span style="color: #000066;">basedir</span>=<span style="color: #ff0000;">&quot;${build}&quot;</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/target<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+&nbsp;
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;target</span> <span style="color: #000066;">name</span>=<span style="color: #ff0000;">&quot;clean&quot;</span></span>
+<span style="color: #009900;">    <span style="color: #000066;">description</span>=<span style="color: #ff0000;">&quot;clean up&quot;</span> <span style="color: #000000; font-weight: bold;">&gt;</span></span>
+    <span style="color: #808080; font-style: italic;">&lt;!-- Delete the ${build} and ${dist} directory trees --&gt;</span>
+    <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;delete</span> <span style="color: #000066;">dir</span>=<span style="color: #ff0000;">&quot;${build}&quot;</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+    <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;delete</span> <span style="color: #000066;">dir</span>=<span style="color: #ff0000;">&quot;${dist}&quot;</span><span style="color: #000000; font-weight: bold;">/&gt;</span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/target<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/project<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></pre></div></div>
+
+<p>And here&#8217;s the maven one:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="xml" style="font-family:monospace;"><span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;project</span> <span style="color: #000066;">xmlns</span>=<span style="color: #ff0000;">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span style="color: #000066;">xmlns:xsi</span>=<span style="color: #ff0000;">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span style="color: #009900;">  <span style="color: #000066;">xsi:schemaLocation</span>=<span style="color: #ff0000;">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;modelVersion<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>4.0.0<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/modelVersion<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;artifactId<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>MyProject<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/artifactId<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;name<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>MyProject<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/name<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;description<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>simple example build file<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/description<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;packaging<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>jar<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/packaging<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/project<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></pre></div></div>
+
+<p>Ant line count: <strong>22</strong> (not including spaces, comments)</p>
+<p>Maven line count: <strong>7</strong>. (and they are real easy ones)</p>
+<p>Short is good, especially in software (except perl <img src='../../../../wp-includes/images/smilies/icon_wink.gif' alt=';-)' class='wp-smiley' /> ). But except for the fact that mvn has shorter build files, there is something more important hidden here &#8211; declarative v.s. imperative.</p>
+<p>With ant you have to tell it HOW to build. You have to tell it that it first needs to collect all java sources, then run the javac compiler on them, then collect all classes, then run the jar tool on them to make them a jar. That&#8217;s tedious, especially if you have to do it 30 times, for each and every project. In outbrain we have many projects so when we used ant you&#8217;d see the exact same ant code patterns again and again (including the mistakes, which survived copy-paste horror). Ant is hard to maintain and is also hard to write. Did any of the readers ever write an ant build file? I doubt that. I&#8217;ve been using ant for more than 5 years and never have I written a file from scratch. It&#8217;s always used to be either copy-paste or using the IDE support for automatic generation. This is a bad sign of superfluous language.</p>
+<p>Maven is declarative. You don&#8217;t have to tell it HOW to build, only WHAT to build, so conceptually it&#8217;s a higher level build tool. With mvn you only have to say &#8220;Look, this is how I call my project and I want you to make a jar from it&#8221; that&#8217;s all, mvn will figure out the rest. It knows where to find the sources (convention) and it knows what steps it needs to take in oder to create a jar. It will compile your source files, will package all resources for you in that jar, will run tests and create that jar for you. You can intervene with this process, but you don&#8217;t have to. You can make jars, wars, ears and more.</p>
+<p>Declarative is in many cases preferred over imperative. Think HTML vs. Java. HTML is declarative, Java is imperative. In HTML you say &lt;b&gt;bold&lt;/b&gt; which tells the browser you want the text to be bold. You don&#8217;t tell it how to make the text bold (e.g. how many pixels, what position etc) only that you want it bold and let the browser figure out how to handle it. In Java you&#8217;d have to tell it how to make the text bold, how to space the characters, how to space words around it, how to break lines etc. Declarative is in many cases a lot easier than imperative, you worry less.</p>
+<p>Maven is declarative, you only have to say &#8220;this is my project, jar it&#8221;. With ant you have more control over what the build tool does, so you can go crazy with build scripts and&#8230; well&#8230; jar before compile, or clean after jar (instead of before it) or package the test code inside production code or whatever, you get the point, you have the freedom to err. 9 times out of 10 you don&#8217;t need the level of flexibility provided by ant and you&#8217;d be much safer using mvn.</p>
+<h3>Dependency management.</h3>
+<p>This is a big thing. That was actually the main reason I wanted to move out of ant. Maven has a wonderful dependency management system built in by default. Ant has nothing built in, although it has <a href="http://ant.apache.org/ivy/">ivy</a> as a plugin.</p>
+<p>What is dependency management? There are external and internal dependencies. External dependencies are ones you download from the net, usually open source projects such as <a href="http://lucene.apache.org/">Lucene</a>, <a href="http://activemq.apache.org/">ActvieMQ</a>, and other open source projects. With maven you only have to declare your dependency on them and they get automatically downloaded. Example:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="xml" style="font-family:monospace;"><span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;dependency<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;groupId<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>struts<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/groupId<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;artifactId<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>struts-bean<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/artifactId<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+  <span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;version<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>1.2.8<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/version<span style="color: #000000; font-weight: bold;">&gt;</span></span></span>
+<span style="color: #009900;"><span style="color: #000000; font-weight: bold;">&lt;/dependency<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></pre></div></div>
+
+<div>With ant you basically have two options. One is download the library yourself and throw it in some folder, call it 3rdParty and add it to the classpath (good luck with keeping track of versioning, who&#8217;s using what and your life) or use ivy, which is pretty decent, but as mentioned before not part of the default ant installation.</div>
+<div>As for internal dependencies, which means your project which depends (uses) another one of your projects, mvn supports that as well. AFAIK ant does not. With ant, if you have more than one project in your company (and of course you do), you&#8217;d have to manually tweak the build scripts so they run in the correct order and dependencies are compiled before they are used. Although it&#8217;s possible, that&#8217;s sort of nightmarish as companies grows.</div>
+<div>Dependency management is a killer feature for mvn and was actually the main reason that prompted me to pursue it. Although ant can have ivy, this was not zero-work, so I decided, heck it we&#8217;re going to put some work into it, let&#8217;s rebuild the whole thing and get a much better result. So we did.</div>
+<div></div>
+<h3>Conventions vs. configuration</h3>
+<p>Conventions are good. They save a lot of time and prevent you from doing foolish mistakes (such as packaging test code into production).</p>
+<p>By conventions I mean:</p>
+<ul>
+<li>Where is the source code?</li>
+<li>Where is the test code?</li>
+<li>Where are the resources?</li>
+<li>Where are the web files?</li>
+<li>etc</li>
+</ul>
+<p>With ant you had to create a directory for sources (call it src or Src or source or srce) and tell and where your sources are. Then you&#8217;d have to decide where to put your tests. You can push them in tst, test, tests, or even in the same source directory as production code is, maybe in a test package. Next you have to <strong>configure</strong> ant where to find test code, how to separate it from production code, and heck &#8211; how to run it (it really doesn&#8217;t know how to do it).</p>
+<p>With mvn that&#8217;s much easier. Maven promotes conventions such as the <a href="http://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html">standard directory layout</a> which means all sources are at predefined location, all resources are as well etc. There are several advantages to that including that it&#8217;s easy to start a new project, you don&#8217;t have to think where everything goes, it&#8217;s hard to make mistakes by misplacing items, you don&#8217;t have to think about the build script and how to configure it and perhaps most important of all, you make all company employees conform to the same layout. That&#8217;s a huge gain for the company.</p>
+<h3>Built-in functionality out of the box</h3>
+<p>OK, there are plenty of other benefits to mvn but the post is already getting too long so let&#8217;s have the last one here.</p>
+<p>With mvn you get tons of functionality out of the box. By creating a very simple build file with only the project definition in it you can:</p>
+<ul>
+<li>compile all sources</li>
+<li>compile test</li>
+<li>run unit tests</li>
+<li>run integration tests</li>
+<li>package as a jar/war or something else</li>
+<li>deploy</li>
+<li>run in tomcat</li>
+<li>&#8230;and much more</li>
+</ul>
+<p>With ant what you had to do is for each one of the above listed goals, create an ant goal and configure ant by telling it how to run it. Some of them may be relatively trivial (but still require coding) and some of them aren&#8217;t easy at all&#8230; that kind of tells you why anters are very good with their CTRL+C and CTRL+V. And with copy-paste comes the pain of silly copy paste errors and difficult maintainability. Life with mvn is better <img src='../../../../wp-includes/images/smilies/icon_wink.gif' alt=';-)' class='wp-smiley' /> </p>
+<p>Other great and not covered features: Eclipse and other IDE integration (automatically generating projects), great testing and debugging tools, excellent build output, excellent versioning and more.</p>
+<h3>How did it go?</h3>
+<p>So, how did it go? You guys have converted your entire codebase build tool. Isn&#8217;t that like <a href="http://www.joelonsoftware.com/articles/fog0000000069.html">Netscape&#8217;s near death experience</a> while rewriting their entire code base?</p>
+<p>Well&#8230; no! The nice thing about mvn is that it&#8217;s easy to write and easy to learn. We did spend a couple of weeks on that task and had to resolve some unpredictable situations, but it had only a small impact on our schedule (and needless to say that I hope in the long term will have  the most positive impact on release schedule). Heck, we (at least I) even enjoyed it!</p>
+<h3>Conclusions</h3>
+<p>I&#8217;d definitely recommend mvn. If you&#8217;re starting a new project, choose mvn. If you have an existing codebase using ant and you&#8217;re thinking about moving to maven, know that it&#8217;s certainly feasible and in my opinion, well worth the effort. Expect some work, it&#8217;s not zero effort, but I promise you&#8217;ll enjoy it.</p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		      </div>
+      <p class="postmetadata2">Published in <a href="../../../../category/uncategorized/index.html" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a><!-- by <php the_author(); ?> -->, September 20th, 2009 <br />
+      	</p>
+    </div>
+    
+	<!--
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+		<rdf:Description rdf:about="http://prettyprint.me/2009/09/20/mavenizing-our-code-base/"
+    dc:identifier="http://prettyprint.me/2009/09/20/mavenizing-our-code-base/"
+    dc:title="Mavenizing our code base"
+    trackback:ping="http://prettyprint.me/2009/09/20/mavenizing-our-code-base/trackback/" />
+</rdf:RDF>	-->
+
+  
+<!-- You can start editing here. -->
+
+<div class="boxcomments">
+
+
+
+
+	<h2 id="comments">One Response to &#8220;Mavenizing our code base&#8221;</h2>
+
+	<ol class="commentlist">
+	
+		
+<li class="odd" id="comment-35">
+
+			
+        <p>Very nicely put Ran.</p>
+<p>Still, in some companies where there&#8217;s tons and tons of legacy code, some no longer maintained by anyone&#8230; it may be quite difficult to make that move.</p>
+<p>It would have been nice to be able to iteratively migrate your code between one build to another, but it is usually pretty hard &#8211; you have to maintain 2 sets of &#8220;dependency management data&#8221;.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/0205e94652851c990d52788c059cd668?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong><a href='http://orbitz.com/' rel='external nofollow' class='url'>Eran</a></strong> on <a href="#comment-35" title="">Oct 24, 2009</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+	</ol>
+	
+	
+	
+
+	<p id="comments-closed">Sorry, comments for this entry are closed at this time.</p>
+</div>  
+ 
+ 
+</div><!-- //content -->
+
+<div id="sidebar"><!-- sidebar -->
+
+<p class="rssfeed"><a class="rsslink" href="../../../../feed/index.html"></a>
+<p><a href="http://feeds2.feedburner.com/PrettyPrintMe"><img src="http://feeds2.feedburner.com/~fc/PrettyPrintMe?bg=3069B0&amp;fg=fffdfa&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a></p>
+</p>
+
+<h2>Search</h2>
+<form method="get" id="searchform" class="search" action="http://prettyprint.me/">
+<input type="text" name="s" value="Type keywords and hit enter..." onfocus="if (this.value == 'Type keywords and hit enter...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Type keywords and hit enter...';}" />
+</form>
+
+<!--
+<h2>Categories</h2>
+<ul>
+		<li class="cat-item cat-item-1"><a href="http://prettyprint.me/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+</ul>
+-->
+
+<h2>Blog Archives</h2>
+<ul>
+  	<li><a href='../../../../2011/07/index.html' title='July 2011'>July 2011</a></li>
+	<li><a href='../../../../2011/02/index.html' title='February 2011'>February 2011</a></li>
+	<li><a href='../../../../2011/01/index.html' title='January 2011'>January 2011</a></li>
+	<li><a href='../../../../2010/08/index.html' title='August 2010'>August 2010</a></li>
+	<li><a href='../../../../2010/05/index.html' title='May 2010'>May 2010</a></li>
+	<li><a href='../../../../2010/04/index.html' title='April 2010'>April 2010</a></li>
+	<li><a href='../../../../2010/03/index.html' title='March 2010'>March 2010</a></li>
+	<li><a href='../../../../2010/02/index.html' title='February 2010'>February 2010</a></li>
+	<li><a href='../../../../2010/01/index.html' title='January 2010'>January 2010</a></li>
+	<li><a href='../../../11/index.html' title='November 2009'>November 2009</a></li>
+	<li><a href='../../../10/index.html' title='October 2009'>October 2009</a></li>
+	<li><a href='../../index.html' title='September 2009'>September 2009</a></li>
+	<li><a href='../../../08/index.html' title='August 2009'>August 2009</a></li>
+	<li><a href='../../../06/index.html' title='June 2009'>June 2009</a></li>
+	<li><a href='../../../05/index.html' title='May 2009'>May 2009</a></li>
+</ul>
+
+<!--
+<h2>Links</h2>
+<ul>
+  <li><a href="http://wordpress.org/development/">Development Blog</a></li>
+<li><a href="http://codex.wordpress.org/">Documentation</a></li>
+<li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
+<li><a href="http://wordpress.org/extend/ideas/">Suggest Ideas</a></li>
+<li><a href="http://wordpress.org/support/">Support Forum</a></li>
+<li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
+<li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+</ul>
+-->
+
+<!--
+<h2>Meta</h2>
+<ul>
+    <li><a href="http://prettyprint.me/wp-login.php">Log in</a></li>
+  <li><a href="http://www.wordpress.org/">WordPress</a></li>
+    <li><a href="http://validator.w3.org/check?uri=referer">XHTML</a></li>
+</ul>
+-->
+
+ 
+
+
+</div> <!--//sidebar  -->
+
+</div><!--//container-->
+
+<div id="footer-container">
+	
+<div id="footer">
+
+<div id="footerleft">
+		<h2>About</h2>
+  <p>Restrospective focuses on clean typography and modern colors and design.</p>
+  </div>
+
+<div id="footermid">
+		<h2>Profiles, Links</h2>
+	<ul>
+  	<li><a href="http://www.linkedin.com/in/rantav">LinkedIn</a></li>
+  	<li><a href="http://tavory.com/">Homepage</a></li>
+  	<li><a href="http://twitter.com/rantav">Twitter</a></li>
+  	<li><a href="http://reversim.com/">(Hebrew podcast I run) רברס עם פלטפורמה</a></li>
+  	<li><a href="http://friendfeed.com/rantav">FriendFeed</a></li>
+  	<li><a href="http://gbsheli.com/">Google Blog Sheli (my older blog, mostly Hebrew)</a></li>
+  	<li><a href="http://www.facebook.com/people/Ran-Tavory/543122173">Facebook</a></li>
+  </ul>
+  </div>
+
+<div id="footerright">
+	<!--
+	<h2>Recent Readers</h2>
+-->
+  <!--	Paste JavaScript from MyBlogLog or other services -->
+
+  </div>
+
+</div><!--//footer-->
+
+<div class="copyright">
+	Copyright &copy; <a href="../../../../index.html">PrettyPrint.me</a> &middot; All rights reserved.<br />
+	
+	Powered by <a href="http://wordpress.org/">WordPress</a> and <a href="http://blogbuildingu.com/retrospective">Retrospective theme</a> &middot; Design & code by <a href="http://blogbuildingu.com/">Hendry Lee</a>.
+
+<script type='text/javascript' src='../../../../wp-content/plugins/contact-form-7/jquery.formd20f.js?ver=2.52'></script>
+<script type='text/javascript' src='../../../../wp-content/plugins/contact-form-7/scripts747d.js?ver=2.4.5'></script>
+<script src="../../../../wp-content/plugins/tweetmeme/button.js" type="text/javascript"></script></div>
+
+</div><!--//footer-container-->
+
+</body>
+
+<!-- Mirrored from prettyprint.me/2009/09/20/mavenizing-our-code-base/ by HTTrack Website Copier/3.x [XR&CO'2010], Fri, 28 Dec 2012 23:02:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+</html>

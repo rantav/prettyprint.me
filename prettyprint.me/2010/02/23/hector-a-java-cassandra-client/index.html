@@ -1,0 +1,1534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<title>Hector &#8211; a Java Cassandra client | PrettyPrint.me</title>
+<meta name="generator" content="WordPress 3.2" /> <!-- leave this for stats -->
+<link rel="alternate" type="application/rss+xml" title="PrettyPrint.me RSS Feed" href="../../../../feed/index.html" />
+<link rel="pingback" href="../../../../xmlrpc.php" />
+<link rel="stylesheet" type="text/css" media="all" href="../../../../wp-content/themes/retrospective/style.css" />
+<!--[if lte IE 7]>
+	<link rel="stylesheet" type="text/css" media="all" href="http://prettyprint.me/wp-content/themes/retrospective/ie.css" />
+<![endif]-->
+<!--[if lte IE 6]>
+	<link rel="stylesheet" type="text/css" media="all" href="http://prettyprint.me/wp-content/themes/retrospective/ie6.css" />
+<![endif]--> 
+<meta name="verify-v1" content="iFkC+FAFtOQ601MZ4pU4juKjv2UEYbdQNeezoVgCUyE=" >
+<link rel="alternate" type="application/rss+xml" title="PrettyPrint.me &raquo; Hector &#8211; a Java Cassandra client Comments Feed" href="feed/index.html" />
+<link rel='stylesheet' id='contact-form-7-css'  href='../../../../wp-content/plugins/contact-form-7/styles747d.css?ver=2.4.5' type='text/css' media='all' />
+<script type='text/javascript' src='../../../../wp-includes/js/l10na17a.js?ver=20101110'></script>
+<script type='text/javascript' src='../../../../wp-includes/js/jquery/jquery51a2.js?ver=1.6.1'></script>
+<script type='text/javascript' src='../../../../wp-content/plugins/google-analyticator/external-tracking.min6fb3.js?ver=6.1.3'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='PrettyPrint.me' href='../../../../index.html' />
+<link rel='start' title='Hello Pretty World' href='../../../../2009/05/17/hello-pretty-world/index.html' />
+<link rel='prev' title='Running Cassandra as an embedded service' href='../../14/running-cassandra-as-an-embedded-service/index.html' />
+<link rel='next' title='Load balancing and improved failover in Hector' href='../../../03/03/load-balancing-and-improved-failover-in-hector/index.html' />
+<meta name="generator" content="WordPress 3.2" />
+<link rel='shortlink' href='../../../../index8fee.html?p=263' />
+
+<!-- All in One SEO Pack 1.6.13.3 by Michael Torbert of Semper Fi Web Design[209,256] -->
+<meta name="description" content="UPDATE 3: Comments are closed now and for the sake of information reuse, please post all your hector questions to the mailing list hector-users@googlegroups.com" />
+<link rel="canonical" href="index.html" />
+<!-- /all in one seo pack -->
+<meta name="tweetmeme-title" content="Hector &#8211; a Java Cassandra client" />
+<link rel="stylesheet" href="../../../../wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+<!-- Google Analytics Tracking by Google Analyticator 6.1.3: http://ronaldheft.com/code/analyticator/ -->
+<script type="text/javascript">
+	var analyticsFileTypes = [''];
+	var analyticsEventTracking = 'enabled';
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-2694026-6']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</head>
+
+<body>
+<div id="header">
+<a href="../../../../index.html" title="PrettyPrint.me">
+<div id="logo">
+<p>by Ran Tavory</p>
+</div>
+</a>
+<div id="top_navlist">
+<ul id="navlist">
+<li class="page_item page-item-213"><a href="../../../../about-2/index.html" title="About.me">About.me</a></li>
+<li class="page_item page-item-368"><a href="../../../../contact/index.html" title="Contact">Contact</a></li>
+</ul>
+</div><!--//top_navlist-->
+</div><!--//header-->
+
+<div id="container"><!--container -->
+<!-- #content -->
+<div id="content">
+
+    <div class="post" id="post-263">
+      <h1>Hector &#8211; a Java Cassandra client</h1>
+      <p class="postmetadata"> </p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="index.html"></a></div>
+<p>UPDATE 3: Comments are closed now and for the sake of information reuse, please post all your hector questions to the mailing list hector-users@googlegroups.com and please subscribe to it as well.</p>
+<p>UPDATE: I added a <a href="http://github.com/rantav/hector/downloads">downloads</a> section, so you may simply download the jar and sources if you&#8217;re not into git or maven.</p>
+<p>UPDATE 2: I added license clarification; the license it <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>, which is the most permissive license I know of and basically lets you do anything with the software: use it commercially or uncommercially, copy it, fork it (but I&#8217;ll be happy to accept patches and committers) and whatnot. I added a <a href="http://github.com/rantav/hector/blob/master/LICENSE">LICENSE file</a> and over time I&#8217;ll add that block of comment to every file.</p>
+<p>In the <a href="http://en.wikipedia.org/wiki/Greek_mythology">Greek Mythology</a>, <a href="http://en.wikipedia.org/wiki/Hector">Hector</a> was the builder of <a href="http://en.wikipedia.org/wiki/Troy">Troy</a>, the greatest warrior ever and brother of <a href="http://en.wikipedia.org/wiki/Cassandra">Cassandra</a>.</p>
+<p><a href="../../../../wp-content/uploads/2010/02/Ajax_and_Hector_exchange_gifts1.jpg"><img class="size-medium wp-image-268 alignnone" title="Ajax_and_Hector_exchange_gifts" src="../../../../wp-content/uploads/2010/02/Ajax_and_Hector_exchange_gifts1-300x286.jpg" alt="" width="240" height="229" /></a></p>
+<p><a href="../../../../wp-content/uploads/2010/02/Ajax_and_Hector_exchange_gifts1.jpg"></a>Nowdays, <a href="http://incubator.apache.org/cassandra/">Cassandra</a> is a high scale database and <a href="http://github.com/rantav/hector">Hector</a> is the Java client I&#8217;ve written for it.</p>
+<p>Over the last couple of days I got the the conclusion that the java client I&#8217;ve been using so far to speak to cassanrda wasn&#8217;t satisfactory. I used the one simply called <a href="http://code.google.com/p/cassandra-java-client/">cassandra-java-client</a>, which is a good start but had some shortcomings I could just not live with (no support for Cassandra v0.5, no JMX and no failover). So I&#8217;ve written my own.</p>
+<p>For anyone not familiar with cassanra, it&#8217;s client API is just a simple <a href="http://incubator.apache.org/thrift/">thrift</a> client. This means that, unlike other datastore clients such as jdbc etc, the client provided has somewhat limiter functionality; It can sent messages to cassanra, write values and read values of course, but other client goodies required for large scale applications are not provided, features such as monitoring, connection pooling etc. The client I initially used provides connection pooling, which is a very nice start, but I decided it was missing too much so I&#8217;d write my own.</p>
+<p>As a good open-source citizen, I initially contacted the authors of cassandra-java-client asking their permission to contribute and make the suggested improvements, but after weeks without reply I realized I&#8217;ll need to go solo. I started with the concepts captured by the folks who had built the java-client, but pretty soon the code has morphed to be something completely different.</p>
+<p>Here&#8217;s how code that uses Hector looks like. This is an implementation of a simple distributed hashtable over cassandra. By the virtue of cassandra, this hashtable can grow pretty large:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Insert a new value keyed by key
+   * @param key Key for the value
+   * @param value the String value to insert
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> insert<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> key, <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> value<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+    execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> Command<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+      <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #003399;">Void</span> execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> Keyspace ks<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+        ks.<span style="color: #006633;">insert</span><span style="color: #009900;">&#40;</span>key, createColumnPath<span style="color: #009900;">&#40;</span>COLUMN_NAME<span style="color: #009900;">&#41;</span>, bytes<span style="color: #009900;">&#40;</span>value<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #000000; font-weight: bold;">return</span> <span style="color: #000066; font-weight: bold;">null</span><span style="color: #339933;">;</span>
+      <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span>
+&nbsp;
+  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Get a string value.
+   * @return The string value; null if no value exists for the given key.
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #003399;">String</span> get<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> key<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">return</span> execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> Command<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+      <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #003399;">String</span> execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> Keyspace ks<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #000000; font-weight: bold;">try</span> <span style="color: #009900;">&#123;</span>
+          <span style="color: #000000; font-weight: bold;">return</span> string<span style="color: #009900;">&#40;</span>ks.<span style="color: #006633;">getColumn</span><span style="color: #009900;">&#40;</span>key, createColumnPath<span style="color: #009900;">&#40;</span>COLUMN_NAME<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #009900;">&#125;</span> <span style="color: #000000; font-weight: bold;">catch</span> <span style="color: #009900;">&#40;</span>NotFoundException e<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+          <span style="color: #000000; font-weight: bold;">return</span> <span style="color: #000066; font-weight: bold;">null</span><span style="color: #339933;">;</span>
+        <span style="color: #009900;">&#125;</span>
+      <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span>
+&nbsp;
+  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Delete a key from cassandra
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> delete<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> key<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+    execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> Command<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+      <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #003399;">Void</span> execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> Keyspace ks<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+        ks.<span style="color: #006633;">remove</span><span style="color: #009900;">&#40;</span>key, createColumnPath<span style="color: #009900;">&#40;</span>COLUMN_NAME<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #000000; font-weight: bold;">return</span> <span style="color: #000066; font-weight: bold;">null</span><span style="color: #339933;">;</span>
+      <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>Out of the box Cassanra provides a raw <a href="http://incubator.apache.org/thrift/">thrift</a> client, which is OK, but lacks many features essential to real world clients. I&#8217;ve built Hector to fill this gap.</p>
+<p>Here are the high level features of <a href="http://github.com/rantav/hector">Hector</a>, currently hosted at github.</p>
+<ul>
+<li>A high-level object oriented interface to cassandra. As noted before, Cassandra&#8217;s out of the box client is a thrift client, which isn&#8217;t always that nice and clean to work with. I wanted to provide higher level and cleaner API. This part was mainly inspired by the mentioned cassandra-java-client. The API is defined in the <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/Keyspace.java">Keyspace</a> interface. See for example methods such as Keyspace.insert() and keyspace.getColumn()</li>
+<li>Failover support. Cassandra is a distributed data store and it may handle very well one or several hosts going down. However, out of the box thrift provides no support for failing clients. What it the client is configured to connect a cassandra host that just happened to be down right now? In hector, if a client is connected to one host in the ring and this host goes down, the client will automatically and transparently search for other available hosts to perform its operation before giving up  and returning an error to its user. There are currently 3 ways to configure the failover policy: FAIL_FAST (no retry, just fail if there are errors, nothing smart), ON_FAIL_TRY_ONE_NEXT_AVAILABLE (try one more host before giving up) and ON_FAIL_TRY_ALL_AVAILABLE (try all available hosts before giving up). See <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/CassandraClient.java">CassandraClient.FailoverPolicy</a>.</li>
+<li>Connection pooling. This is a real necessity for high scale applications. The usual pattern for DAOs (Data Access Objects) is large number of small reads/writes. Clients cannot afford to open a new connection with each and every request, not only because of the overhead in the tcp handshake (thrift uses tcp), but also because of the fact that sockets remain in <a href="http://www.developerweb.net/forum/showthread.php?t=2941">TIME_WAIT</a> so a client may easily run out of available sockets if it operates fast enough. This part was also inspired by cassandra-java-client but was improved in my version. Hector provides connection pooling and a nice framework that manages all its gory details.</li>
+<li>JMX support. It&#8217;s a widely known fact that applications have a life of their own. You built it to do X but it does Y b/c you didn&#8217;t expect Z to happen. Running an application without the ability to monitor it is like walking blindfolded on a dark highway; sooner or later you&#8217;ll get hit by something. Hector exposes JMX for many important runtime metrics, such as number of available connections, idle connections, error statistics and more.</li>
+<li>Support for the Command design pattern to allow clients to concentrate on their business logic and let hector take care of the required plumbing. This is demonstrated in the code above.</li>
+</ul>
+<p>I&#8217;ve been using hector internally, at outbrain and so far so good. I&#8217;d be happy to get the comminuty feedback &#8211; API, implementation, features and so on and hope you can find it useful.</p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		      </div>
+      <p class="postmetadata2">Published in <a href="../../../../category/uncategorized/index.html" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a><!-- by <php the_author(); ?> -->, February 23rd, 2010 <br />
+      	</p>
+    </div>
+    
+	<!--
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+		<rdf:Description rdf:about="http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/"
+    dc:identifier="http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/"
+    dc:title="Hector &#8211; a Java Cassandra client"
+    trackback:ping="http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/trackback/" />
+</rdf:RDF>	-->
+
+  
+<!-- You can start editing here. -->
+
+<div class="boxcomments">
+
+
+
+
+	<h2 id="comments">93 Responses to &#8220;Hector &#8211; a Java Cassandra client&#8221;</h2>
+
+	<ol class="commentlist">
+	
+		
+<li class="odd" id="comment-265">
+
+			
+        <p>Hey There,</p>
+<p>sounds like a charm, i just started using cassandra from the cli, and searched for an client <img src='../../../../wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>I will try your client and get back to you. </p>
+<p>I already have a question:<br />
+Is there a maven repo for hector?</p>
+<p>Cheers,<br />
+Alex</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/26708721ca26aca01a6773753d51878e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Alex</strong> on <a href="#comment-265" title="">Feb 23, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-266">
+
+			
+        <p>And the naming is nice <img src='../../../../wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>i have to talk to Hector to get in touch with Cassandra, like in real life&#8230;</p>
+<p>Alex</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/26708721ca26aca01a6773753d51878e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Alex</strong> on <a href="#comment-266" title="">Feb 23, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-267">
+
+			
+        <p>Very nice.<br />
+Did you thought of contributing this to the spring framework. they have this notion of &#8220;template&#8221;.<br />
+e.g JdbcTemplate,JmsTemplate,HibernateTemplate,LdapTemplate</p>
+<p>maybe you can add CassandraTemplate</p>
+<p>Eyal</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/642bd6bb611dba61925a6f63d8403a0d?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Eyal</strong> on <a href="#comment-267" title="">Feb 23, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-269">
+
+			
+        <p>There&#8217;s no maven repo, I&#8217;m sort of new to this maven thing. do you know how do I get my jar to a repo?<br />
+Anyhow, I created a /releases directory, see <a href="http://github.com/rantav/hector/tree/master/releases/" rel="nofollow">http://github.com/rantav/hector/tree/master/releases/</a></p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-269" title="">Feb 23, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-274">
+
+			
+        <p>Hey Ran,</p>
+<p>i am no expert @ working with maven, but i got my own Repo which is a Sonatype Nexus™ Open Source Edition, Version: 1.4.1.</p>
+<p>I made a little video showing how i added Hector to mine.</p>
+<p>Maybe it is a help for you, if you have further questions let me know!</p>
+<p>url: <a href="http://www.brandfrisch.com/maven_artifact_upload_nexus.mov" rel="nofollow">http://www.brandfrisch.com/maven_artifact_upload_nexus.mov</a></p>
+<p>Cheers,<br />
+Alex</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/26708721ca26aca01a6773753d51878e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Alex</strong> on <a href="#comment-274" title="">Feb 24, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-276">
+
+			
+        <p>Thanks Alex, I have a Nexus repo, but it&#8217;s internal at work so I was hoping to get a hosted repo I can upload to freely, just like google-code is a free service and gitub is. I&#8217;ll keep looking&#8230; have no interest hosing my own world readable service&#8230;</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-276" title="">Feb 24, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-281">
+
+			
+        <p>Ran,</p>
+<p>you can request to get your releases uploaded to maven central. See <a href="http://maven.apache.org/guides/mini/guide-central-repository-upload.html" rel="nofollow">http://maven.apache.org/guides/mini/guide-central-repository-upload.html</a>.</p>
+<p>If you don&#8217;t want to go through that trouble, you can host a repo in the source control system. See <a href="http://www.beeworks.be/hosting-maven-repository-google-code/" rel="nofollow">http://www.beeworks.be/hosting-maven-repository-google-code/</a> on to do it for svn. Should be simular for git I guess.</p>
+<p>regards,</p>
+<p>Wim</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/6f118f710d3077f91c0c0d722f7be0a3?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Wim Deblauwe</strong> on <a href="#comment-281" title="">Feb 24, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-282">
+
+			
+        <p>Hi Ran!</p>
+<p>My first impression is that this project have a nice future (good name and good features). I will try Hector and then give my feedback to you.</p>
+<p>Good luck!</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/664ae34c030035058a14e897ec54c3c6?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Jesus</strong> on <a href="#comment-282" title="">Feb 24, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-283">
+
+			
+        <p>thanks, let me know if you have questions</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-283" title="">Feb 24, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-284">
+
+			
+        <p>Awesomeness! I was just scouring the web for this last night and only found the other java client google code project which looked like it was sort of an abandoned project. I&#8217;ll have to check it out. Thanks man!</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/32bcd52139eaff5c68493b603a6be57f?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>PC</strong> on <a href="#comment-284" title="">Feb 24, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-286">
+
+			
+        <p>@Wim, looks like the trouble is that hector depends on 3rd parties which do not have public mvn repositories (such as cassandra or thrift&#8230;) so it disqualifies it from the apache public repo. I&#8217;ve created instead a releases directory and a download section <a href="http://github.com/rantav/hector/downloads" rel="nofollow">http://github.com/rantav/hector/downloads</a></p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-286" title="">Feb 25, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-295">
+
+			
+        <p>Thanks! </p>
+<p>Could you clarify the license information for Hector? Is it Apache licensed? <img src='../../../../wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/a5556e47f603afb7695d05d2cd9883da?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>HubertChang</strong> on <a href="#comment-295" title="">Feb 25, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-296">
+
+			
+        <p>I basically want to say you can do whatever with the code, use it, copy it, contribute and whatnot. I&#8217;ll have to look for the appropriate license for this, any suggestions?</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-296" title="">Feb 25, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-300">
+
+			
+        <p>Perfect! Thank you very much.</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/5bbbdc4ce49565a0e9dce8b3f1f34ff2?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Siom</strong> on <a href="#comment-300" title="">Feb 26, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-302">
+
+			
+        <p>Licensed as Cassandra, Apache License 2.0. <img src='../../../../wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/a5556e47f603afb7695d05d2cd9883da?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>HubertChang</strong> on <a href="#comment-302" title="">Feb 26, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-307">
+
+			
+        <p>OK license, here you go, I chose MIT and added UPDATE 2 to the post:<br />
+UPDATE 2: I added license clarification; the license it MIT, which is the most permissive license I know of and basically lets you do anything with the software: use it commercially or uncommercially, copy it, fork it (but I’ll be happy to accept patches and committers) and whatnot. I added a LICENSE file and over time I’ll add that block of comment to every file.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-307" title="">Feb 26, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-308">
+
+			
+        <p>Perfect.<br />
+I am trying Hector. Connection pooling, failover, and JMX, so great!<br />
+The leader of Liftweb framework is working on Goat Rodeo, which integrated Zookeeper and Cassandra in Scala. How about integrate Zookeeper with Hector to make transactions aware?  Thanks.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/a5556e47f603afb7695d05d2cd9883da?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>HubertChang</strong> on <a href="#comment-308" title="">Feb 26, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-313">
+
+			
+        <p>It looks perfect. Thanks for writing this.</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/91fe6499c39d8a5698b5dd40c883a07f?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>MKBB</strong> on <a href="#comment-313" title="">Feb 26, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-323">
+
+			
+        <p>@HubertChang I don&#8217;t have plans integrating Zookeeper of transactions, at least not in the near future. I&#8217;m hesitant b/c it adds considerable complexity to users of Hector. One of the nicest things about Cassandra is its simplicity of deployment so adding zookeeper may ruin that.<br />
+Adding transactions isn&#8217;t &#8220;natural&#8221; to cassandra and I suspect won&#8217;t be easy or natural to integrate into hector. So &#8211; not in the neat future, and as for the far future, I&#8217;ll have to think it over.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-323" title="">Feb 27, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-326">
+
+			
+        <p>Hey hector,<br />
+I&#8217;m digging into this and am beginning to understand it and Cassandra (tis new to me). I took an the ExampleDao and it seems pretty straightforward. I&#8217;m wondering if you&#8217;ve built a generalized dao that exposes the other Keyspace methods. Or is it such that your dao classes call all the other keyspace methods directly and return whatever objects are specific to your app?</p>
+<p>Cheers.</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/32bcd52139eaff5c68493b603a6be57f?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>PC</strong> on <a href="#comment-326" title="">Feb 28, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-328">
+
+			
+        <p>Hi @PC, the second is correct, I don&#8217;t have a generalized DAO. The DAOs that I&#8217;ve built simply access the Keyspace methods, I think this is the correct abstraction layer, but let me know if you have other suggestions, I&#8217;m open for ideas.<br />
+I don&#8217;t see how a generalized DAO may help, but what may be useful is a base class from which all DAOs inherit and which provides some basic functionality. That said, I&#8217;m not crazy about the idea of inheritance, so I&#8217;m still contemplating.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-328" title="">Feb 28, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-330">
+
+			
+        <p>Hey Ran,<br />
+well done on putting this in place.<br />
+One comment or needed feature is some kind of a Cassandra server lottery. Let me explain:<br />
+one of the common bottlenecks using cassandra is if you always connect to the same node which delegates the calls to all the cluster. this node becomes the bottleneck. might be cool if the Hector instance will be configured with all the nodes in the cluster and will just run a lottery between them to evenly distribute the load.</p>
+<p>Ori</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/34df1f3c4b785eba10ab7345a8d2864e?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong><a href='http://olahav.typepad.com/' rel='external nofollow' class='url'>Ori Lahav</a></strong> on <a href="#comment-330" title="">Feb 28, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-333">
+
+			
+        <p>Hi Ori, load balancing is certainly in my todo, but it turns out that it&#8217;s not as straight forward as you&#8217;d expect.<br />
+First off, in some testing I made it seems that, at least with writes there are other bottlenecks and hammering the same host isn&#8217;t actually the first bottleneck.<br />
+Still I assume load balancing is desired, but then you may choose to implement LB in different ways depending on your scenario.<br />
+In general I prefer to leave LB to ops, and as a matter of fact, this is actually Cassandra&#8217;s team recommendation.<br />
+In a scenario where several clients talk to cassandra I think it&#8217;s wise to leave LB to ops by configuring each client to which cassandra it should talk with.<br />
+However, in the scenario of one single client hammering cassandra I&#8217;d prefer to implement LB internally in Hector. So what I&#8217;ll do, I&#8217;ll make LB an optional feature.<br />
+I should note, though that I&#8217;ll need to require more data from the user of Hector to be able to implement LB effectively, namely the list of preferred hosts that can be balances, which is a sublist of the ring. Although Hector can learn the ring by itself, it may accidentally cross DC bounds and degrade performance, so in order to prevent that from happening I&#8217;ll need more data from the user, hence making the API a bit harder, but I think it&#8217;s worth it.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-333" title="">Feb 28, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-340">
+
+			
+        <p>@eyal, sorry for late approval, you&#8217;ve made your way to the trash section&#8230; Anyhow about spring, no I haven&#8217;t thought of this, I&#8217;ll need to take the time a learn it, so it&#8217;ll take a while&#8230;</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-340" title="">Mar 1, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-342">
+
+			
+        <p>Not that you need anymore work but it would be great if someone (in general) implemented JPA (or some other sort of object-(non)relational mapping) library on top of Hector such that the persistence of POJOs can be done by annotation instead of manually mapping of data. I&#8217;ve seen other people ask about this on the cassandra mail list.</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/32bcd52139eaff5c68493b603a6be57f?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>PC</strong> on <a href="#comment-342" title="">Mar 2, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+			
+<li class="odd" id="comment-359">
+
+			
+        <p>I just forked a clone, and I will revised it to support cassandra 0.6,but not 0.5 compatible.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/a5556e47f603afb7695d05d2cd9883da?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>HubertChang</strong> on <a href="#comment-359" title="">Mar 8, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-360">
+
+			
+        <p>OK, sounds good, let me know if you&#8217;d like me to review the code.<br />
+I&#8217;m currently working on JMX performance counters for hector.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-360" title="">Mar 8, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-362">
+
+			
+        <p>Sure. I will.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/a5556e47f603afb7695d05d2cd9883da?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>HubertChang</strong> on <a href="#comment-362" title="">Mar 8, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-376">
+
+			
+        <p>Hi,<br />
+Your current client example does not compile with 0.5.1 (current) release of cassandra.</p>
+<p>Thanks</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/40213d0861edfa7c7bc4e8b36be19245?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Khalid</strong> on <a href="#comment-376" title="">Mar 13, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-381">
+
+			
+        <p>interesting. I have not checked with 5.1, although I&#8217;m surprised since the interface of cassandra should not have changed. I will check</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-381" title="">Mar 13, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-382">
+
+			
+        <p>I just tried, and using cassandra 0.5.1 works as is. Anyhow, I&#8217;ve also created a github branch for 0.5.1 <a href="http://github.com/rantav/hector/tree/0.5.1" rel="nofollow">http://github.com/rantav/hector/tree/0.5.1</a></p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-382" title="">Mar 14, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-390">
+
+			
+        <p>Great work.<br />
+Did you implemented your own connection pool?  If so, I think it would be better to use an existing (aka mature, stable, proven) one such as Apache commons-pool.</p>
+<p>Thank you.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2193230b4b56f0b0559ecce8955c3857?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Juanac</strong> on <a href="#comment-390" title="">Mar 15, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-391">
+
+			
+        <p>You&#8217;re right, and I used apache GenericObjectPool.<br />
+See <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/CassandraClientPoolByHostImpl.java#L30" rel="nofollow">http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/CassandraClientPoolByHostImpl.java#L30</a> (line 30)</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-391" title="">Mar 15, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-392">
+
+			
+        <p>Hi, I&#8217;m trying to run the simple client example and I&#8217;m getting the following exception:</p>
+<p>Caught: java.lang.NoClassDefFoundError: org/slf4j/LoggerFactory</p>
+<p>Could you tell me what other libraries are required in order to run this code, or point me to a spot where its documented?</p>
+<p>Thanks!</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/c1966ec9dd706efb53bca4fd18454194?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Bryan</strong> on <a href="#comment-392" title="">Mar 15, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-393">
+
+			
+        <p>If you use maven, then:<br />
+mvn test<br />
+mvn eclipse:eclipse</p>
+<p>If an ant fan:<br />
+ant test</p>
+<p>If only eclipse or other IDE, then please add all jars from<br />
+lib, antlib and anttestlib</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-393" title="">Mar 15, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-394">
+
+			
+        <p>Awesome, thanks!</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/c1966ec9dd706efb53bca4fd18454194?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Bryan</strong> on <a href="#comment-394" title="">Mar 15, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-400">
+
+			
+        <p>I was beginning to take a look at hooking up Hector to Tomcat in order to provide Cassandra access to a web application.  I was focusing on wiring up your CassandraClientFactory through Tomcat&#8217;s JNDI resource section.  However, looking at the parameter list necessary to create a CassandraClientFactory, I would need to instantiate an instance of both CassandraClientMonitor and CassandraClientPool (through CassandraClientPoolImpl) along with the url/port.  Is that how you envision someone using your factory classes?</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/d0aae439583e3b6e8970b12d111e3bd0?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Perry Hoekstra</strong> on <a href="#comment-400" title="">Mar 16, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-401">
+
+			
+        <p>I&#8217;ll have to read up on jndi before I can answer that. Examples of how I envision hector usage can be found here, depending on your needs:<br />
+<a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/ExampleClient.java" rel="nofollow">http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/ExampleClient.java</a><br />
+And<br />
+<a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/dao/ExampleDao.java" rel="nofollow">http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/dao/ExampleDao.java</a></p>
+<p>So the simple case is just this:</p>
+<p>    CassandraClientPool pool = CassandraClientPoolFactory.INSTANCE.get();<br />
+    CassandraClient client = pool.borrowClient(&#8220;cassandra:9160&#8243;);<br />
+    try {<br />
+     &#8230;<br />
+    } finally {<br />
+      pool.releaseClient(client);<br />
+    }</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-401" title="">Mar 16, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-402">
+
+			
+        <p>What is the purpose of CassandraClientFactory if not to create a pool of CassandraClient objects that would be used in accessing Cassandra and returned to the pool, similar to a database connection?</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/d0aae439583e3b6e8970b12d111e3bd0?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Perry Hoekstra</strong> on <a href="#comment-402" title="">Mar 16, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-403">
+
+			
+        <p>Well, CassandraClientFactory is an internal implementation class (it&#8217;s visibility is package).<br />
+It&#8217;s used by the apache GenericObjecPool implementation to create new cassandra client connection, just like a database connection, as you say, but it&#8217;s managed internally, and should not be managed by the container (not by tomcat).</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-403" title="">Mar 16, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-405">
+
+			
+        <p>Okay, so what you are saying is that an externally usable client factory class is needed that can be integrated with Tomcat or any application server.</p>
+<p>This class would have a constructor that would take a single url/port or an array of url/ports and create a CassandraClientPool and CassandraClientMonitor.</p>
+<p>Would that be a valid statement?</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/d0aae439583e3b6e8970b12d111e3bd0?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Perry Hoekstra</strong> on <a href="#comment-405" title="">Mar 16, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-408">
+
+			
+        <p>Something along these lines:</p>
+<p>public class ExternalCassandraClientFactory implements PoolableObjectFactory {</p>
+<p>  &#8230;&#8230;</p>
+<p>  /**<br />
+   * ExternalCassandraClientFactory constructor.<br />
+   *<br />
+   * @param url<br />
+   * @param port<br />
+   */<br />
+  public ExternalCassandraClientFactory(String url, int port) {<br />
+    this.clientMonitor = new CassandraClientMonitor();<br />
+    this.pool = new CassandraClientPoolImpl(this.clientMonitor);<br />
+    this.url = url;<br />
+    this.port = port;<br />
+    timeout = getTimeout();</p>
+<p>  }</p>
+<p>  &#8230;.<br />
+}</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/d0aae439583e3b6e8970b12d111e3bd0?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Perry Hoekstra</strong> on <a href="#comment-408" title="">Mar 16, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-412">
+
+			
+        <p>Hey Ran, wanted to commend you on pushing this out. Great work!</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/522044b6e8bac93ad3e667d8788ff090?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Nash</strong> on <a href="#comment-412" title="">Mar 17, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-415">
+
+			
+        <p>Hello Ran,<br />
+Been playing around a bit with the Hector library. Very nice work. A few questions, a few suggestions &#8211; there are a few things I&#8217;ll probably want to implement for my own use of cassandra that I&#8217;d be interested in your response as to how that&#8217;d integrate with Hector.</p>
+<p>First, as to the questions &#8211; The build contains a whole bunch of classes from the org.apache.cassandra.service package, which you&#8217;ve got in a &#8220;apache-cassandra-incubating&#8221; jar. I can&#8217;t find these classes in the cassandra source tree. As far as I can tell, this means that the client is incompatible with cassandra 6.0beta (?). Did the package move from cassandra 0.5 to 0.6? is it in a separate &#8220;client&#8221; project that I&#8217;m not seeing? Much confusion.</p>
+<p>As to changes, improvements, I&#8217;m going to need to add some simplification  &#8220;wrapper&#8221; functionality for my own use that would probably benefit the driver. For one,I&#8217;m not seeing a way to be able to create and configure a connection pool in a way that allows access to all of the options you&#8217;ve got in your Client (probably just haven&#8217;t seen it yet), as well as some things like sockettimeout.</p>
+<p>Another issue is related to the &#8220;cassandra-ness&#8221; of the insert, find, etc. methods. I&#8217;ve been playing around a bit with a number of nosql datastores and the thing that jumps out is that they each enforce their own syntax on your interaction with the datastore, where ultimately my application would be simplified with a layer that hides the structure, vendor, etc. of the datastore, e.g. methods that look like (roughly, haven&#8217;t really thought this through completely):</p>
+<p>Map get(String key)&#8230;, or insert(String key, Map values). For our application the simplest thing ultimately ( although not necessarily the fastest) would be some sort of type-aware library to insert object values as a map via reflection or stored-method invocation.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/8c3227175520ab65a0a24d75e3317150?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Steve Benjamin</strong> on <a href="#comment-415" title="">Mar 17, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-416">
+
+			
+        <p>@Steve:<br />
+1. the packages moved a little bit in cassandra 0.6.0. A hector 0.6.0 version is in the works and sorry for confusion.<br />
+2. You are correct, I haven&#8217;t bubbled all options all the way up yet. I add them per need basis and would be happy to do more.<br />
+3. Of all nosql solutions, I only have meaningful experience with cassandra so my perspective is limited. I see your point making an API that&#8217;s more agnostic to the storage, however they all seem so far away from each other that I can&#8217;t see how this can work in a sane way. I&#8217;m open to suggestions&#8230;<br />
+4. If you&#8217;re thinking about ORMs such as hibernate for cassandra, then first I think I need to see proof of concept how this can work + make things easy to work with per the interface; this can definitly work, but I personally don&#8217;t have enough experience with ORM that I feel I can build one and I can say that at a hibernate user many times I&#8230; well&#8230; simply hate it&#8230; but maybe it&#8217;s just me&#8230;<br />
+ github is great in forking and merging back so it would be great if you could fork, make some changes and ask me to review the code. If I think it fits hector I merge it back. Feel free to email me for more details rantav [at] gmail</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-416" title="">Mar 17, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-431">
+
+			
+        <p>I tried your Example Client Code, while my eclipse says“<br />
+The type org.apache.thrift.TException cannot be resolved. It is indirectly referenced from required .class files	“ in line 31 &#8220;&#8230;Keyspace keyspace = client.getKeyspace(&#8220;Keyspace1&#8243;);&#8230;&#8221;</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/3b3c057bc6ed47ab081c41c9d6926444?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>angelwing</strong> on <a href="#comment-431" title="">Mar 20, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-433">
+
+			
+        <p>Please have a look at <a href="http://wiki.github.com/rantav/hector/how-to-build" rel="nofollow">http://wiki.github.com/rantav/hector/how-to-build</a> and let me know if it helps (add the required libs to eclipse)</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-433" title="">Mar 20, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-439">
+
+			
+        <p>@Steve and @Ran<br />
+I&#8217;ve been playing around with Cassandra and created what can be found as HelenaORM on Github which basically does reflective bean storing and loading to Cassandra using Hector. It&#8217;s just a toy project as I&#8217;m not having used it beside the examples that are in the repo, but maybe that is a starting point.</p>
+<p><a href="http://github.com/marcust/HelenaORM" rel="nofollow">http://github.com/marcust/HelenaORM</a></p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/059c7ddc9c60d82781682a4d104accc1?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Marcus Thiesen</strong> on <a href="#comment-439" title="">Mar 21, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-461">
+
+			
+        <p>Great work, keep it up.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/00ec97d80769f7f50636eed9796ea949?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Jel</strong> on <a href="#comment-461" title="">Mar 25, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+				
+<li class="odd" id="comment-532">
+
+			
+        <p>@Marcus Thiesen<br />
+Your HelenaORM &#8220;toy project&#8221; looks very promising! Any reason why you&#8217;ve chosen the commercial unfriendly GPL license?</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/321b2437e25c1885cb0edbde62bbf530?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>James</strong> on <a href="#comment-532" title="">Apr 6, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-535">
+
+			
+        <p>I got Hector working from Scala with very minimal changes to the ExampleClient. I wrote a bit about my experience here: <a href="http://theikester.wordpress.com/2010/04/07/access-cassandra-from-scala-hector/" rel="nofollow">http://theikester.wordpress.com/2010/04/07/access-cassandra-from-scala-hector/</a>.</p>
+<p>Thanks for the work on Hector!</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/34366beb64ceb0c4a375d479af60d5c2?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ike</strong> on <a href="#comment-535" title="">Apr 7, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-547">
+
+			
+        <p>Hi,</p>
+<p>Sorry for posting such a newbie question here, I downloaded the source and linked to eclipse and when I tried to run the ExampleClient.java it gave me the error </p>
+<p>&#8220;main&#8221; org.apache.thrift.transport.TTransportException: Unable to open transport to localhost:9160 , java.net.ConnectException: Connection refused&#8221;</p>
+<p>But when I use ant test or package they all worked fine. What I want is just to run the ExampleClient ? </p>
+<p>It would be great if someone point me the error I am doing.</p>
+<p>Or, is there any easy of running ExampleClient ?<br />
+-ruwan</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/e2a629de26eaa86c5ee55e22170b825f?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ruwan</strong> on <a href="#comment-547" title="">Apr 10, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-548">
+
+			
+        <p>Hi, figured it out, it was my bad &#8230; Since when I ran ant test, it itself started the cassandra and I assumed it should be the case when I run it from the eclipse as well&#8230; which is not the case &#8230; </p>
+<p>So I am good now.</p>
+<p>thnx &#8230; and great work Ran &#8230; and thank you for sharing this with the rest of the community</p>
+<p>-ruwan</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/e2a629de26eaa86c5ee55e22170b825f?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ruwan</strong> on <a href="#comment-548" title="">Apr 10, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-550">
+
+			
+        <p>Hector looks great. Thanks for the hard work.</p>
+<p>But&#8230;if you&#8217;re wondering what to do next, I&#8217;d suggest documentation.</p>
+<p>The blog post provides a bit of documentation but the implementation of a get/set interface is not very relatable compared to the standard kinds of things that most people will need to so. How about standard &#8220;blog post&#8221;, &#8220;user profile&#8221;, &#8220;employee record&#8221; type examples? Something a bit less abstract?</p>
+<p>Also, it would be nice if the README would point to API documentation.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/0cec7047b8c7b8cd5d4ef177947f3526?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Paul Prescod</strong> on <a href="#comment-550" title="">Apr 11, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-551">
+
+			
+        <p>@paul, documentation can definitely be improved, but I have to admit this is where I&#8217;d really appreciate users help. If you&#8217;re interested, I&#8217;ll be happy to provide some initial pointers.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-551" title="">Apr 11, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-552">
+
+			
+        <p>@Ruwan, yep, you got it, the ExampleClient requires a running cassandra instance on localhost:9160. The tests start their own embedded server.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-552" title="">Apr 11, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-555">
+
+			
+        <p>Hi,</p>
+<p>If I am not mistaken &#8220;Hector&#8221; uses non-framed transport for Thrift right ? &#8230; If its so, how can I change it to use the framed transport &#8230;</p>
+<p>Thank You in advance &#8230;</p>
+<p>Ruwan</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/e2a629de26eaa86c5ee55e22170b825f?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ruwan</strong> on <a href="#comment-555" title="">Apr 11, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-557">
+
+			
+        <p>@Ruwan Hector uses the default thrift transport.<br />
+There isn&#8217;t currently a way to specify other transport. I&#8217;ve listed this as a possible enhancement <a href="http://github.com/rantav/hector/issues/issue/25" rel="nofollow">http://github.com/rantav/hector/issues/issue/25</a><br />
+We&#8217;re open to contributions, so if you&#8217;d like that we&#8217;d be happy if you fork the project on github, make the changes and let us know when you&#8217;re done.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-557" title="">Apr 12, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+			
+<li class="odd" id="comment-566">
+
+			
+        <p>Hi, looks like i dont get getRangeslice() thing, i want to dump all keys/columns from one columnpath (cassandra 0.6 OPP). With code below i&#8217;m getting only duplicates:</p>
+<p> String last_key = new String(&#8220;&#8221;);<br />
+  for(;;){</p>
+<p>               Map&lt;String, List&gt; map = keySpace.getRangeSlice(cp, sp, last_key, &#8220;&#8221;, count);</p>
+<p>               if(map.isEmpty()) break; </p>
+<p>                for (String s : map.keySet()) {</p>
+<p>                    if (s.equals(last_key)) continue;<br />
+                    last_key = s;</p>
+<p>                    List columns = map.get(s);</p>
+<p>                    for (Column column : columns) {<br />
+                        writer.write(new String(column.getName()) + &#8220;\t&#8221; + new String(column.getValue()) + &#8220;\n&#8221;);<br />
+                    }<br />
+                }</p>
+<p>            }</p>
+<p>p.s. sorry for my bad java, this is first java expiriance</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/1b41e19ed8f4c714ec5d57b50652c7ea?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>mj</strong> on <a href="#comment-566" title="">Apr 13, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-567">
+
+			
+        <p>Shouldn&#8217;t the end value be a string that&#8217;s larger than the max key you have?<br />
+Anyway, I think user@cassandra is the better place to ask this</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-567" title="">Apr 13, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-569">
+
+			
+        <p>Hi,</p>
+<p>Is there an efficient way to get a list of keys per node/host instead of using get_range_slice?</p>
+<p>Thanks in advance</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/1a111ef4d15b3cbefe652252c355fe39?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Dror</strong> on <a href="#comment-569" title="">Apr 13, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-570">
+
+			
+        <p>@Dror, I&#8217;m actually not sure what the right answer is. I don&#8217;t think getRangeSlice will help you get keys per host. I&#8217;m also not familiar with other ways to do that, but it&#8217;s best that you send the question to user@cassandra</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-570" title="">Apr 13, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-585">
+
+			
+        <p>Can you add a reference of how to add superColumns via Hector?</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/1a111ef4d15b3cbefe652252c355fe39?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Dror</strong> on <a href="#comment-585" title="">Apr 15, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-586">
+
+			
+        <p>@Dror you can see here <a href="http://github.com/rantav/hector/blob/0.6.0/src/test/java/me/prettyprint/cassandra/service/KeyspaceTest.java" rel="nofollow">http://github.com/rantav/hector/blob/0.6.0/src/test/java/me/prettyprint/cassandra/service/KeyspaceTest.java</a></p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-586" title="">Apr 15, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-605">
+
+			
+        <p>Ran,</p>
+<p>Great effort thanx.</p>
+<p>is the project published in any public maven repo yet?</p>
+<p>Thanx</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/0a1413de7641eed18c2b08e2df961b34?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>tc</strong> on <a href="#comment-605" title="">Apr 16, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-616">
+
+			
+        <p>@tc it&#8217;s not on a public repo since it has dependencies that aren&#8217;t in public repos (such as cassandra or thrift)</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-616" title="">Apr 17, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-625">
+
+			
+        <p>Thanks Ran <img src='../../../../wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/1a111ef4d15b3cbefe652252c355fe39?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Dror</strong> on <a href="#comment-625" title="">Apr 18, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-631">
+
+			
+        <p>Hi Ran, I need you help again.<br />
+Can you add an example of how to insert and get a column which has a type of TimeUUIDType? Thanks</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/1a111ef4d15b3cbefe652252c355fe39?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Dror</strong> on <a href="#comment-631" title="">Apr 18, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-634">
+
+			
+        <p>Hi @Dror, I don&#8217;t have an answer up my sleeve but perhaps you could post the question at <a href="mailto:hector-users@googlegroups.com">hector-users@googlegroups.com</a> and someone will have that.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-634" title="">Apr 18, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-674">
+
+			
+        <p>Hi Ran</p>
+<p>Here I&#8217;m again.</p>
+<p>I tried to add the following dependency to my pom.xml by it&#8217;s failed.</p>
+<p>me.prettyprint<br />
+hector<br />
+0.6.0-11</p>
+<p>The error is: 4/21/10 3:55:26 PM IDT: Missing artifact me.prettyprint:hector:jar:0.6.0-11:compile</p>
+<p>What&#8217;s wrong with these configuration? </p>
+<p>Thanks again</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/1a111ef4d15b3cbefe652252c355fe39?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Dror</strong> on <a href="#comment-674" title="">Apr 21, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-675">
+
+			
+        <p>@dror, let&#8217;s do this on the mailing list hector-users@googlegroups</p>
+<p>The thing is, hector is not in a public repo, so you&#8217;ll have to download the jar and add as a system dep. If you ask on the mailing list I&#8217;ll ad more details</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-675" title="">Apr 21, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-687">
+
+			
+        <p>Awesome work. I&#8217;ve been using Hector for a few days now.<br />
+As far as I am concerned Hector has been an excellent bootstrap to understand Cassandra.</p>
+<p>I have a question though : how comes the keyspace.insert() method does not work to update an existing column ? I thought it would work the same as the &#8216;set&#8217; method in cassandra command lines. Am I wrong ?</p>
+<p>Thank you, and let us know how we can help you to enrich this excellent work.</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/b20f08524a7fd373bdd32fd58a04ee31?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Cyrille</strong> on <a href="#comment-687" title="">Apr 22, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-688">
+
+			
+        <p>Hi Cyrille, for the sake of information reuse, do you mind posting your question to the mailing list? <a href="mailto:hector-users@googlegroups.com">hector-users@googlegroups.com</a> (and subscribe to the list&#8230;)<br />
+In short, yes, inset should work exactly like set, I&#8217;m surprised that it&#8217;s not working for you. If you can send more details to the list we can debug it together.<br />
+As far as enriching, just the partial list is here <a href="http://github.com/rantav/hector/issues" rel="nofollow">http://github.com/rantav/hector/issues</a></p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-688" title="">Apr 22, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-690">
+
+			
+        <p>Can you add a reference of how to insert/retrieve superColumnFamilies via Hector?</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/4faac397d0e44a97d0382d41b51057b1?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>eac</strong> on <a href="#comment-690" title="">Apr 22, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-691">
+
+			
+        <p>please future questions to the mailing list <a href="mailto:hector-users@googlegroups.com">hector-users@googlegroups.com</a><br />
+you may look at KeyspaceTest.java</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-691" title="">Apr 22, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+																
+	</ol>
+	
+	
+
+	<h2 id="trackbacks">18 Trackback(s)</h2>
+	
+	<ol class="tblist">
+	
+
+	<li id="comment-347">
+		Mar 3, 2010: <a href='../../../03/03/load-balancing-and-improved-failover-in-hector/index.html' rel='external nofollow' class='url'>Load balancing and improved failover in Hector | PrettyPrint.me</a>			</li>
+	
+		
+
+	<li id="comment-482">
+		Mar 29, 2010: <a href='http://www.sodeso.nl/?p=251' rel='external nofollow' class='url'>Sodeso &raquo; Installing and using Apache Cassandra With Java Part 4 (Thrift Client)</a>			</li>
+	
+		
+
+	<li id="comment-517">
+		Apr 3, 2010: <a href='../../../04/03/jmx-in-hector/index.html' rel='external nofollow' class='url'>JMX in Hector | PrettyPrint.me</a>			</li>
+	
+		
+
+	<li id="comment-560">
+		Apr 12, 2010: <a href='http://blog.keksrolle.de/2010/04/12/cassandra-distributed-database-a-link-list-for-beginners.html' rel='external nofollow' class='url'>Keksrolle.de &raquo; Blog Archive &raquo; Cassandra Distributed Database &#8211; a link list for beginners</a>			</li>
+	
+		
+
+	<li id="comment-798">
+		May 2, 2010: <a href='../../../05/02/understanding-cassandra-code-base/index.html' rel='external nofollow' class='url'>Understanding Cassandra Code Base | PrettyPrint.me</a>			</li>
+	
+		
+
+	<li id="comment-867">
+		May 7, 2010: <a href='https://wiki.tendrilinc.com/display/ENG/Cassandra+MDMS+implementation' rel='external nofollow' class='url'>Confluence: Research and Engineering</a>			</li>
+	
+		
+
+	<li id="comment-905">
+		May 12, 2010: <a href='http://wangxu.me/blog/?p=381' rel='external nofollow' class='url'>[译文]理解Cassandra源代码 &raquo; 我有分寸</a>			</li>
+	
+		
+
+	<li id="comment-2300">
+		Jun 21, 2010: <a href='http://confluence/display/tools/Cassandra' rel='external nofollow' class='url'>Confluence: Tools &amp; Software Development</a>			</li>
+	
+		
+
+	<li id="comment-2301">
+		Jun 21, 2010: <a href='http://confluence/display/tools/Cassandra+Evaluation' rel='external nofollow' class='url'>Confluence: Tools &amp; Software Development</a>			</li>
+	
+		
+
+	<li id="comment-2892">
+		Aug 6, 2010: <a href='../../../08/06/hector-api-v2/index.html' rel='external nofollow' class='url'>Hector API v2 | PrettyPrint.me</a>			</li>
+	
+		
+
+	<li id="comment-2973">
+		Aug 11, 2010: <a href='http://malliktalksjava.wordpress.com/2010/08/11/apache-cassandra/' rel='external nofollow' class='url'>Apache Cassandra &laquo; Java Tutorials</a>			</li>
+	
+		
+
+	<li id="comment-3156">
+		Aug 30, 2010: <a href='http://www.eamonn.org/blog/?p=973' rel='external nofollow' class='url'>Eamonn O&#8217;Brien-Strain &raquo; links for 2010-08-29</a>			</li>
+	
+		
+
+	<li id="comment-3157">
+		Aug 30, 2010: <a href='http://amesar.wordpress.com/2010/08/30/initial-cassandra-impressions/' rel='external nofollow' class='url'>Initial Cassandra Impressions &laquo; Andre&#039;s Tech Blog</a>			</li>
+	
+		
+
+	<li id="comment-3164">
+		Aug 30, 2010: <a href='http://amesar.wordpress.com/2010/08/30/cassandra-java-annotations/' rel='external nofollow' class='url'>Cassandra Java Annotations &laquo; Andre&#039;s Tech Blog</a>			</li>
+	
+		
+
+	<li id="comment-4528">
+		Dec 4, 2010: <a href='http://confluence.ligatus.local/confluence//display/dms2/Amazon+Dynamo+vs.+MongoDb+vs.+Cassandra+-+Analyse+und+Bewertung' rel='external nofollow' class='url'>Confluence: Ligatus DMS 2.x Development</a>			</li>
+	
+		
+
+	<li id="comment-5578">
+		Jan 24, 2011: <a href='http://www.ashishpaliwal.com/blog/2011/01/getting-started-with-cassandra/' rel='external nofollow' class='url'>Cassandra, Getting Started, Hector | Thread.currentThread().join()</a>			</li>
+	
+		
+
+	<li id="comment-6402">
+		Mar 5, 2011: <a href='http://roshandawrani.wordpress.com/2011/03/05/cassandra-tip-how-much-time-did-that-query-take/' rel='external nofollow' class='url'>Cassandra Tip: How much time did that query take? &laquo; Bits that interest me</a>			</li>
+	
+		
+
+	<li id="comment-8798">
+		Jun 18, 2011: <a href='http://www.christian-straube.de/2011/06/18/einfuhrung-in-cassandra-und-hector/' rel='external nofollow' class='url'>Einführung in Cassandra und Hector // Christian Straube . Software-Engineering</a>			</li>
+	
+		
+
+	</ol>
+
+	
+
+	<p id="comments-closed">Sorry, comments for this entry are closed at this time.</p>
+</div>  
+ 
+ 
+</div><!-- //content -->
+
+<div id="sidebar"><!-- sidebar -->
+
+<p class="rssfeed"><a class="rsslink" href="../../../../feed/index.html"></a>
+<p><a href="http://feeds2.feedburner.com/PrettyPrintMe"><img src="http://feeds2.feedburner.com/~fc/PrettyPrintMe?bg=3069B0&amp;fg=fffdfa&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a></p>
+</p>
+
+<h2>Search</h2>
+<form method="get" id="searchform" class="search" action="http://prettyprint.me/">
+<input type="text" name="s" value="Type keywords and hit enter..." onfocus="if (this.value == 'Type keywords and hit enter...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Type keywords and hit enter...';}" />
+</form>
+
+<!--
+<h2>Categories</h2>
+<ul>
+		<li class="cat-item cat-item-1"><a href="http://prettyprint.me/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+</ul>
+-->
+
+<h2>Blog Archives</h2>
+<ul>
+  	<li><a href='../../../../2011/07/index.html' title='July 2011'>July 2011</a></li>
+	<li><a href='../../../../2011/02/index.html' title='February 2011'>February 2011</a></li>
+	<li><a href='../../../../2011/01/index.html' title='January 2011'>January 2011</a></li>
+	<li><a href='../../../08/index.html' title='August 2010'>August 2010</a></li>
+	<li><a href='../../../05/index.html' title='May 2010'>May 2010</a></li>
+	<li><a href='../../../04/index.html' title='April 2010'>April 2010</a></li>
+	<li><a href='../../../03/index.html' title='March 2010'>March 2010</a></li>
+	<li><a href='../../index.html' title='February 2010'>February 2010</a></li>
+	<li><a href='../../../01/index.html' title='January 2010'>January 2010</a></li>
+	<li><a href='../../../../2009/11/index.html' title='November 2009'>November 2009</a></li>
+	<li><a href='../../../../2009/10/index.html' title='October 2009'>October 2009</a></li>
+	<li><a href='../../../../2009/09/index.html' title='September 2009'>September 2009</a></li>
+	<li><a href='../../../../2009/08/index.html' title='August 2009'>August 2009</a></li>
+	<li><a href='../../../../2009/06/index.html' title='June 2009'>June 2009</a></li>
+	<li><a href='../../../../2009/05/index.html' title='May 2009'>May 2009</a></li>
+</ul>
+
+<!--
+<h2>Links</h2>
+<ul>
+  <li><a href="http://wordpress.org/development/">Development Blog</a></li>
+<li><a href="http://codex.wordpress.org/">Documentation</a></li>
+<li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
+<li><a href="http://wordpress.org/extend/ideas/">Suggest Ideas</a></li>
+<li><a href="http://wordpress.org/support/">Support Forum</a></li>
+<li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
+<li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+</ul>
+-->
+
+<!--
+<h2>Meta</h2>
+<ul>
+    <li><a href="http://prettyprint.me/wp-login.php">Log in</a></li>
+  <li><a href="http://www.wordpress.org/">WordPress</a></li>
+    <li><a href="http://validator.w3.org/check?uri=referer">XHTML</a></li>
+</ul>
+-->
+
+ 
+
+
+</div> <!--//sidebar  -->
+
+</div><!--//container-->
+
+<div id="footer-container">
+	
+<div id="footer">
+
+<div id="footerleft">
+		<h2>About</h2>
+  <p>Restrospective focuses on clean typography and modern colors and design.</p>
+  </div>
+
+<div id="footermid">
+		<h2>Profiles, Links</h2>
+	<ul>
+  	<li><a href="http://www.linkedin.com/in/rantav">LinkedIn</a></li>
+  	<li><a href="http://tavory.com/">Homepage</a></li>
+  	<li><a href="http://twitter.com/rantav">Twitter</a></li>
+  	<li><a href="http://reversim.com/">(Hebrew podcast I run) רברס עם פלטפורמה</a></li>
+  	<li><a href="http://friendfeed.com/rantav">FriendFeed</a></li>
+  	<li><a href="http://gbsheli.com/">Google Blog Sheli (my older blog, mostly Hebrew)</a></li>
+  	<li><a href="http://www.facebook.com/people/Ran-Tavory/543122173">Facebook</a></li>
+  </ul>
+  </div>
+
+<div id="footerright">
+	<!--
+	<h2>Recent Readers</h2>
+-->
+  <!--	Paste JavaScript from MyBlogLog or other services -->
+
+  </div>
+
+</div><!--//footer-->
+
+<div class="copyright">
+	Copyright &copy; <a href="../../../../index.html">PrettyPrint.me</a> &middot; All rights reserved.<br />
+	
+	Powered by <a href="http://wordpress.org/">WordPress</a> and <a href="http://blogbuildingu.com/retrospective">Retrospective theme</a> &middot; Design & code by <a href="http://blogbuildingu.com/">Hendry Lee</a>.
+
+<script type='text/javascript' src='../../../../wp-content/plugins/contact-form-7/jquery.formd20f.js?ver=2.52'></script>
+<script type='text/javascript' src='../../../../wp-content/plugins/contact-form-7/scripts747d.js?ver=2.4.5'></script>
+<script src="../../../../wp-content/plugins/tweetmeme/button.js" type="text/javascript"></script></div>
+
+</div><!--//footer-container-->
+
+</body>
+
+<!-- Mirrored from prettyprint.me/2010/02/23/hector-a-java-cassandra-client/ by HTTrack Website Copier/3.x [XR&CO'2010], Fri, 28 Dec 2012 23:00:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+</html>

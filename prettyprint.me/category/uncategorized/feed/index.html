@@ -1,0 +1,1148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>PrettyPrint.me &#187; Uncategorized</title>
+	<atom:link href="http://prettyprint.me/category/uncategorized/feed/" rel="self" type="application/rss+xml" />
+	<link>http://prettyprint.me</link>
+	<description>by Ran Tavory</description>
+	<lastBuildDate>Wed, 03 Aug 2011 12:03:22 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.2</generator>
+		<item>
+		<title>Visualizing our Deployment Pipeline</title>
+		<link>http://prettyprint.me/2011/07/31/visualizing-our-deployment-pipeline/</link>
+		<comments>http://prettyprint.me/2011/07/31/visualizing-our-deployment-pipeline/#comments</comments>
+		<pubDate>Sun, 31 Jul 2011 21:43:37 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=409</guid>
+		<description><![CDATA[Cross posted also here: http://techblog.outbrain.com/2011/08/visualizing-our-deployment-pipeline/ When large numbers start piling up, in order to make sense of them they need to be visualized. I still work as a consultant at outbrain about one day a week and most of the time I&#8217;m in charge of the deployment system last described here. The challenges encountered when developing the system are good challenges, [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2011%2F07%2F31%2Fvisualizing-our-deployment-pipeline%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2011%2F07%2F31%2Fvisualizing-our-deployment-pipeline%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<div>Cross posted also here: <a href="http://techblog.outbrain.com/2011/08/visualizing-our-deployment-pipeline/">http://techblog.outbrain.com/2011/08/visualizing-our-deployment-pipeline/</a></div>
+<div>When large numbers start piling up, in order to make sense of them they need to be visualized.</div>
+<div>I still work as a consultant at outbrain about one day a week and most of the time I&#8217;m in charge of the deployment system <a href="http://prettyprint.me/2011/01/24/continuous-deployment-at-outbrain/">last described here</a>.</div>
+<div>The challenges encountered when developing the system are good challenges, every day we have too many deployments to be easily followed; so I decided to visualize them.</div>
+<div>On an average day we usually have  a dozen or two deployment (to production, not including test clusters) so I figured why don&#8217;t I use my <a href="http://code.google.com/apis/chart/">google-visualization</a>-fu and draw some nice graphs. Here are the results and explanations follow.</div>
+<div>BTW, before I begin, just to put things in context, outbrain had been practicing  <a href="http://www.startuplessonslearned.com/search/label/continuous%20deployment">Continuous Deployment</a> for a while (6 months or so) and although there are a few systems that helped us get there, one of the main pillars was a relatively new tool written by the fine folks at LinkedIn (and in particular <a href="http://www.linkedin.com/in/pujante">Yan</a>, thanks Yan), so just wanted to give a fair shout out to them and thank Yan for the nice tool, API and ongoing awesome support. If you&#8217;re looking for a deployment tool do give <a href="https://github.com/linkedin/glu/wiki">glu</a> a try, it&#8217;s pretty awesome! Without glu and it&#8217;s API all the nice graphs and the rest of the system would not have seen the light of day.</div>
+<p>&nbsp;</p>
+<h1>The Annotated Timeline</h1>
+<p>This graph may seem intimidating at first, so don&#8217;t be scared and let&#8217;s dive right into it&#8230; BTW, you may click on the image to enlarge it.</p>
+<div><a href="http://prettyprint.me/wp-content/uploads/2011/07/versions-1.png"><img class="alignnone size-medium wp-image-430" title="versions-1" src="http://prettyprint.me/wp-content/uploads/2011/07/versions-1-300x152.png" alt="" width="300" height="152" /></a></div>
+<div>First, let&#8217;s zoom in to the right hand side of the graph. BTW, this graph uses google&#8217;s <a href="http://code.google.com/apis/chart/interactive/docs/gallery/annotatedtimeline.html">annotated timeline graph</a> which is really cool for showing how things change over time and correlate them to events, which is what I do here &#8211; the events are the deployments and the x axis is the time while the y is the version of the deployed module.</div>
+<div><a href="http://prettyprint.me/wp-content/uploads/2011/07/rhs-1.png"><img class="alignnone size-full wp-image-431" title="rhs-1" src="http://prettyprint.me/wp-content/uploads/2011/07/rhs-1.png" alt="" width="310" height="114" /></a></div>
+<div>On the right hand side you see a list of deployment events, for example the one at the top has &#8220;ERROR www @tom&#8230;&#8221; and the one next is &#8220;BehavioralEngine @yatirb&#8230;&#8221; etc. This list can be filtered so if you type a name of one of the developers such as @tom or @yatirb you see only the deployments made by him (of course all deployments are made by devs, not by ops, hey, we&#8217;re <a href="http://en.wikipedia.org/wiki/DevOps">devops</a>y, remember?).</div>
+<div>If you type into the filter box only www you see all the deployments for the www component, which by no surprise is just our website.</div>
+<div>If you type ERROR you see all deployments that had errors (and yes, this happens too, not a big deal)</div>
+<div>The nice thing about this graph from is first that while you filter the elements on the graph that are filtered out dissapear, so for example let&#8217;s see only deployments to www (click on the image to enlarge):</div>
+<div><a href="http://prettyprint.me/wp-content/uploads/2011/07/www-1.png"><img class="alignnone size-medium wp-image-432" title="www-1" src="http://prettyprint.me/wp-content/uploads/2011/07/www-1-300x150.png" alt="" width="300" height="150" /></a></div>
+<div>You&#8217;d notice that not only the right hand side list is shrunk and contains only deployments to www, but also the left hand side graph now only has the appropriate markers. The rest of the lines are still there but only the markers for the www line are on the graph right now.</div>
+<div>Now let&#8217;s have a look at the graph. One of the coolest things is that you can zoom in to a specific timespan using the controls at the lower part of the graph. (click to enlarge)</div>
+<div><a href="http://prettyprint.me/wp-content/uploads/2011/07/zoom.png"><img class="alignnone size-medium wp-image-418" title="zoom" src="http://prettyprint.me/wp-content/uploads/2011/07/zoom-300x219.png" alt="" width="300" height="219" /></a></div>
+<p>In this graph the x axis shows the time (date and time of day) and the y axis shows the svn revision number. Each colored line represents a single module (so we have one line for www and one line for the BehavioralEngine etc).</p>
+<p>What you would usually see is for each line (representing a module) a monotonically increasing value over time, a line form the bottom left corner towards the top right corner, however, in relatively rare cases where a developer wants to deploy an older version of his module, then you clearly see it by the line suddenly dropping down a bit instead of climbing up; this is really nice, helps find unusual events.</p>
+<p>&nbsp;</p>
+<h1>The Histogram</h1>
+<p>In the next graph you see an overview of deployments per day. (click to enlarge)</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/07/histo.png"><img class="alignnone size-medium wp-image-420" title="histo" src="http://prettyprint.me/wp-content/uploads/2011/07/histo-300x225.png" alt="" width="300" height="225" /></a></p>
+<p>This is more of a holistic view of how things went the last couple of days, it just shows how many deployments took place each day (counts production clusters only) and colors the successful ones in green and the failed ones in red.</p>
+<p>This graph is like an executive summary that can tell the story of &#8211; in case there are too many reds (or there are reds at all), then someone needs to take that seriously and figure out what needs to be fixed (usually that someone is me&#8230;) &#8211; or in case the bars aren&#8217;t high enough, then someone needs to kick developer&#8217;s buts and get them deployin somethin already&#8230;</p>
+<p>Like many other graphs from google&#8217;s library (this one&#8217;s a Stacked <a href="http://code.google.com/apis/chart/interactive/docs/gallery/columnchart.html">Column Chart</a>, BTW), it shows nice tooltips when hovering over any of the columns with their x values (the date) and their y value (number of successful/failed deployments)</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/07/hover.png"><img class="alignnone size-full wp-image-422" title="hover" src="http://prettyprint.me/wp-content/uploads/2011/07/hover.png" alt="" width="183" height="208" /></a></p>
+<p>&nbsp;</p>
+<h1>Versions DNA Mapping</h1>
+<p>The following graph shows the current variety of versions that we have in our production systems for each and every module. It was attributed as a DNA mapping by one of our developers b/c of the similarity in how they look but that&#8217;s how far this similarity goes&#8230;</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/07/versions.png"><img class="alignnone size-medium wp-image-424" title="versions" src="http://prettyprint.me/wp-content/uploads/2011/07/versions-300x147.png" alt="" width="300" height="147" /></a></p>
+<p>The x axis lists the different modules that we have (names were intentionally left out, but you can imaging having www and other folks there). The y axis shows the svn versions of them in production. It uses glu&#8217;s live model as reported by glu&#8217;s agents to zookeeper.</p>
+<p>Let&#8217;s zoom in a bit:</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/07/versions-zoom.png"><img class="alignnone size-full wp-image-425" title="versions zoom" src="http://prettyprint.me/wp-content/uploads/2011/07/versions-zoom.png" alt="" width="227" height="428" /></a></p>
+<p>What this diagram tells us is that the module www has versions starting from 41268 up to 41463 in production. This is normal as we don&#8217;t necessarily deploy everything to all servers at once, but this graph helps us easily find hosts that are left behind for too long, so for example if one of the modules had not been deployed in a while then you&#8217;d see it falling behind low on the graph. Similarly, if a module has a large variability in versions in production, chances are that you want to close that gap pretty soon. The following graph illustrates both cases:</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/07/behind.png"><img class="alignnone size-medium wp-image-426" title="behind" src="http://prettyprint.me/wp-content/uploads/2011/07/behind-300x106.png" alt="" width="300" height="106" /></a></p>
+<p>To implement this graph I used a crippled version of the <a href="http://code.google.com/apis/chart/interactive/docs/gallery/candlestickchart.html">Candle Stick Chart</a>, which is normally used for showing stock values; it&#8217;s not ideal for this use case but it&#8217;s the closest I could find.</p>
+<p>That&#8217;s all, three charts is enough for now and there are other news regarding our evolving deployment system, but they are not as visual; if you have any questions or suggestions for other types of graphs that could be useful don&#8217;t be shy to comment or tweet.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2011/07/31/visualizing-our-deployment-pipeline/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>The Three Axis of Software Management Complexity</title>
+		<link>http://prettyprint.me/2011/07/08/the-three-axis-of-software-management-complexity/</link>
+		<comments>http://prettyprint.me/2011/07/08/the-three-axis-of-software-management-complexity/#comments</comments>
+		<pubDate>Fri, 08 Jul 2011 21:44:07 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=399</guid>
+		<description><![CDATA[The title sounds bombastic but hopefully the content is going to be trivial&#8230; For anyone who&#8217;s been doing software provisioning in a non trivial environment this post should only be calling names to things he may already know. Yesterday I was chatting with Nati Shalom and we were analyzing the difficulties of maintaining software for [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2011%2F07%2F08%2Fthe-three-axis-of-software-management-complexity%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2011%2F07%2F08%2Fthe-three-axis-of-software-management-complexity%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<p>The title sounds bombastic but hopefully the content is going to be trivial&#8230; For anyone who&#8217;s been doing software provisioning in a non trivial environment this post should only be calling names to things he may already know.</p>
+<p>Yesterday I was chatting with <a href="http://natishalom.typepad.com/">Nati Shalom</a> and we were analyzing the difficulties of maintaining software for non-trivial web services, backend services or anything along these lines. We got the the conclusion that the various difficulties could be categorized into three different categories and so we named them as The <strong>Vertical</strong>, The <strong>Horizontal</strong> and the <strong>Depth</strong> axis (for lack of better name, I&#8217;m still looking for a better name to replace Depth).</p>
+<p>In most cases, installing a single backend service, a frontend service or any random software component really (doesn&#8217;t necessarily have to be a service) isn&#8217;t too hard. For example, think of installing a single instance of MySQL or Cassandra or Apache Tomcat. In most cases those things are not terribly hard to accomplish, there are usually some useful installation scripts and good tutorials. It sometimes may get a little more complex when the component installed depend on some other component but we&#8217;ll get to that later.</p>
+<p>Things start to get complicated when you want to go one of the following directions: Install a full stack, not just a single service, for example a LAMP stack (although the LAMP case is a pretty common theme so there&#8217;s abundant information for it on the net, but in general where there&#8217;s a stack of different technologies that need to speak to each other it starts to get complex). We named the stack the Vertical Axis. When you need to create a cluster of the component, for example a cluster of mysql, a cluster of memcached etc. We called the cluster case the Horizontal Axis. Or when you really need to go in-depth of the process, for example, you need to analyze the performance of mysql on a single node. Let us elaborate on all three axis.</p>
+<h2>The Vertical Axis &#8211; building a stack</h2>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/07/vertical.jpg"><img class="alignright size-thumbnail wp-image-401" title="vertical" src="http://prettyprint.me/wp-content/uploads/2011/07/vertical-150x150.jpg" alt="" width="150" height="150" /></a>In most real world cases a service or a component is part of a larger stack. Some common software stacks I&#8217;ve worked with in the past include LAMP (Linux, Apach, MySQL, PHP), Linux-Apache-Tomcat-Postgesql, Linux-Tomcat-MySQL-Memcached, Rails-MySQL-Nginx, Jetty-grails-HSQLDB and of course those are the simple examples, usually it gets much more complicated as the service matures.</p>
+<p>Installing or configuring or maintaining any of the given components isn&#8217;t terribly hard but usually when you need to get tomcat talking to MySQL or memcached or apache talk to tomcat, it starts to get just a little bit more complex. Of course this isn&#8217;t the end of the world, we&#8217;ve all been doing this for years, I&#8217;m just pointing out the extra level of work that needs to get done in order to build a stack. For example, apache when serving infront of tomcat will need to know which port tomcat listens to in order to forward the request to the correct port. An app running inside tomcal will need to know which port mysql is using and which port memcached is using and so on. If any of the components in the stack needs to get upgraded you&#8217;ll need to verify the correctness once again not only for the upgraded component, but for the entire stack as well.</p>
+<p>So to sum up the vertical axis &#8211; think of a single host with a stack of services and a graph of dependencies between them, for example apache depends on tomcat which depends on mysql and memcached.</p>
+<h2>The Horizontal Axis &#8211; building a cluster</h2>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/07/ShardDiagram-4.jpeg"><img class="alignright size-full wp-image-402" style="border-style: initial; border-color: initial;" title="Shard" src="http://prettyprint.me/wp-content/uploads/2011/07/ShardDiagram-4.jpeg" alt="" width="400" height="150" /></a></p>
+<p>Now think of a single component, for example a mysql server which you want to multiply and make a cluster of. This is typycally known as Sharding. Now things start to get really complicated. Although many shops employ database sharding, it still remains difficult to execute, hard to maintain and has a number of limitations. Some databases such as cassandra, which I&#8217;m a big fan of, do make this job so much easier but they have other limitations and a learning curve.</p>
+<p>A few more examples of what may be considered as a horizontal axis expantion and the challanges related to it are:</p>
+<ul>
+<li>Scaling a memcached cloud from one instance to two. Or even from two to three or any N to N+1. Memcached is a simple cache server and has a simple protocol and part of this protocol means that the client needs to know which exact server holds the key it is looking for. So a client cannot simply connect to a member of the memcached cloud, ask it for a value and hope this member will figure out which other member of the cloud owns it. Memcached doesn&#8217;t work like this, memcached expects the clients to know which server holds which key. As a result, when adding a new host to the clusters (or removing a host), what usually happens is that clients need to re-hash their keys which may lead to a) more complexity at the app level in the clients or b) simply clearing all the cache a starting afresh (which is unacceptable in many cases)</li>
+<li>Scaling a web frontend such as Tomcat from one instance to many. If your web app uses sessions managed by Tomcat or any kind of other local state then you&#8217;ll need to get that state synched up to all the members of the cluster. Tomcat does add support for this out of the box but it&#8217;s limited in scale. A different solution, or a solution that may be combined with that is taking care of session stickiness by a front facing proxy which isn&#8217;t trivial either and is also limited in scale. What people usually end up doing is instead of dealing with sessions, they give up on sessions and any kind of state management whatsoever in their frontends just so that when the day comes and they need to scale them horizontally, they will be able to do so easily. Heck, even google&#8217;s appengine has that as a design guideline &#8211; no state whatsoever, if you need anything then it&#8217;s in the persistence or caching layer.</li>
+</ul>
+<div>To sum up the horizontal axis, think of a single service that you want to multiply in order to gain capacity (or failover or what have you).</div>
+<h2>The Depth Axis &#8211; really understanding what the service does&#8230;</h2>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/07/depth.jpg"><img class="alignright size-thumbnail wp-image-403" title="depth" src="http://prettyprint.me/wp-content/uploads/2011/07/depth-150x150.jpg" alt="" width="150" height="150" /></a>The third axis is the Depth &#8211; really undersntanding what the process does, &#8220;how does the process feel&#8221;</p>
+<p>Is your database overloaded? Is it close to being overloaded soon? If it&#8217;s slow then why is it slow? if it&#8217;s inconsistently slow, then why does it misbehave in certain conditions?&#8230;</p>
+<p>Being the service doctor of even a single service on a single node, such as mysql, tomcat or cassandra could be a challanging task. It&#8217;s like watching the shadows on the wall and trying to figure out what creature&#8217;s creating those shadows. You&#8217;ll have to use your detective skills by monitoring the performance data of the service, monitoring possibly other services that operate on the host, of the file system, of the memory, fiddling with different parameters of the OS and of the service until you&#8217;ve finally nailed it.</p>
+<p>All three axis &#8211; the vertical, horizontal and depth are each complex on its own. The reality is that in most real life scenarios you&#8217;d have all three of them at the same time.</p>
+<h2>The Time axis &#8211; software erosion.</h2>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/07/honey_comb_weathering_clayton.jpg"><img class="alignright size-thumbnail wp-image-404" title="honey_comb_weathering,_clayton" src="http://prettyprint.me/wp-content/uploads/2011/07/honey_comb_weathering_clayton-150x150.jpg" alt="" width="150" height="150" /></a>And yet, there&#8217;s one more &#8211; the time axis. As surprising as this may sound, <a title="Software Rot" href="http://en.wikipedia.org/wiki/Software_rot">software erodes</a>, not only rocks, software does so too.</p>
+<p>If you&#8217;ve written a successful program, say a web site, you shouldn&#8217;t be surprised if after two years it suddenly stops working. There could be many reasons for that, for example, the log directory got full and logs weren&#8217;t being deleted from it, you used a 3rd party API which got changed, your OS gets old and vulnerabilities are found and spread while you did not take the time to patch it so you got hacked; or if you did patch it, then perhaps your program doesn&#8217;t work because of the new patch, really there are infinite number of reason why your software rots, decays, erodes, so today no one&#8217;s really surprised to find out that a two years old service is not functioning as it used to do when it was first launched if it hadn&#8217;t been taked care of.</p>
+<p>So the time axis adds yet another complexity, even if your service is stagnant, you don&#8217;t gain more users and don&#8217;t care to add features and don&#8217;t bother to maintain it, there&#8217;s a good chance that it will eventually stop working because of rot.</p>
+<p>That&#8217;s it, that was our observation that I wanted to share &#8211; these are the three plus one axis that make software maintenance, management and development a whole lot more complex in real life scenarios compared to the neon light lab scenario.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2011/07/08/the-three-axis-of-software-management-complexity/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Creating a Minimum Viable Product start page with WordPress</title>
+		<link>http://prettyprint.me/2011/02/06/creating-a-minimum-viable-product-start-page-with-wordpress/</link>
+		<comments>http://prettyprint.me/2011/02/06/creating-a-minimum-viable-product-start-page-with-wordpress/#comments</comments>
+		<pubDate>Sun, 06 Feb 2011 12:39:38 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=360</guid>
+		<description><![CDATA[Update: Cross posted here and at recipitor&#8217;s blog This post is a how-to for launching a simple Minimum Viable Product (or even less) web page for a new product I&#8217;m working on. If you want to read the story go ahead, otherwise skip right to The Point. The Story When I started working on my [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2011%2F02%2F06%2Fcreating-a-minimum-viable-product-start-page-with-wordpress%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2011%2F02%2F06%2Fcreating-a-minimum-viable-product-start-page-with-wordpress%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<div>
+<p>Update: Cross posted here and at <a href="http://www.recipitor.com/blog/">recipitor&#8217;s blog</a></p>
+<p>This post is a how-to for launching a simple Minimum Viable Product (or even less) web page for a new product I&#8217;m working on. If you want to read the story go ahead, otherwise skip right to The Point.</p>
+<h1>The Story</h1>
+<p>When I started working on my latest venture, <a href="http://www.recipitor.com">recipitor.com</a> I wanted to start by creating a very simple site that explains what the intended, not yet existing, product wants to do and allow the interested users to leave their details so we&#8217;ll get back to them later.<br />
+At first I thought I&#8217;d use a Google-form which is quite handy for collecting details from users, simply create a form by defining its fields (name, email) and it collects the data entered by users to a google spreadsheet. I&#8217;m usually sold on google products (I&#8217;m <a href="http://il.linkedin.com/in/rantav">biased</a>) but after having tried a few different things I realized I was simple unable to create something that was not-completely-ugly. Maybe if I put some more work into that I could get something better but given my design skills, I would not hold my breath.</p>
+<p>Then I realized that actually wordpress is quite good not only for blogs, but is also very good at creating very simple sites. All I wanted is just a landing page with a few paragraphs, maybe some graphics and a registration form. Details of the users would either go into a database or simply to my email address.</p>
+<p>Luckily a friend pointed me at <a href="http://torgronsund.wordpress.com/2010/09/16/7-wordpress-themes-for-launching-your-minimum-viable-product/">7 WordPress Themes for Launching your Minimum Viable Product</a> which is a great resource if that&#8217;s what you want to do &#8211; create a simple site, using wordpress that you can use to start marketing your product. Later I found even more themes on the <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> line, but from this list I chose the most basic (and free) theme, called <a href="http://templatic.com/freethemes/coming-soon">Coming Soon</a> by <a href="http://templatic.com/">Templatic</a>. The theme is very simple and what&#8217;s nice about it for hardcore developers like me with zero design skills is that it leaves very little room for design choices.</p>
+<div>
+<dl id="attachment_392">
+<dt><a href="http://prettyprint.me/wp-content/uploads/2011/02/Coming-Soon.jpg"><img title="Coming Soon" src="http://prettyprint.me/wp-content/uploads/2011/02/Coming-Soon-300x201.jpg" alt="" width="300" height="201" /></a></dt>
+<dd>Here&#8217;s how the theme looks after adding my wording</dd>
+</dl>
+</div>
+<p>The Coming Soon theme is a free one-page theme. All URLs on the blog simply land at this page. So it&#8217;s effective as an initial setup, but you&#8217;d probably kick it out once you have more content to show. Still, as a start page it&#8217;s quite nice.</p>
+<p>What was missing from this page is a simple registration form.</p>
+<p><img title="A simple contact form" src="http://prettyprint.me/wp-content/uploads/2011/02/Recipitor-1.jpg" alt="" width="343" height="145" /></p>
+<p>We just wanted to collect contact details of users that may be interested in our product and so we wanted to place on this page a simple text box that collects email. Luckily wordpress is very rich with plugins and for the simple case of a registration form there are probably a dozen. I chose the popular <a href="http://wordpress.org/extend/plugins/contact-form-7/">Contact For</a><a href="http://wordpress.org/extend/plugins/contact-form-7/">m 7</a> plugin which has a rich set of features and its own (very simple) DSL to create registration forms and send the details by email. When a user signs up on the form an email is sent back to the address I created for that register@recipitor.com. You can see another example of the form as it&#8217;s used on this blog, see <a href="http://prettyprint.me/contact/">http://prettyprint.me/contact/</a></p>
+<h1>The Point</h1>
+<p>I installed both the Coming Soon theme and the Contact Form 7 plugin only to realize that they just can&#8217;t seem to work together! So I fixed it and hence the post.</p>
+<p>The Contact Form plugin lets you edit the form with its UI which is pretty simple (it&#8217;s DSL is something like Name: [text name watermark "Your Name (optional)"]) and then when you&#8217;re done all you have to do it paste a snippet of the sorts [contact-form] into your posts or a page or a widget and you&#8217;re done. That&#8217;s pretty simple. Only that the Coming Soon theme doesn&#8217;t play nice with it.</p>
+<p>The theme has it&#8217;s own kind of interface for editing text. Instead of editing a real wordpress page it lets you edit its options page and that&#8217;s where you can add your text. It looks like this:</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/02/Coming-Soon-Options-‹-Recipitor-—-WordPress-1.jpg"><img title="Coming Soon Options ‹ Recipitor — WordPress-1" src="http://prettyprint.me/wp-content/uploads/2011/02/Coming-Soon-Options-‹-Recipitor-—-WordPress-1-232x300.jpg" alt="" width="232" height="300" /></a></p>
+<p>So the problem is that if you try to paste this [contact-form] into the Product Description section you don&#8217;t get a form like you expected, you just get this text <em>[contact-form]</em>&#8230; not great. I suppose the Contact Form plugin does some kind of preprocessing on the content of the posts or the pages or the text-widgets and then replaces things like [contact-form] with real forms. But since the theme is acting differently then the plugin is unable to preprocess it. In other words, the Contact Form supports real blog posts, real pages or real text widgets. The Coming soon properties page wasn&#8217;t one of them.</p>
+<p>So I figured, hey, why don&#8217;t I make a Text Widget and place the <em>[contact-form]</em> inside that widget, that should work, right? Huh&#8230;</p>
+<p><img class="alignleft" title="Widgets ‹ Recipitor — WordPress" src="http://prettyprint.me/wp-content/uploads/2011/02/Widgets-‹-Recipitor-—-WordPress.jpg" alt="" width="149" height="88" /></p>
+<p><img class="alignright" title="Widgets ‹ Recipitor — WordPress-1" src="http://prettyprint.me/wp-content/uploads/2011/02/Widgets-‹-Recipitor-—-WordPress-1.jpg" alt="" width="217" height="108" /></p>
+<p>When clicking in the Widgets menu I got the following annoying error message No Sidebars Defined, The theme you are currently using isn’t widget-aware, meaning that it has no sidebars that you are able to change. For information on making your theme widget-aware, please <a href="http://codex.wordpress.org/Widgetizing_Themes">follow these instructions</a>.</p>
+<p>Googling a bit made it clear that I need to somehow edit the code of the theme so that it becomes Sidebar Enabled and that I can place widgets on it.</p>
+<p>I haven&#8217;t done wordpress or php in, like 5 years, and even when I did I wasn&#8217;t proficient, so the following instructions may sound pretty straight forward to you; it wasn&#8217;t for me&#8230; so I&#8217;m sharing.</p>
+<p>Edit the theme template to place the dynamic sidebar in it. The interesting code is: (screenshot below)</p>
+<pre>&lt;?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar() ) : ?&gt;
+&lt;?php endif; ?&gt;</pre>
+<pre><a href="http://prettyprint.me/wp-content/uploads/2011/02/Edit-Themes-‹-Recipitor-—-WordPress.jpg"><img title="Editing Coming Soon - index.php" src="http://prettyprint.me/wp-content/uploads/2011/02/Edit-Themes-‹-Recipitor-—-WordPress.jpg" alt="Editing Coming Soon - index.php" width="1077" height="511" /></a></pre>
+<p>Then the next step is to add to functions.php the following code: (screenshot below)</p>
+<pre>if ( function_exists('register_sidebar') ) register_sidebar();</pre>
+<div>
+<dl id="attachment_384">
+<dt><a href="http://prettyprint.me/wp-content/uploads/2011/02/Edit-Themes-‹-Recipitor-—-WordPress-1.jpg"><img title="Editing Coming Soon - functions.php" src="http://prettyprint.me/wp-content/uploads/2011/02/Edit-Themes-‹-Recipitor-—-WordPress-1.jpg" alt="Editing Coming Soon - functions.php" width="882" height="672" /></a></dt>
+<dd>Editing Coming Soon &#8211; functions.php</dd>
+</dl>
+</div>
+<p>From here it&#8217;s pretty straight forward. Now you can go back to the Widgets section, add a text widget and in this widget paste the forms code. [contact-form].</p>
+<div>
+<dl id="attachment_385">
+<dt><a href="http://prettyprint.me/wp-content/uploads/2011/02/Widgets-‹-Recipitor-—-WordPress-2.jpg"><img title="Text widget with a contact form" src="http://prettyprint.me/wp-content/uploads/2011/02/Widgets-‹-Recipitor-—-WordPress-2.jpg" alt="Text widget with a contact form" width="923" height="639" /></a></dt>
+<dd>Text widget with a contact form</dd>
+</dl>
+</div>
+<p>The final result was quite nice. Here&#8217;s the single-page blog/site with the registration form: (currently at <a href="http://recipitor.com">recipitor.com</a>)</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/02/fulll.jpg"><img title="recipitor.com" src="http://prettyprint.me/wp-content/uploads/2011/02/fulll-300x255.jpg" alt="" width="300" height="255" /></a></p>
+</div>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2011/02/06/creating-a-minimum-viable-product-start-page-with-wordpress/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Continuous Deployment at outbrain</title>
+		<link>http://prettyprint.me/2011/01/24/continuous-deployment-at-outbrain/</link>
+		<comments>http://prettyprint.me/2011/01/24/continuous-deployment-at-outbrain/#comments</comments>
+		<pubDate>Mon, 24 Jan 2011 20:53:26 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=335</guid>
+		<description><![CDATA[Warning: very long but interesting write-up It gives me great pleasure that the last project I&#8217;ve been working on at outbrain is one with the potential to speed up product development and is at the frontline of many web companies: Continuous Deployment. These are my last days at outbrain (I&#8217;ll share more about where I&#8217;m [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2011%2F01%2F24%2Fcontinuous-deployment-at-outbrain%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2011%2F01%2F24%2Fcontinuous-deployment-at-outbrain%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<p>Warning: very long but interesting write-up <img src='http://prettyprint.me/wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> <a href="http://prettyprint.me/wp-content/uploads/2011/01/2009-06-16-why-continuous-deployment.jpg"><img class="size-thumbnail wp-image-350 alignright" title="2009-06-16-why-continuous-deployment" src="http://prettyprint.me/wp-content/uploads/2011/01/2009-06-16-why-continuous-deployment-150x150.jpg" alt="" width="150" height="150" /></a></p>
+<p>It gives me great pleasure that the last project I&#8217;ve been working on at <a href="http://www.outbrain.com">outbrain</a> is one with the potential to speed up product development and is at the frontline of many web companies: <a href="http://www.startuplessonslearned.com/search/label/continuous%20deployment">Continuous Deployment</a>. These are my last days at outbrain (I&#8217;ll share more about where I&#8217;m headed later) and I feel this is the right time to share my learnings about CD.</p>
+<h1 style="clear: all;">Background</h1>
+<p>For the past few months I&#8217;ve been hard at work on continuous deployment at outbrain. Initial inception of this project started about a year and a half ago when I was starting to get the feel that &#8220;things are moving just too slow&#8221;. Maybe for desktop or other kind of apps a slow dev process is right, but since Outbrain is a web service, it just felt it didn&#8217;t need to be this way (and recently, Google&#8217;s Chrome team have made their <a href="https://docs.google.com/present/view?id=dg63dpc6_4d7vkk6ch&amp;pli=1">release process</a> public which shows that even for desktop apps it can be faster).</p>
+<p>What doesn&#8217;t need to be this way? What am I talking about? &#8211; I would implement a feature, write complete unit tests, all went well but then I had to wait. I had to wait for the next release cycle which was usually a few weeks ahead. During this release cycle, QA would go through my new feature or bug fix and sometimes would reject it or just have a different take on my solution. Then, when my head is several weeks older and completely drained elsewhere, I would have to stop the world, fix what needs to be fixed and return to QA, then, if all went well, it would usually take another week or two until the feature is fully public to users, and this is where real feedback starts to show, then I may realize that I&#8217;ve spent 90% of my time on things that don&#8217;t matter. I would constantly switch context between projects and features due to this few-weeks gap between feature development and feature-meets-the-users. Context switches are expensive, even for humans.<br />
+Outbrain is not the only company struggling with this. As a matter of fact, at the time, outbrain was one of the luckiest to employ only a few-weeks release cycle, while others employ months, sometimes even a year. Yes, even internet companies, large internet companies, would stall for a whole year before releasing something, been there&#8230;</p>
+<p>It was about a year and a half ago that I was starting to poke my manager, hey, why do *I* need to wait in line like the rest of my team? I trust my code, it&#8217;s ready! Does it really make sense for my new cool feature to be bundled with other cool features just because we decided to roll on release cycles? Those features have nothing else to do with each other except for the fact that they were decided to be worked on by two different individuals but roughly at the same timeframe. And worse, why do I need to wait and sync with other features, even if they delay, why do I need to delay my own features which are, again, completely unrelated and don&#8217;t depend on them, just because other features are more heavyweights? And why do I need to rush my heavyweight  feature even when it&#8217;s not yet ready, just to make it on time for a release cycle so that other folks are not delayed? And why do we have to fear the &#8220;release-day&#8221; and eat pizzas for a few days-nights? Releases should be fun, not a nightmare. And as Kent Beck has put it, &#8220;It&#8217;s easy to mistakenly spill a bucket, we should use a hose of features, not carry buckets of them&#8221; (my wording, his idea).</p>
+<p>Those kind of thoughts were circling not only my head, and not only outbrain. As a matter of fact, outbrain is a bit (very) late on the continuous deployment train and we&#8217;ve had other companies we were lucky to be learning from. Companies such as <a href="http://eng.wealthfront.com/">WealthFront</a> with my friend <a href="http://www.linkedin.com/in/eishay">Eishay</a>, flickr, etsy and others have successfully implemented their own take on continuous deployment aligned with <a href="http://en.wikipedia.org/wiki/DevOps">devops</a>, which is a different concept but in my mind related. At the beginning, to me it was clear that something is wrong at how we do things, but getting everyone aboard the mission to fix &#8220;it&#8221; was about a year of work&#8230; It&#8217;s not that I had the full solution right up front, admittedly, for the past year I&#8217;ve been experimenting with different ad-hoc solutions, plus, our company, like any other company, had to invest not only in engineering best practices but also in, well&#8230; in its business, so frankly most of the time I was hard at work doing the business and not doing infrastructure. But at some point, after heaving read some inspirational posts from other companies, after having met with a few developers from those companies, it was decided, outbrain is on board for continuous deployment and I was happy to be one of the core drivers of both the decision and the implementation.</p>
+<p>Looking back at where we were a year ago (this doesn&#8217;t have to take a year, by the way, I was doing many other things at the same time), I would never want to go back there. Slow and lengthy release cycles, sleepless nights at the point of release, unpredictable release dates and delays beyond your control, all these were not doing good to the good but potentially fragile relationship between product, dev and ops. Add to that a fast growing business with daily firefighting, engineering challenges of ever-growing scale and business direction that isn&#8217;t always clear to a company this age. However, even given all this pain, at that time it wasn&#8217;t always easy to get everyone on board at investing a few months of man hour, completely changing our engineering, QA and operations culture, and doing something that only a few companies in the world had succeeded in, and it was not yet clear that *we* are going to succeed in. As a matter of fact, even today, even though most folks are on board, there&#8217;s still work to do (AKA culture)</p>
+<p>When it finally happened, and a formal decision to &#8220;go for it&#8221; was imminent, a few of us were already &#8220;doing it&#8221;.  Doing it meant, first write a whole lot of tests, which is obviously a good practice, regardless of continuous deployment, but is absolutely necessary for a successful continuous deployment scheme, releasing new features or bug fixes right out of trunk, even though the rest of the team was still working in release branches, some of us have just decided that this is silly and we&#8217;re not going to play game, and some limited deployment automation and live systems validation (&#8220;testing production&#8221; rather then testing a staging or test environment). There was still a long way to go but the cultural shift had already begun and and culture is one of the corner stones.</p>
+<p>It&#8217;s funny, it seems like with Continuous Deployment, we&#8217;re all getting back to high-school again; a few are &#8220;doing it&#8221;, some even perform well, some only say that they&#8217;re doing it but they really aren&#8217;t and those who don&#8217;t do it, never mention this unless they get asked.</p>
+<h1>The Goal</h1>
+<p>The goal was to make deployments <strong>easy</strong> and <strong>safe</strong> so that new dev-to-user-feedback loop is as small as possible.</p>
+<p>We want to be able to move the product fast, so we don&#8217;t want to spend all day monitoring ongoing deployments or triggering them, we want to spend the time writing features, not fighting fires so we need a robust system that we can depend on. To refine this we&#8217;ve put ourselves to the following list of goals from the continuous deployment system:</p>
+<ol>
+<li>Easy. One button to rule them all, or one simple commit, or one simple script that you have to fire and forget.</li>
+<li>Safe. Things would fail, all the time, that&#8217;s expected. Sometimes it&#8217;s your fault but many times it&#8217;s just the hardware or someone else&#8217;s fault, but either way, you have to deal with it. The goal was for the system to be safe which means that it does everything that&#8217;s in its power to validate that the system is stable, if need be, rollback to a previous version, and alert the heck out of everyone when/if something went wrong.</li>
+<li>Automated, as much as possible. Automate DB schemas update, automate monitoring, automate service upgrades, automate infrastructure, automate all. This is a derivative of the first two but worth mentioning.</li>
+<li>Be able to deploy <strong>any outbrain service</strong> to <strong>any subset of servers</strong> (choose by staging, all, one DC, two, 50% etc).</li>
+</ol>
+<h1>The Tech</h1>
+<p>With the current system that we&#8217;ve built a developer is able to commit code and soon thereafter his new code is deployed to all production servers and meets users. The developer can choose whether she wants to release to a restricted set of staging servers or to the complete set of all servers. Everything is completely automated, a simple<span style="color: #008000;"> $ svn ci</span> command would start things off and there you go, a few minutes later (sometimes an hour later), depends on the speed of the moving parts, but with absolutely zero manual intervension, the new service is fully deployed to the eyes of the users.</p>
+<p>We are still far from the dream-solution we want to have in place, however, I think what we have acomplished so far already enables us iterate significantly faster on the product.</p>
+<h2>The Core Components</h2>
+<p>The core components, as we&#8217;ve so far determined, are part cultural, part technical, e.g. tools. Some ppl ask me what&#8217;s more important, culture or the tools and I say (and I didn&#8217;t make this up) that culture is more important but tools help make the right culture. For example, if you look at code reviews (we use reviewboard, BTW) then just saying Code reviews are great or Code reviews are obligatory isn&#8217;t going to help when you don&#8217;t have the supporting tools to make code review fun.</p>
+<p>The core components are:</p>
+<h2>Trunk Stable</h2>
+<p>When I was at youtube I was told that everything I commit to trunk may, at any time, possibly 5min later, go live to a few hundreds of millions users. Imagine that. At the time youtube was not employing continuous deployment per-se but the culture was there. Every developer knew that every commit to trunk counts and may be seen by users at any given time, even after the committer has left the office. Usually code pushes went out once a week but there were emergency pushes almost daily. At first a few skepticals thought that this might slow things down, that everyone would be terrified to commit code, but as it turned out, quite the opposite happened, things just moved faster as folks would still commit code regularly to trunk (and with care, as they should) but they did not have to burn so much time on backporting or forward porting to branches, if you&#8217;ve ever used subversion for that then you know what I mean. (of course git makes merges a hell of a lot easier)</p>
+<p>At outbrain we&#8217;ve decided to go trunk-only a few months ago. This, together with a well established automated testing culture and with live service validation is one of the main cultural pillars of CD.</p>
+<p>Trunk stable means a few things:</p>
+<ol>
+<li>As the name suggests, trunk should always be stable and ready for production. Needless to say, never commit a code that does not compile, never commit a code that fails automated testing, never commit something you don&#8217;t want users to see. Keep in mind that sometimes even if it&#8217;s not you releasing your service, someone else might.</li>
+<li>Everyone works on trunk. There are no release branches (tags are OK), no need to merge code, no need to commit twice.</li>
+<li>Commit often, commit small. Never keep your edits more than one day, preferably no more than one hour, always commit them as soon as they are ready. Commits should be as small as possible, the smallest atomic unit (that compiles, passes tests and does not intimidate users).</li>
+<li>Use feature flags. If you have code that&#8217;s not ready to see users yet (this sometimes happen although we try to set that to a minimum), then use feature flags to hide your code. A flag can be passed over from a user (internal user) in the URL for example &amp;enableFeatureX=true or set on a service properties file in a staging environment for example. The idea is to use as little as possible feature flags b/c conceptually they are like branches and they make things complicated. As soon as the feature is fully released, remove the flag from the entire source tree to clean up the code.</li>
+</ol>
+<p>Trunk stable is something many companies do and is not special to continuous deployment neither to outbrain. But this is IMO one of the required steps and a big cultural change towards CD.</p>
+<h2>Automated Testing</h2>
+<p>This is the second, but actually the most important pillar. Automated testing and testing infrastructure are at the heart of every software organization that respects the profession and far better experts have produced extensive writeups on the subject, so I will refrain from delving into any details here. I will just very shortly describe the motivation and how we use automated testing.</p>
+<p>For one, if you release something every 5, 10, 15 or 60 minutes, even once a day, you cannot afford to have someone-in-the-middle, any kind of manual process is unacceptable and will just kill speed of the process. Some things cannot be automoatically tested, for example if you add a new feature you should do your usability homework, but that aside, 99% of the features, bug fixes and code can and should be completely automatically tested. I&#8217;m saying that heavy hearted b/c admittedly at outbrain we do not excel in it. Our tests do not have sufficient coverage nor are they sufficiently reliable (some tests &#8220;randomly&#8221; fail, or even worse, &#8220;randomly&#8221; pass). However, we&#8217;ve decided to embark the CD train nevertheless and fix this technical debt as we go.</p>
+<p>Tests need to be fast. If you release every couple of weeks then it doesn&#8217;t hurt anyone that the entire test suite takes 1h to run. If you deploy a few times a day you&#8217;ll be losing your patience and your deployment queue would get overloaded. A few minutes (we are down to 5) would be a reasonable time for a good test cycle.</p>
+<h2>Monitoring, self-test and service instrumentation</h2>
+<p>We deploy fast, it&#8217;s easy and we deploy many times a day, but we do not deploy recklessly. We want to make sure that during/after deployments the system is stable and it stays stable. We did not make this up, most of the things I&#8217;ve learned again from my friend Eishay at WealthFront.</p>
+<p>We instrument the services such that a service call say &#8220;I&#8217;m OK&#8221;. we have a version page which lists all versions of the service&#8217;s libraries, a selftest page which, when invoked runs a list of internal tests (talk to a DB, talk to another service etc) and returns a success status. We need to add a perf page that tells us how&#8217;s the performance looking at the server right now and more instrumentation is welcome.</p>
+<p>The deployment tool, right after deploying the new version would check the service&#8217;s selftest page and will continue to the next server in the cluster only if that test passes. We do not have automated rollbacks yet, but this is planned.</p>
+<h2>Infrastructure Automation with Chef</h2>
+<p>When we set out to do CD there was a preliminary step we had to take &#8211; infrastructure automation. Infrastructure automation is one of the things that will make your ops guys really happy (well, if done right&#8230;). Outbrain is probably the last on the train of infrastructure automation, indeed we were very late to that, but finally we&#8217;re here. I wouldn&#8217;t say it&#8217;s completely required for CD per-se but I would argue that it&#8217;s completely required for any web shop that manages a non-trivial set of services and those shops happen to be the ones that also look at CD, so the correlation is pretty high. Plus there&#8217;s another thing, clulture is here again, if you want your team thinking about constant deployments and always being ready to go live (and actually doing it), you better have your ops team aligned to that as well. Infrastructure automation makes this message clear, in one commit or one button push you have an entire datacenter ready for operatration.</p>
+<p>We&#8217;ve looked at a few tools and finally chose <a href="http://opscode.com/chef">Chef</a>. I think <a href="http://www.puppetlabs.com/">Puppet</a> isn&#8217;t bad either but we never gave it a serious try.</p>
+<p>I must say that at the beginnig, choosing the tool for infrastructure automation was something that we (and I personally) put a lot of time into, it was a time sink. I was looking for a tool that would do everything, that would automate both infrastructure and application deployments. For example, a tool that would install tomcat and would also install it&#8217;s webapps while at the same time configure its monitoring on <a href="http://www.opennms.org/">opennms</a> (we&#8217;re moving to <a href="http://www.nagios.org/">nagios</a> now). Now, there are some tools that do it, as a matter of fact, most tools that I&#8217;ve seen could do it all, one way or the other, that&#8217;s why it was so confusing b/c they all could do it, but each one had its own nuance and preferences and some were better at infrastructure automation, others were better at application-level deployments and I was looking for the perfect tool that does both. I&#8217;ve looked at <a href="http://opscode.com/chef">Chef</a>, <a href="http://www.cfengine.org/">cfengine</a>, <a href="http://www.puppetlabs.com/">puppet</a>, <a href="http://www.controltier.org">ControlTier</a> (horrible, sorry), and a few others. Finally I&#8217;ve decided that I&#8217;m going to use two different tools, Chef for infrastructure and Glu for applications.</p>
+<h2>Deployments with Glu</h2>
+<p><a href="https://github.com/linkedin/glu">Glu</a> is a young tool, not for the faint of heart. Glu was developed at linkedin and was outsources just a few weeks ago. I think outbrain is the first &#8220;customer&#8221; outside of linkedin, that is to judge by the relative number of my posts on the support forum&#8230;</p>
+<p>Glu is a deployment tool, conceptually it works somewhat similar to chef or puppet but to me it seemed more convenient as a product deployment tool. With glu and its nice API it&#8217;s easy to create a (json) model that describes your deployment scheme, create an execution plan to update the servers and execute it either in parallel or in sequence. With its API it&#8217;s also possible to create even more complex deployment scenarios such as Exponential or any other that you like.</p>
+<p>The following diagram, taken from glu&#8217;s <a href="https://github.com/linkedin/glu/wiki/Overview">overview page</a> describes its core architecture.</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/01/agent_overview.png"><img class="size-medium wp-image-345 alignnone" title="agent_overview" src="http://prettyprint.me/wp-content/uploads/2011/01/agent_overview-300x233.png" alt="" width="300" height="233" /></a></p>
+<p>Glu requires an agent to be deployed on all of the target hosts and a web console. The agents report their status to a <a href="http://hadoop.apache.org/zookeeper/">zookeeper</a> and the console gets its input both from ZK and from the user/API. The console then lets you Define a Model which tells it which service is deployed where and then execute an update which will install or upgrade the service according to the reports generated by its agents and saved into ZK.</p>
+<p>We use both glu&#8217;s API for automated deployments and its web console to monitor its progress or to perform ad-hoc deployments. More on that in the next section.</p>
+<h2>Servicisation &#8211; Componentization</h2>
+<p>One of the core principles in software development (and math, and chemistry, and&#8230;) is breaking a problem to smaller parts to solve it. No news here, so why do I bother mentioning that?</p>
+<p>When you release often you want to make sure that:</p>
+<ol>
+<li>If you caused a damage, the damage is contained, it&#8217;s the smallest damage possible</li>
+<li>If there is an error it&#8217;s easy to find where it is and what caused it. Smaller services and smaller releases make that an easier problem.</li>
+<li>If you need a rollback, it&#8217;s easy to do so. The smaller the roll-forward the easier the rollback is.</li>
+<li>There&#8217;s always more than one instance of any type of services so that when you take one down the system is still functioning.</li>
+</ol>
+<p>Breaking your services to small parts makes CD much easier.</p>
+<h2>The Deployment Pipeline</h2>
+<p>In this section I&#8217;ll describe the system we&#8217;ve built. We don&#8217;t think this is the best of breed and we have like 20 other features or shortcomings we have on our todo list but I thought it&#8217;d still be helpful to read how it works.</p>
+<p>What I describe here is just product deployments, not infrastructure automation. Simply, you write your code, test it, then you want users to see it. The assumption is that all databases are already in place, configuration is in place, application servers are in place, all you need to do is deploy new bits.</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2011/01/cd_public.png.jpg"><img class="alignnone size-full wp-image-347" title="cd_public.png" src="http://prettyprint.me/wp-content/uploads/2011/01/cd_public.png.jpg" alt="" width="669" height="694" /></a></p>
+<p>Here&#8217;s an explanation of the flow:</p>
+<ol>
+<li>A developer edits some source files, completes a feature or a bug fix, writes tests and commit with the message &#8220;<span style="color: #008000;">Fixing bug x #deploy:MyService #to:staging</span>&#8221;
+<ol>
+<li>The <strong>#deploy</strong> has the module name to deploy. It may contain a list of modules, such as #deploy:ImageServer,RecommendationEngine</li>
+<li>The <strong>#to</strong> describes a set of tags for the services to be deployed. For example: #to:staging (staging environment) or #to:my_host (just one host, every hosts are tagged with their host name) or #to:ny,asia (deploy to both the NY datacenter and asia datacenter)</li>
+</ol>
+</li>
+<li>When the commit is done a subversion post-commit hook is run and extracts the #to and #deploy parameters from the commit. It discards all commits that don&#8217;t have #deploy and those that do have #deploy are sent to the CI server</li>
+<li>The CI server (we use TeamCity, nice UI but a miserable API) builds the module and all modules it depends on (we use maven so dependency management is a breeze) and creates RPMs. RPMs are RedHat/CentOS/Fedora&#8217;s standard packages. RPMs are nice since they let you easily query the host, once its installed for the current version and with the help of yum they make version control easy. When the build passes including all the tests:
+<ol>
+<li>The RPMs are copied to the yum repositories and</li>
+<li>The repositories are asked to rebuild their index.</li>
+<li>Then, the last step of the build pings GluFeeder telling it to release the module and sending the #to tags.</li>
+</ol>
+</li>
+<li>GluFeeder is the middleman between Glu and outbrain&#8217;s system. Glu requires a model file which describes each service and its version. After a #deploy a specific module on specific hosts that matches a certain tag needs to get its version updated. GluFeeder does that, it reads glu&#8217;s model file from subversion where we keep it and updates just the parts that need to be updated. GluFeeder follows these steps:
+<ol>
+<li>Read glu.json model file from subversion, select the nodes that match the modules being #deployed and that match the #to tags selection and updates their version</li>
+<li>Commit the file back to subversion</li>
+<li>Wait for yum to be ready. Sometimes it takes yum a little while before the RPMs are fully indexed, so GluFeeder would wait that and poll every 30 seconds. A related project is <a href="https://github.com/rantav/yummer">yummer</a></li>
+<li>POST the model file to Glu</li>
+<li>Tell glu to update all the new modules that were just posted.</li>
+<li>Post an update to <a href="http://yammer.com">yammer</a> to let everyone know that a release is in process</li>
+</ol>
+</li>
+<li>Glu now takes command and starts a sequential release to all the nodes that need to be updated. This is the last step in the process and if it was successful the release is done.
+<ol>
+<li>Glu&#8217;s agents install the new RPMs which in most cases contain a WAR file and restart the tomcat web server.</li>
+<li>They then wait for tomcat to be ready (polling) and check the new app&#8217;s version page to make sure that it was property deployed and that the context was brought up</li>
+<li>They then access the self-test URL to make sure that the service is well functioning.</li>
+<li>When all tests passed an agent is done so it tells the glu console that it&#8217;s finished successfully and the console continues to the next. If one of the tests would fail, the deployment immediately stops.</li>
+<li>An agent would also set a timer to test the self-test every 5 minutes from now on so that we know that the service is still alive.</li>
+</ol>
+</li>
+</ol>
+<p>The first thing to note is that We Are Not Done. As a matter of fact, outbrain has just started. The current system is still pretty much barebones and there are numerous improvements and plenty of love it still deserves. Like any web product, this product is not done and will probably be never done, unless it&#8217;s dead&#8230; However, it does give us a pretty good start since now there&#8217;s a framework, the basic features are there and the deployments are already *so much easier*.</p>
+<p>This whole process takes a variable amount of time, something between 10 minutes to 1 hour. The reason for most of the delays is the size of the RPM files and their transfer time. They are about 70M, and their size is mostly influenced by the large number of 3rd party jar files embedded in the WAR. This doesn&#8217;t have to be this way and we need to fix it. There are a few possible fixes and we will probably use a combination of all of them, one is just remove all the unneeded dependencies, another is better componentization. But by far the most effective way is to copy only what we need to copy, do not include all the 3rd party or even outbrain&#8217;s own jars if they haven&#8217;t changed. This is possible and can be embedded in the RPM script,  but it&#8217;s out of scope for this writeup.</p>
+<p>Another place for improvement is the build time and quality. Our tests run much too long, they don&#8217;t have enough coverage and they sometimes fail &#8220;randomly&#8221;, e.g. depending on some external unclean state such as a database. As a matter of fact the mere fact that they actually use a database is a pain, not to mention that it causes slowness and severely degrades reliability. There&#8217;s much work to do on the testing front.</p>
+<p>We would like glu to tell us if/when something went wrong with a deployment. We want bells to ring and alarms to go off. Currently to the best of my knowledge there is a way to do this through glu&#8217;s (nice) API, we just didn&#8217;t do it yet. It&#8217;d also be nice if glu supported something like that out of the box. (feature request was posted)</p>
+<p>What we did not implement yet is a service publishing mechanism whereby a service, when it goes down would unpublish itself  by telling its users (other internal services) that it&#8217;s going down and then republish itself when going back up. Currently we use a load balancer for that (HAProxy) which sort of makes this work. The proxy would know that if a certain box gives too many errors it needs to go out of the pool but the downside of that is that, first, there will be errors and you&#8217;d get dirty logs and perhaps some suffering users b/c at least the first request would be erroneous and second, it takes some time for the proxy to take action. This can be improved by synchronous  service publishing whereby a service announces itself as up/down in a shared storage such as zookeeper (and of course that&#8217;s not the only way).</p>
+<p>Reliability wise we can do a lot more. We use the self-test hook which is a good start but there&#8217;s so much more that can be done. For example, since we already have a client on each host then it&#8217;s relatively easy to monitor the logs and search for ERRORs of Exceptions. Another thing we ought to do is monitor the KPIs (Key Performance Indicators) in an automated way so that we know that if a certain release has degraded the quality of our serving then we need to roll it back. and figure out a fix for that.</p>
+<p>Automated rollbacks is also something we did not do yet. Glu does not support this out of the box (feature request submitted), but it can be done with its API. Currently, to roll back a release takes a few mouse clicks so it&#8217;s not that hard which is a good thing but it would even be nicer if a complete and atomic plan existed in glu such that if a release breaks in the middle then an automated rollback is employed.</p>
+<p>Overall, even with all the points we&#8217;ve written down for improvement, we&#8217;re very happy with the system as it is right now since streamlines the deployment process, saves a lot of developer time and makes it much more robust than it used to be.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2011/01/24/continuous-deployment-at-outbrain/feed/</wfw:commentRss>
+		<slash:comments>17</slash:comments>
+		</item>
+		<item>
+		<title>Hector API v2</title>
+		<link>http://prettyprint.me/2010/08/06/hector-api-v2/</link>
+		<comments>http://prettyprint.me/2010/08/06/hector-api-v2/#comments</comments>
+		<pubDate>Fri, 06 Aug 2010 11:25:22 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=322</guid>
+		<description><![CDATA[Update: This post is now close for comments. If you have any questions please feel free to subscribe and ask at hector-users@googlegroups.com Update: The API was change a bit, it was mainly package renaming and interface extractions. To get a consistent snapshot of the api usage have a look at github on the release tag [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2010%2F08%2F06%2Fhector-api-v2%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2010%2F08%2F06%2Fhector-api-v2%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<p>Update: This post is now close for comments. If you have any questions please feel free to subscribe and ask at <a href="https://groups.google.com/forum/#!forum/hector-users">hector-users@googlegroups.com</a></p>
+<p><strong>Update:</strong> The API was change a bit, it was mainly package renaming and interface extractions. To get a consistent snapshot of the api usage have a look at github on the release tag for example for 0.6.*:<br />
+<a href="http://github.com/rantav/hector/blob/0.6.0-17/src/main/java/me/prettyprint/cassandra/examples/ExampleDaoV2.java">http://github.com/rantav/hector/blob/0.6.0-17/src/main/java/me/prettyprint/cassandra/examples/ExampleDaoV2.java</a><br />
+and <a href="http://github.com/rantav/hector/blob/0.6.0-17/src/test/java/me/prettyprint/hector/api/ApiV2SystemTest.java">http://github.com/rantav/hector/blob/0.6.0-17/src/test/java/me/prettyprint/hector/api/ApiV2SystemTest.java</a></p>
+<p>and for 0.7.*<br />
+<a href="http://github.com/rantav/hector/blob/0.7.0-18/src/main/java/me/prettyprint/cassandra/examples/ExampleDaoV2.java">http://github.com/rantav/hector/blob/0.7.0-18/src/main/java/me/prettyprint/cassandra/examples/ExampleDaoV2.java</a><br />
+and <a href="http://github.com/rantav/hector/blob/0.7.0-18/src/test/java/me/prettyprint/hector/api/ApiV2SystemTest.java">http://github.com/rantav/hector/blob/0.7.0-18/src/test/java/me/prettyprint/hector/api/ApiV2SystemTest.java</a></p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2010/08/Hector.jpg"><img class="alignright size-thumbnail wp-image-323" title="Hector" src="http://prettyprint.me/wp-content/uploads/2010/08/Hector-150x150.jpg" alt="" width="150" height="150" /></a><a href="http://github.com/rantav/hector">Hector</a> is a high level java client for the <a href="http://cassandra.apache.org/">cassandra database</a>. It was <a href="http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/">first released some six months ago</a> and was coined  as the de-facto java client for cassandra.</p>
+<p>There is a large <a href="http://groups.google.com/group/hector-users">community</a> of users and companies who run their production high scale systems based on hector.</p>
+<p>The main benefits hector adds to the existing thrift based interface are:</p>
+<ul>
+<li>connection pooling</li>
+<li><a href="http://prettyprint.me/2010/04/03/jmx-in-hector/">extensive jmx support</a></li>
+<li>failover</li>
+<li><a href="http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/">simple load balancing</a></li>
+<li>high level java based API</li>
+</ul>
+<p>Since the time hector was first written, first by me, then with the good help of other community members (of note is Nathan McCall) it&#8217;s gained popularity even in the face of &#8220;competition&#8221; so to speak, in an open source manner.</p>
+<p>However, one thing that I&#8217;ve always felt we can improve is the API. When writing the first version of hector the premise was that users are comfortable with the current level of the thrift API so hector should maintain an API similar in spirit. Hector may make things more type safe (such as when replacing all the ColumnOrSuperColumn types with specific Column or a SuperColumn typed methods) but in general I figured I should introduce as little new concepts as possible so that new users who are already familiar with the thrift way can easily learn the new library.</p>
+<p>I was wrong.</p>
+<p>As it turns out, users don&#8217;t learn the thrift API and then go use hector. Most users tend to just skip the thrift API and start with hector. Fait enough. But then I&#8217;m asked why did I make such a funny API&#8230; They are right, users of hector should not suffer from the limitations of the thrift API.</p>
+<p>Add to that the complexity of dealing with failover, which clients need not care about at the API level (and in the v1 API they did) and some complex anonymous classes and the <a href="http://en.wikipedia.org/wiki/Command_pattern">Command pattern</a> users need to understand (if only we could have closures in java&#8230;) then we get a less than ideal API.</p>
+<p>So the conclusion was clear: <strong>an API v2 was needed</strong>.</p>
+<p>The new API uses the same proven hector implementation underneath but exposes a cleaner interface to the users. It also makes meta operations such as cluster management explicit.</p>
+<p>We&#8217;re all coders, so enough talkin, let&#8217;s see some code&#8230;</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">// Create a cluster</span>
+Cluster c <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">getOrCreateCluster</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;MyCluster&quot;</span>, <span style="color: #0000ff;">&quot;cassandra1:9160&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// Choose a keyspace</span>
+KeyspaceOperator ko <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">createKeyspaceOperator</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Keyspace1&quot;</span>, c<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// create an string extractor. I'll explain that later</span>
+StringExtractor se <span style="color: #339933;">=</span> StringExtractor.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// insert value</span>
+Mutator m <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">createMutator</span><span style="color: #009900;">&#40;</span>keyspaceOperator<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+m.<span style="color: #006633;">insert</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span>, <span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span>, createColumn<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span>, <span style="color: #0000ff;">&quot;value1&quot;</span>, se, se<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">// Now read a value</span>
+<span style="color: #666666; font-style: italic;">// Create a query</span>
+ColumnQuery q <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">createColumnQuery</span><span style="color: #009900;">&#40;</span>keyspaceOperator, se, se<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// set key, name, cf and execute</span>
+Result<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span> r <span style="color: #339933;">=</span> q.<span style="color: #006633;">setKey</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">setName</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">setColumnFamily</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">execute</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// read value from the result</span>
+HColumn c <span style="color: #339933;">=</span> r.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #003399;">String</span> value <span style="color: #339933;">=</span>  c.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span>value<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p><strong>Clusters</strong> are identified by their name, in this case <em>MyCluster.</em> A call to getOrCreateCluster(&#8220;MyCluster&#8221;, hostport) would create a new cluster if it doesn&#8217;t exist, but return a previously created one if it does. The Cluster object represents the client&#8217;s view of the cassandra cluster. A program may hold several Cluster instances, although typically one is sufficient.</p>
+<p>A <strong>KeyspaceOperator</strong> is the object used to make operations (reads, writes) on specific keyspaces. A program can create many of those.</p>
+<p>The <strong>StringExtractor</strong> is interesting&#8230; <strong>Hector provides type safety</strong> for column names and column values. Recall that in cassandra column names are byte[] and column values are byte[] too. So usually the programmer is required to translate those bytes back and forth to actual java objects. When designing the API we wanted to simplify this work and provide a type-safe API. Note that in the next lines we use HColumn&lt;String, String&gt; which is a column who&#8217;s name is of type String and value is also of type String as well as ColumnQuery&lt;String, String&gt; which is a query that returns columns with String names and String values. We could also have chosen to have columns with String names but Long values HColumn&lt;String,Long&gt; where it makes sense for the application.</p>
+<p>To provide this type safety hector defines an Extractor&lt;T&gt; interface.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #008000; font-style: italic; font-weight: bold;">/**
+ * Extracts a type T from the given bytes, or vice a versa.
+ *
+ * In cassandra column names and column values (and starting with 0.7.0 row keys) are all byte[].
+ * To allow type safe conversion in java and keep all conversion code in one place we define the
+ * Extractor interface.
+ * Implementors of the interface define type conversion according to their domains. A predefined
+ * set of common extractors can be found in the extractors package, for example
+ * {@link StringExtractor}.
+ *
+ * @author Ran Tavory
+ *
+ * @param   The type to which data extraction should work.
+ */</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">interface</span> Extractor <span style="color: #009900;">&#123;</span>
+&nbsp;
+  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Extract bytes from the obj of type T
+   * @param obj
+   * @return
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">byte</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> toBytes<span style="color: #009900;">&#40;</span>T obj<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Extract an object of type T from the bytes.
+   * @param bytes
+   * @return
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> T fromBytes<span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">byte</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> bytes<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>Hector provides a set of default and commonly used implementations of extractors, such as <em>StringExtractor</em> and <em>LongExtractor</em> (see <em>package me.prettyprint.cassandra.extractors</em>). Users of Hector are expected to implement their own application-specific extractors. The interface is pretty straight forward and simple, you only need to implement two methods which convert your type to/from byte[]. Extractors are <a href="http://en.wikipedia.org/wiki/Purely_functional">purely functional</a> which means that they don&#8217;t have side effects and have no state. Using extractors, the API adds simplicity, <a href="http://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> and type safety.</p>
+<p>Next we create a mutator and insert a value:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">Mutator m <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">createMutator</span><span style="color: #009900;">&#40;</span>keyspaceOperator<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+m.<span style="color: #006633;">insert</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span>, <span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span>,
+    HFactory.<span style="color: #006633;">createColumn</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span>, <span style="color: #0000ff;">&quot;value1&quot;</span>, se, se<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>The class HFactory (&#8220;Hector Factory&#8221;) has a set of many useful static factory methods. I usually just <em>import static me.prettyprint.cassandra.model.HFactory.*</em> and get all it&#8217;s public method as short method names, so the previous line can be written as:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">Mutator m <span style="color: #339933;">=</span> createMutator<span style="color: #009900;">&#40;</span>keyspaceOperator<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+m.<span style="color: #006633;">insert</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span>, <span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span>, createColumn<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span>, <span style="color: #0000ff;">&quot;value1&quot;</span>, se, se<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>Note again the use of the StringExtractor (se) when creating a column. The column gets a String name and a String value so it needs a <em>StringExtractor</em> to assist it in serializing and desiaralizing the strings to byte[]. As a matter of fact, we&#8217;ve noticed that it&#8217;s so common for use to use columns of type HColumn&lt;String,String&gt; that we decided we add a utility factory method: <em>createStringColumn(name, value)</em> which is a bit shorter than <em>createColumn(name, value, nameExtractor,  valueExtractor). </em>You may create your convenience factories as well and are welcome to contribute them back to hector.</p>
+<p>Next to reading the value. We&#8217;d like to read a simple column value given by its key (key1), and column name (column1).</p>
+<p>We create a ColumnQuery&lt;N,V&gt; where N is the type of the column name and V is the type of the column value (in this case, again it&#8217;s String, String)</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">ColumnQuery q <span style="color: #339933;">=</span> createColumnQuery<span style="color: #009900;">&#40;</span>keyspaceOperator, se, se<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>Next we set the query attributes &#8211; key, column and column family, and execute it.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">q.<span style="color: #006633;">setKey</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+setName<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+setColumnFamily<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+Result<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span> r <span style="color: #339933;">=</span> execute<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>The 4 lines above can also be written shortly as a one liner due to method chaining.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">Result<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span> r <span style="color: #339933;">=</span> q.<span style="color: #006633;">setKey</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">setName</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">setColumnFamily</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">execute</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>What we see here is another feature of the API called <a href="http://en.wikipedia.org/wiki/Method_chaining">method chaining</a>. By convention all setters return a pointer to <em>this</em> so that it&#8217;s easy to <em>setX(x).setY(y).setZ(z)</em>.<br />
+You can even call <em>execute()</em> on the same line, e.g. <em>Result&lt;T&gt; r = q.setX(x).setY(y).execute()</em>.</p>
+<p><strong>execute()</strong> returns a typed <strong>Result&lt;T&gt;</strong> object. Note again the type safety. In this case we have Result&lt;HColumn&lt;String, String&gt;&gt; since the query is of type ColumnQuery&lt;String, String&gt;. In general we have ColumnQuery&lt;N, V&gt;.execute() =&gt; Result&lt;HColumn&lt;N, V&gt;&gt;</p>
+<p>So far we&#8217;ve looked at the ColumnQuery&lt;N,V&gt; but as a matter of fact there an many other types of Queries, in this example we query a simple column but the API defines all types of query use cases allowed by the thrift API, all implement the Query&lt;T&gt; interface:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #008000; font-style: italic; font-weight: bold;">/**
+ * The Query interface defines the common parts of all hector queries, such as {@link ColumnQuery}.
+ *
+ * The common usage pattern is to create a query, set the required query attributes and invoke
+ * {@link Query#execute()} such as in the following example:
+ *
+ * Note that all query mutators, such as setName or setColumnFamily always return the Query object
+ * so it's easy to write strings such as &lt;code&gt;q.setKey(x).setName(y).setColumnFamily(z).execute();&lt;/code&gt;
+ *
+ * @author Ran Tavory
+ *
+ * @param  Result type. For example HColumn or HSuperColumn
+ */</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">interface</span> Query <span style="color: #009900;">&#123;</span>
+  <span style="color: #339933;">&lt;</span>q<span style="color: #339933;">&gt;&amp;</span>gt<span style="color: #339933;">;</span> Q setColumnFamily<span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span> cf<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  Result execute<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">&lt;/</span>q<span style="color: #339933;">&gt;</span></pre></div></div>
+
+<p>There are <em>ColumnQuery&lt;N,V&gt;</em>, <em>SuperColumnQuery&lt;SN,N,V&gt;</em>, <em>SliceQuery&lt;N,V&gt;</em>, <em>SuperSliceQuery&lt;SN,N,V&gt;</em>, <em>SubSliceQuery&lt;SN,N,V&gt;</em>, <em>RangeSlicesQuery&lt;N,V&gt;</em> and more&#8230; All query objects are type safe, so they return the only type the should return and the compiler keeps you safe.</p>
+<p>To read the value off of a result object just call Result.get(). Here again we provide type safety so in this case the result is of type HColumn&lt;String,String&gt;</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">// read value from the result</span>
+HColumn c <span style="color: #339933;">=</span> r.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>A <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/model/Result.java">Result</a> , apart from holding the actual value also has some nice metadata, such as <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/model/ExecutionResult.java#L29">getExecutionTimeMicro()</a> and <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/model/Result.java#L21">getQuery()</a>. We plan to add more to that.</p>
+<p>Lastly we print out the string.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #003399;">String</span> value <span style="color: #339933;">=</span>  c.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span>value<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>In this case value is of type String. If the column would have been defined as follows: HColumn&lt;String, Long&gt; then we&#8217;d have</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #003399;">Long</span> value <span style="color: #339933;">=</span> c.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.</pre></div></div>
+
+<p>The new API has other nice additions such as an improved exception hierarchy (all exceptions extend HectorException which is a RuntimeException and there&#8217;s a translation b/w the thrift exception and the hector ones, see <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/ExceptionsTranslatorImpl.java">ExceptionTranslator</a>), no dependency on thrift and more.</p>
+<p>It&#8217;s important to note that the new API does not rely on thrift anymore, so users who want to use avro as their transport are able to do it without changing their implementation (after cassandra really supports avro, and we add that to hector).</p>
+<p>Support for cassandra 0.7.0 is underway, and with the new API should be relatively easy to add.</p>
+<p>An extensive list of tests of the entire query/mutate API is available at <a href="http://github.com/rantav/hector/blob/master/src/test/java/me/prettyprint/cassandra/model/ApiV2SystemTest.java">ApiV2SystemTest</a></p>
+<p>To sum up, here&#8217;s a short list of new concepts introcuded by the v2 API and its main benefits</p>
+<ul>
+<li>All previous functionality provided by hector remains. You still get connection pooling, JMX etc. The old API is still in place, untouched (except for some small exception hierarchy refinements) so if you have existing code already working with hector it won&#8217;t break. We do plan to phase out the older API just so we have only one concise API , but as of now it&#8217;s left untouched.</li>
+<li>Clear and simple Mutator API calls. Mutator.insert(), Mutator.delete(), and for batch operations: Mutator.addInsertion().addInsertion().addDeletion().execute()</li>
+<li> Extensive, yet very simple query support. The API supports all types of queries supported by cassandra as a simple and type-safe java API. You can query for columns, super-columns, sub-columns (subcolumns of supercolumn), ranges, slices, multigets etc.</li>
+<li>Simple and concise exception hierarchy based on HectorException which extends a RuntimeException, so you don&#8217;t need to get your code dirty with try-catch where you don&#8217;t necessarily want to. You can still of course handle all exception types, the information is not lost, but code is much much cleaner when you don&#8217;t care to.</li>
+<li>No dependency on thrift (or on avro). The v2 API is completely independent of the wire protocol. When avro is finally implemented by cassandra all you have to do is tell hector whether you want to use thrift/avro and that&#8217;s all, no other code changes. Hector provides its own (type safe) objects such as HColumn&lt;N,V&gt; or HSuperColumn&lt;SN,N,V&gt;</li>
+<li>Type safety and separation of concerns. You implement (or reuse) a typed Extractor&lt;T&gt; and need not care about those byte[]s anymore.</li>
+</ul>
+<p>Lastly, we marked the new API as &#8220;beta&#8221; not because it&#8217;s not ready, but purely because we want to get your feedback. We&#8217;d like to leave it as beta for a few more weeks to get the developers feedback and if everyone&#8217;s happy release it as final, so do feel free to <a href="http://groups.google.com/group/hector-users">let us know</a> how you feel about it.<br />
+The API is available on the <a href="http://github.com/rantav/hector/downloads">downloads page</a> and is marked as 0.6.0-15.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2010/08/06/hector-api-v2/feed/</wfw:commentRss>
+		<slash:comments>27</slash:comments>
+		</item>
+		<item>
+		<title>Understanding Cassandra Code Base</title>
+		<link>http://prettyprint.me/2010/05/02/understanding-cassandra-code-base/</link>
+		<comments>http://prettyprint.me/2010/05/02/understanding-cassandra-code-base/#comments</comments>
+		<pubDate>Sun, 02 May 2010 14:20:10 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=301</guid>
+		<description><![CDATA[Lately I&#8217;ve been adding some random small features to cassandra so I took the time to have a closer look at the internal design of the system. While with some features added, such as an embedded service, I could have certainly get away without good understanding of the codebase and design, others, such as the [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2010%2F05%2F02%2Funderstanding-cassandra-code-base%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2010%2F05%2F02%2Funderstanding-cassandra-code-base%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<p><img class="alignleft size-medium wp-image-311" title="Reading Code" src="http://prettyprint.me/wp-content/uploads/2010/04/Software_Test_Web-300x224.jpg" alt="" width="210" height="157" />Lately I&#8217;ve been adding some random small features to <a href="http://cassandra.apache.org/">cassandra</a> so I took the time to have a closer look at the internal design of the system.<br />
+While with some features added, such as an <a href="http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/">embedded service</a>, I could have certainly get away without good understanding of the codebase and design, others, such as the <a href="https://issues.apache.org/jira/browse/CASSANDRA-531">truncate</a> feature require good understanding of the various algorithms used, such as how writes are performed, how reads are performed, how values are deleted (hint: they are not&#8230;) etc.</p>
+<p>The codebase, although isn&#8217;t very large, about 91136 lines, is quite dense and packed with algorithmic sauce, so simply reading through it just didn&#8217;t cut it for me. (I used the following kong-fu to count: <code>$ cassandra/trunk $ find * -name *.java -type f -exec cat {} \;|wc -l</code>)</p>
+<p>I&#8217;m writing this post in hope it&#8217;d help others get up to speed. I&#8217;m not going to cover the basics, such as what is cassandra, how to deploy, how to checkout code, how to build, how to download thrift etc. I&#8217;m also not going to cover the real algorithmic complicated parts, such as how merkle trees are used by the ae-service, how bloom filters are used in different parts of cassandra (and what are they), how gossip is used etc. I don&#8217;t think I&#8217;m the right person to explain all this, plus there are already bits of those in the cassandra <a href="http://wiki.apache.org/cassandra/ArchitectureInternals">developer wiki</a>. What I am going to write about is what was the path that I took in order to learn cassandra and what I&#8217;ve learned along the way. I haven&#8217;t found all that stuff documented somewhere else (perhaps I&#8217;ll contribute it back to the wiki when I&#8217;m done) so I think I&#8217;d be very helpful to have it next time I dive into a new codebase.</p>
+<p>Lastly, a disclaimer: The views expressed here are simply my personal understanding of how the system works, they are both incomplete and inaccurate, so be warned. Keep in mind that I&#8217;m only learning and still sort of new to cassandra. Please also keep in mind that cassandra is a moving target and keeps changing so rapidly that any given snapshot of the code will get irrelevant sooner or later. By the time of writing this the currently official version is 0.6.1 but I&#8217;m working on trunk towards 0.7.0.</p>
+<p>Here&#8217;s a description of the steps I took and things I learned.</p>
+<h3>Download, configure, run&#8230;</h3>
+<p>First you need to download the code and run unit tests. If you use eclipse, idea, netbeans, vi, emacs and what not, you want to configure it. That was easy. There&#8217;s more <a href="http://wiki.apache.org/cassandra/HowToContribute">here</a>.</p>
+<h3>Reading</h3>
+<p>Next you want to read some of the background material, depending on what part exactly you want to work on. I wanted to understand the read path, write path and how values are deleted, so I read the following documents about 5 times each. Yes, 5 times. Each. They are packed with information and I found myself absorbing a few more details each time I read. I used to read the document, get back to the source code, make sure I understand how the algorithm maps to the methods and classes, reread the document, reread the source code, read the unit tests (and run them, with a debugger) etc. Here are the docs.</p>
+<p><a href="http://wiki.apache.org/cassandra/ArchitectureInternals">http://wiki.apache.org/cassandra/ArchitectureInternals</a></p>
+<p><a href="http://www.eecs.harvard.edu/~mdw/papers/seda-sosp01.pdf">SEDA paper</a></p>
+<p><a href="http://wiki.apache.org/cassandra/HintedHandoff">http://wiki.apache.org/cassandra/HintedHandoff</a></p>
+<p><a href="http://wiki.apache.org/cassandra/ArchitectureAntiEntropy">http://wiki.apache.org/cassandra/ArchitectureAntiEntropy</a></p>
+<p><a href="http://wiki.apache.org/cassandra/ArchitectureSSTable">http://wiki.apache.org/cassandra/ArchitectureSSTable</a></p>
+<p><a href="http://wiki.apache.org/cassandra/ArchitectureCommitLog">http://wiki.apache.org/cassandra/ArchitectureCommitLog</a></p>
+<p><a href="http://wiki.apache.org/cassandra/DistributedDeletes">http://wiki.apache.org/cassandra/DistributedDeletes</a></p>
+<p>I also read the google <a href="http://labs.google.com/papers/bigtable.html">BigTable paper</a> and the fascinating Amazon&#8217;s <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html">Dynamo paper</a>, but that was a long time ago. They are good as background material, but not required to understand actual bits of code.</p>
+<p>Well, after having read all this I was starting to get a clue what can be done and how but I still didn&#8217;t feel I&#8217;m at the level of really coding new features. After reading through the code a few times I realized I&#8217;m kind of stuck and still don&#8217;t understand things like &#8220;how do values really get deleted&#8221;, which class is responsible for which functionality, what stages are there and how is data flowing between stages, or &#8220;how can I mark and entire column family as deleted&#8221;, which is what I really wanted to do with the truncate operation.</p>
+<h3>Stages</h3>
+<p>Cassandra operates in a concurrency model described by the SEDA paper. This basically means that, unlike many other concurrent systems, an operation, say a write operation, does not start and end by the same thread. Instead, an operation starts at one thread, which then passes it to another thread (asynchronously), which then passes it to another thread etc, until it ends. As a matter of fact, the operation doesn&#8217;t exactly flow b/w threads, it actually flows b/w <strong>stages</strong>. It moves from one stage to another. Each stage is associated with a thread pool and this thread pool executes the operation when it&#8217;s convenient to it. Some operations are IO bound, some are disk or network bound, so &#8220;convenience&#8221; is determined by resource availability. The SEDA paper explains this process very well (good read, worth your time), but basically what you gain by that is higher level of concurrently and better resource management, resource being CPU, disk, network etc.</p>
+<p>So, to understand data flow in cassandra you first need to understand SEDA. Then you need to know which stages exist in cassandra and exactly does the data flow b/w them.</p>
+<p>Fortunately, to get you started, a partial list of stages is present at the <a href="https://svn.apache.org/repos/asf/cassandra/trunk/src/java/org/apache/cassandra/concurrent/StageManager.java">StageManager</a> class:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #003399;">String</span> READ_STAGE <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;ROW-READ-STAGE&quot;</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #003399;">String</span> MUTATION_STAGE <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;ROW-MUTATION-STAGE&quot;</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #003399;">String</span> STREAM_STAGE <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;STREAM-STAGE&quot;</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #003399;">String</span> GOSSIP_STAGE <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;GS&quot;</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> RESPONSE_STAGE <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;RESPONSE-STAGE&quot;</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #003399;">String</span> AE_SERVICE_STAGE <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;AE-SERVICE-STAGE&quot;</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">private</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> LOADBALANCE_STAGE <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;LOAD-BALANCER-STAGE&quot;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>I won&#8217;t go into detail about what each and every stage is responsible for (b/c I don&#8217;t know&#8230;) but I can say that, in short, we have the ROW-READ-STAGE which takes part in the read operation, the ROW-MUTATION-STAGE which takes part in the write and delete operations, the AE-SERVICE-STAGE which is responsible for anti-entropy. This is not a comprehensive list of stages, depending on the code path you&#8217;re interested in, you may find more along the way. For example, browsing the file <a href="https://svn.apache.org/repos/asf/cassandra/trunk/src/java/org/apache/cassandra/db/ColumnFamilyStore.java">ColumnFamilyStore</a> you&#8217;ll find some more stages, such as FLUSH-SORTER-POOL, FLUSH-WRITER-POOL and MEMTABLE-POST-FLUSHER. In Cassandra stages are identified by instances of the ExecutorService, which is more or less a thread pool and they all have all-caps names, such as MEMTABLE-POST-FLUSHER.</p>
+<p>To visualize that I created a diagram that mixes both classes and stages. This isn&#8217;t valid UML, but I think it&#8217;s a good way to look at how data flows in the system. This is not a comprehensive diagram of all classes and all stages, just the ones that were interesting to me.</p>
+<p><img class="alignnone" title="Classes and stages" src="http://yuml.me/44bdc092" alt="" /><br />
+<a href="http://yuml.me/diagram/plain;dir:LR;/class/edit/[note:Classes and STAGES], [ColumnFamilyStore| flushSorter_:FLUSH-SORTER-POOL; flushWriter_:FLUSH-WRITER-POOL; commitLogUpdater_:MEMTABLE-POST-FLUSHER], [ColumnFamilyStore]-&gt;[SSTableTracker], [ColumnFamilyStore]-&gt;[Memtable (memtable_)], [CommitLog|CommitLogExecutor], [DeletionService|FILEUTILS-DELETE-POOL], [StorageLoadBalancer| lb_:LB-OPERATIONS; lbOperations_:LB-TARGET], [StorageService| consistencyManager_:CONSISTENCY-MANAGER], [StageManager| READ_STAGE; MUTATION_STAGE; STREAM_STAGE; GOSSIP_STAGE; RESPONSE_STAGE; AE_SERVICE_STAGE; LOADBALANCE_STAGE; MIGRATION_STAGE]">yUML source</a></p>
+<h3>Debugging</h3>
+<p>Reading through the code using a debugger, while running a unit-test is an awesome way to get things into your head. I&#8217;m <a href="http://stackoverflow.com/questions/602138/is-a-debugger-the-mother-of-all-evil">not a huge fan of debuggers</a>, but one thing they are good at is learning a new codebase by singlestepping into unit tests. So what I did was to run the unit-tests while single stepping into the code. That was awesome. I also ran the unit tests for Hector, which uses the thrift interface and spawn an embedded cassandra server so they were right to the point, user friendly and eye opening.</p>
+<h3>Class Diagrams</h3>
+<p>Next thing I did is use a tool to extract class diagrams from the existing codebase. That was not a great use of my time.</p>
+<p>Well, the tool I used wasn&#8217;t great, but that&#8217;s not the point. The point is that cassandra&#8217;s codebase is written in such way that class diagrams help very little in understanding it. UML class diagrams are great for object oriented design. The essence of them is the list of classes, class members and their relationships. For example if a class A has a list of Bs, so you can draw that in a UML class diagram such that A is an aggregation of Bs and just by looking at the diagram you learn a lot. For example, an Airplane has a list of Passengers.</p>
+<p>Cassandra is a complex system with solid algorithmic background and excellent performance, but, to be honest, IMO from the sole perspective of good oo practice, it isn&#8217;t a good case study&#8230; Its classes contain many static methods and members and in many cases you&#8217;d see one class calling other static method of another class, C style, therefore I found that class diagrams, although they are somewhat helpful at getting a visual sense of what classes exist and learn roughly manner about their relationships, are not so helpful.</p>
+<p>I ditched the class diagrams and continued to the next diagram &#8211; sequence diagrams.</p>
+<h3>Sequence Diagrams</h3>
+<p>Sequence diagrams are great at abstracting and visualizing interactions b/w entities. In my case an entity may either be a class, or a STAGE, or a thrift client. Luckily with sequence diagrams you don&#8217;t have to be too specific and formal about the kind of entities are used in it, you just represent them all as happy actors (at least, I allow myself to do that, I hope the gods of UML will forgive).</p>
+<p>The following diagrams were produced by running <a href="http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/">Hector</a>&#8216;s unit tests and using an embedded cassandra server (single node). The diagrams aren&#8217;t generic, they describe only <strong>one possible code path</strong> while there could be many, but I preferred keeping them as simple as possible even in the cost of small inaccuracies.</p>
+<p>I used a simple online sequence diagram editor at <a href="http://www.websequencediagrams.com">http://www.websequencediagrams.com</a> to generate them.</p>
+<p>Read Path</p>
+<div class="wsd">
+<pre>note left of CassandraServer: Read Path
+
+CassandraServer -&gt; StorageProxy: readProtocol
+StorageProxy -&gt; weakReadLocal: READ-STAGE.call
+
+weakReadLocal -&gt; SliceByNamesReadCommand: getRow
+SliceByNamesReadCommand -&gt; Table: getRow
+Table -&gt; ColumnFamilyStore: getColumnFamily
+ColumnFamilyStore -&gt; QueryFilter: collectCollatedColumns
+QueryFilter -&gt; ColumnFamilyStore:
+ColumnFamilyStore -&gt; ColumnFamilyStore: removeDeleted
+ColumnFamilyStore -&gt; Table:
+Table -&gt; SliceByNamesReadCommand:
+SliceByNamesReadCommand -&gt; weakReadLocal:
+
+weakReadLocal -&gt; StorageProxy:
+StorageProxy -&gt; CassandraServer:</pre>
+</div>
+<p><script src="http://www.websequencediagrams.com/service.js" type="text/javascript"></script></p>
+<p>Write Path</p>
+<div class="wsd">
+<pre>note left of CassandraServer: Write Path
+CassandraServer -&gt; StorageProxy: mutateBlocking
+
+note over StorageProxy: async
+StorageProxy --&gt; StorageProxy: MUTATION-STAGE call
+StorageProxy -&gt; RowMutation: run
+
+RowMutation -&gt; Table: apply
+
+note over Table, CommitLog: async
+Table --&gt; CommitLog: COMMIT-LOG-WRITER add
+CommitLog -&gt; CommitLogSegment: write
+CommitLogSegment -&gt; CommitLog: 
+
+Table -&gt; ColumnFamilyStore: apply
+ColumnFamilyStore -&gt; Memtable: put
+Memtable -&gt; Memtable: resolve
+Memtable -&gt; ColumnFamilyStore:
+ColumnFamilyStore -&gt; Table:
+Table -&gt; RowMutation:
+RowMutation -&gt; StorageProxy:
+StorageProxy --&gt; StorageProxy: signal
+StorageProxy -&gt; CassandraServer:</pre>
+</div>
+<p><script src="http://www.websequencediagrams.com/service.js" type="text/javascript"></script></p>
+<h3>Table is a Keyspace</h3>
+<p>One final note: As user of cassandra I use the terms Keyspace, ColumnFamily, Column etc. However, the codebase is packed with the term Table. What are Tables?&#8230; As it turns out, a <a href="https://svn.apache.org/repos/asf/cassandra/trunk/src/java/org/apache/cassandra/db/Table.java">Table</a> is actually a Keyspace&#8230; just keep this in mind, that&#8217;s all.</p>
+<p>Learning the codebase was a large and satisfying task, I hope this writing helps you get up and running as well.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2010/05/02/understanding-cassandra-code-base/feed/</wfw:commentRss>
+		<slash:comments>9</slash:comments>
+		</item>
+		<item>
+		<title>JMX in Hector</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/</link>
+		<comments>http://prettyprint.me/2010/04/03/jmx-in-hector/#comments</comments>
+		<pubDate>Sat, 03 Apr 2010 20:58:09 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=285</guid>
+		<description><![CDATA[Hector is a Java client for Cassandra I&#8217;ve implemented and have written about before (here and here). What I haven&#8217;t written about is its extensive JMX support, which makes it really unique, among other properties such as failover and really simple load balancing. JMX support in hector isn&#8217;t really new, but it&#8217;s the first time [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2010%2F04%2F03%2Fjmx-in-hector%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2010%2F04%2F03%2Fjmx-in-hector%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<p><a href="http://github.com/rantav/hector">Hector</a> is a Java client for Cassandra I&#8217;ve implemented and have written about before (<a href="http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/comment-page-1/">here</a> and <a href="http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/">here</a>).</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2010/04/JMX+in+Action.jpg-320×4001.png"><img class="alignleft size-full wp-image-288" title="JMX" src="http://prettyprint.me/wp-content/uploads/2010/04/JMX+in+Action.jpg-320×4001.png" alt="" width="282" height="195" /></a></p>
+<p>What I haven&#8217;t written about is its extensive JMX support, which makes it really unique, among other properties such as failover and really simple load balancing. JMX support in hector isn&#8217;t really new, but it&#8217;s the first time I have the chance to write writing about it.</p>
+<p>JMX is Java&#8217;s standard way for monitoring applications. The default thrift cassandra client provides no JMX support at all so I figured you have to be crazy to run a cassandra client at such a high scale without being able to monitor it.</p>
+<p>Here&#8217;s the list of JMX attributes provided by hector</p>
+<pre style="clear: both;"><strong>WriteFail</strong> - Number of failed write operations.
+<strong>ReadFail</strong> - Number of failed read operations
+<strong>RecoverableTimedOutCount</strong> - Number of recoverable TimedOut
+  exceptions. Those exceptions may happen when certain nodes
+  are under heavy load that they can't provide the service
+<strong>RecoverableUnavailableCount</strong> - Number of recoverable
+  Unavailable exceptions
+<strong>RecoverableTransportExceptionCount</strong> - Number of recoverable
+  Transport exceptions
+<strong>RecoverableErrorCount</strong> - Total number of recoverable errors.
+<strong>SkipHostSuccess</strong> - Number of times that a successful skip-host
+  (failover) has occurred.
+<strong>NumPoolExhaustedEventCount</strong> - Number of times threads have
+  encountered the pool-exhausted state (and were blocked)
+<strong>NumPools</strong> - Number of connections pools.
+  This is also the number of unique hosts in the
+   ring that this client has communicated with.
+  The number may be one or more, depending on the load balance
+  policy and failover attempts.
+<strong>PoolNames</strong> - The list of known pools
+<strong>NumIdleConnections</strong> - Number of currently idle connections
+  (in all pools)
+<strong>NumActive</strong> - number of currently active connections (all pools)
+<strong>NumExhaustedPools</strong> - Number of currently exhausted
+  connection pools.
+<strong>RecoverableLoadBalancedConnectErrors</strong> - Number of recoverable
+  load-balance connection errors.
+<strong>ExhaustedPoolNames</strong> - The list of exhausted connection pools.
+<strong>NumBlockedThreads</strong> - Number of currently blocked threads.
+<strong>NumConnectionErrors</strong> - Number of connection errors
+  (initial connection to the ring for retrieving metadata)
+<strong>KnownHosts</strong> - the list of known hosts in the ring.
+  This list will be used by the client in case failover is required.
+<strong>updateKnownHosts</strong> - This is an operation that may be invoked
+   by an admin to tell the client to update its list of known hosts.
+  Usually this is done after the ring configuration has changed.</pre>
+<p>Performance Counters: (I used the mechanics of <a href="http://perf4j.codehaus.org/">perf4j</a> to implement those)</p>
+<pre style="clear: both;"><strong>READ.success_TPS</strong> - Total Read Transactions Per Second
+  (measured as the average over the last 10 seconds).
+<strong>READ.success_Mean</strong> - The Mean time of successful read requests
+  over the last 10 seconds.
+<strong>READ.success_Min</strong> - Time in millisec of the fastest successful
+  read operation (over the last 10 seconds)
+<strong>READ.success_Max</strong> - Time in millisec of the slowest read
+  (over the last 10 seconds)
+<strong>READ.success_StdDev</strong> - Standard deviation of time of successful read
+  operations (over the last 10 seconds)
+<strong>WRITE.success_TPS</strong> - Total write transactions per second over
+  (over the last 10 seconds).
+<strong>WRITE.success_Mean</strong> - ...
+<strong>WRITE.success_Min
+WRITE.success_Max
+WRITE.success_StdDev
+READ.fail_TPS
+READ.fail_Mean
+READ.fail_Min
+READ.fail_Max
+READ.fail_StdDev
+WRITE.fail_TPS
+WRITE.fail_Mean
+WRITE.fail_Min
+WRITE.fail_Max
+WRITE.fail_StdDev
+</strong></pre>
+<p>This looks like this in jconsole (ignore the zeros, it&#8217;s not real data&#8230;)<br />
+<a href="http://prettyprint.me/wp-content/uploads/2010/04/Java-Monitoring-Management-Console.png"><img class="aligncenter size-full wp-image-290" title="Java Monitoring &amp; Management Console" src="http://prettyprint.me/wp-content/uploads/2010/04/Java-Monitoring-Management-Console.png" alt="" width="829" height="650" /></a><a href="http://prettyprint.me/wp-content/uploads/2010/04/Java-Monitoring-Management-Console-1.png"><img class="aligncenter size-full wp-image-291" title="Java Monitoring &amp; Management Console-1" src="http://prettyprint.me/wp-content/uploads/2010/04/Java-Monitoring-Management-Console-1.png" alt="" width="834" height="650" /></a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2010/04/03/jmx-in-hector/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>Load balancing and improved failover in Hector</title>
+		<link>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/</link>
+		<comments>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/#comments</comments>
+		<pubDate>Wed, 03 Mar 2010 06:34:20 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=278</guid>
+		<description><![CDATA[I&#8217;ve added a very simple load balancing feature, as well as improved failover behavior to Hector. Hector is a Java Cassandra client, to read more about it please see my previous post Hector – a Java Cassandra client. In version 0.5.0-6 I added poor-man&#8217;s load balancing as well as improved failover behavior. The interface CassandraClientPool used to [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2010%2F03%2F03%2Fload-balancing-and-improved-failover-in-hector%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2010%2F03%2F03%2Fload-balancing-and-improved-failover-in-hector%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<p><img class="size-thumbnail wp-image-279 alignleft" title="Balance the load" src="http://prettyprint.me/wp-content/uploads/2010/03/load_balance-150x150.jpg" alt="Balance the load, woman!" width="150" height="150" /></p>
+<p>I&#8217;ve added a very simple load balancing feature, as well as improved failover behavior to <a href="http://github.com/rantav/hector">Hector</a>. Hector is a Java Cassandra client, to read more about it please see my previous post <a href="http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/comment-page-1/">Hector – a Java Cassandra client</a>.</p>
+<p>In <a href="http://github.com/downloads/rantav/hector/hector-0.5.0-6.jar">version 0.5.0-6</a> I added poor-man&#8217;s load balancing as well as improved failover behavior.</p>
+<p>The interface <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/CassandraClientPool.java">CassandraClientPool</a> used to have this method for obtaining clients:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #008000; font-style: italic; font-weight: bold;">/**
+ * Borrows a client from the pool defined by url:port
+ * @param url
+ * @param port
+ * @return
+ */</span>
+CassandraClient borrowClient<span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span> url, <span style="color: #000066; font-weight: bold;">int</span> port<span style="color: #009900;">&#41;</span>
+    <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">IllegalStateException</span>, PoolExhaustedException, <span style="color: #003399;">Exception</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>Now with the added LB and failover it has:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #008000; font-style: italic; font-weight: bold;">/**
+ * Borrow a load-balanced client, a random client from the array of given client addresses.
+ *
+ * This method is typically used to allow load balancing b/w the list of given client URLs. The
+ * method will return a random client from the array of the given url:port pairs.
+ * The method will try connecting each host in the list and will only stop when there's one
+ * successful connection, so in that sense it's also useful for failover.
+ *
+ * @param clientUrls An array of &quot;url:port&quot; cassandra client addresses.
+ *
+ * @return A randomly chosen client from the array of clientUrls.
+ * @throws Exception
+ */</span>
+CassandraClient borrowClient<span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> clientUrls<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>And usage looks like that:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">// Get a connection to any of the hosts cas1, ca2 or cas3</span>
+CassandraClient client <span style="color: #339933;">=</span> pool.<span style="color: #006633;">borrowClient</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">String</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> <span style="color: #009900;">&#123;</span><span style="color: #0000ff;">&quot;cas1:9160&quot;</span>, <span style="color: #0000ff;">&quot;cas2:9160&quot;</span>, <span style="color: #0000ff;">&quot;cas3:9160&quot;</span><span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>So, when calling borrowClient(String[]) the method randomly chooses any of the clients in the array and connects to it. That&#8217;s what I call poor man&#8217;s load balancing, just plain dumb random, not real load balancing. By all means, true load balancing which takes into account performance measurements such as response time and throughput is infinitely better than the plain random selection I&#8217;m employing here and in my opinion should be left out for your ops folks to deal with and not to the program, however, if you only need a very simplistic approach of random selection, then this method may suite your needs.</p>
+<p>A nice side effect of using this method is <strong>improved failover</strong>. In previous versions hector implemented failover, but in order to find out about the ring structure it had to connect to at least one host in the ring first and query it to learn about the rest. The result was that if a new connection is made and it&#8217;s so unfortunate that this new connections is made to unavailable host, then this new client cannot connect to the host to learn about other live hosts so it fails right away. With this new method which sends an array of hosts the client keeps connecting to hosts in the list in random order until it finds one that&#8217;s up. In the example above the client may choose to connect to cas2 first; if cas2 is down it&#8217;ll try to connect to (say) cas3 and if cas3 is also down it&#8217;ll try to connect to cas1; only if all three hosts are down will it give up and return an error. Failing to connect to hosts is considered an error, but a recoverable error, so it&#8217;s transparent to the client of hector but is reported to JMX and has its own special counter (RecoverableLoadBalancedConnectErrors).</p>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2010/03/03/load-balancing-and-improved-failover-in-hector/feed/</wfw:commentRss>
+		<slash:comments>17</slash:comments>
+		</item>
+		<item>
+		<title>Hector &#8211; a Java Cassandra client</title>
+		<link>http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/</link>
+		<comments>http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/#comments</comments>
+		<pubDate>Tue, 23 Feb 2010 14:04:09 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=263</guid>
+		<description><![CDATA[UPDATE 3: Comments are closed now and for the sake of information reuse, please post all your hector questions to the mailing list hector-users@googlegroups.com and please subscribe to it as well. UPDATE: I added a downloads section, so you may simply download the jar and sources if you&#8217;re not into git or maven. UPDATE 2: [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2010%2F02%2F23%2Fhector-a-java-cassandra-client%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2010%2F02%2F23%2Fhector-a-java-cassandra-client%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<p>UPDATE 3: Comments are closed now and for the sake of information reuse, please post all your hector questions to the mailing list hector-users@googlegroups.com and please subscribe to it as well.</p>
+<p>UPDATE: I added a <a href="http://github.com/rantav/hector/downloads">downloads</a> section, so you may simply download the jar and sources if you&#8217;re not into git or maven.</p>
+<p>UPDATE 2: I added license clarification; the license it <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>, which is the most permissive license I know of and basically lets you do anything with the software: use it commercially or uncommercially, copy it, fork it (but I&#8217;ll be happy to accept patches and committers) and whatnot. I added a <a href="http://github.com/rantav/hector/blob/master/LICENSE">LICENSE file</a> and over time I&#8217;ll add that block of comment to every file.</p>
+<p>In the <a href="http://en.wikipedia.org/wiki/Greek_mythology">Greek Mythology</a>, <a href="http://en.wikipedia.org/wiki/Hector">Hector</a> was the builder of <a href="http://en.wikipedia.org/wiki/Troy">Troy</a>, the greatest warrior ever and brother of <a href="http://en.wikipedia.org/wiki/Cassandra">Cassandra</a>.</p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2010/02/Ajax_and_Hector_exchange_gifts1.jpg"><img class="size-medium wp-image-268 alignnone" title="Ajax_and_Hector_exchange_gifts" src="http://prettyprint.me/wp-content/uploads/2010/02/Ajax_and_Hector_exchange_gifts1-300x286.jpg" alt="" width="240" height="229" /></a></p>
+<p><a href="http://prettyprint.me/wp-content/uploads/2010/02/Ajax_and_Hector_exchange_gifts1.jpg"></a>Nowdays, <a href="http://incubator.apache.org/cassandra/">Cassandra</a> is a high scale database and <a href="http://github.com/rantav/hector">Hector</a> is the Java client I&#8217;ve written for it.</p>
+<p>Over the last couple of days I got the the conclusion that the java client I&#8217;ve been using so far to speak to cassanrda wasn&#8217;t satisfactory. I used the one simply called <a href="http://code.google.com/p/cassandra-java-client/">cassandra-java-client</a>, which is a good start but had some shortcomings I could just not live with (no support for Cassandra v0.5, no JMX and no failover). So I&#8217;ve written my own.</p>
+<p>For anyone not familiar with cassanra, it&#8217;s client API is just a simple <a href="http://incubator.apache.org/thrift/">thrift</a> client. This means that, unlike other datastore clients such as jdbc etc, the client provided has somewhat limiter functionality; It can sent messages to cassanra, write values and read values of course, but other client goodies required for large scale applications are not provided, features such as monitoring, connection pooling etc. The client I initially used provides connection pooling, which is a very nice start, but I decided it was missing too much so I&#8217;d write my own.</p>
+<p>As a good open-source citizen, I initially contacted the authors of cassandra-java-client asking their permission to contribute and make the suggested improvements, but after weeks without reply I realized I&#8217;ll need to go solo. I started with the concepts captured by the folks who had built the java-client, but pretty soon the code has morphed to be something completely different.</p>
+<p>Here&#8217;s how code that uses Hector looks like. This is an implementation of a simple distributed hashtable over cassandra. By the virtue of cassandra, this hashtable can grow pretty large:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Insert a new value keyed by key
+   * @param key Key for the value
+   * @param value the String value to insert
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> insert<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> key, <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> value<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+    execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> Command<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+      <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #003399;">Void</span> execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> Keyspace ks<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+        ks.<span style="color: #006633;">insert</span><span style="color: #009900;">&#40;</span>key, createColumnPath<span style="color: #009900;">&#40;</span>COLUMN_NAME<span style="color: #009900;">&#41;</span>, bytes<span style="color: #009900;">&#40;</span>value<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #000000; font-weight: bold;">return</span> <span style="color: #000066; font-weight: bold;">null</span><span style="color: #339933;">;</span>
+      <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span>
+&nbsp;
+  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Get a string value.
+   * @return The string value; null if no value exists for the given key.
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #003399;">String</span> get<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> key<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">return</span> execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> Command<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+      <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #003399;">String</span> execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> Keyspace ks<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #000000; font-weight: bold;">try</span> <span style="color: #009900;">&#123;</span>
+          <span style="color: #000000; font-weight: bold;">return</span> string<span style="color: #009900;">&#40;</span>ks.<span style="color: #006633;">getColumn</span><span style="color: #009900;">&#40;</span>key, createColumnPath<span style="color: #009900;">&#40;</span>COLUMN_NAME<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #009900;">&#125;</span> <span style="color: #000000; font-weight: bold;">catch</span> <span style="color: #009900;">&#40;</span>NotFoundException e<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+          <span style="color: #000000; font-weight: bold;">return</span> <span style="color: #000066; font-weight: bold;">null</span><span style="color: #339933;">;</span>
+        <span style="color: #009900;">&#125;</span>
+      <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span>
+&nbsp;
+  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Delete a key from cassandra
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> delete<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">String</span> key<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+    execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> Command<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+      <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #003399;">Void</span> execute<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> Keyspace ks<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">Exception</span> <span style="color: #009900;">&#123;</span>
+        ks.<span style="color: #006633;">remove</span><span style="color: #009900;">&#40;</span>key, createColumnPath<span style="color: #009900;">&#40;</span>COLUMN_NAME<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #000000; font-weight: bold;">return</span> <span style="color: #000066; font-weight: bold;">null</span><span style="color: #339933;">;</span>
+      <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>Out of the box Cassanra provides a raw <a href="http://incubator.apache.org/thrift/">thrift</a> client, which is OK, but lacks many features essential to real world clients. I&#8217;ve built Hector to fill this gap.</p>
+<p>Here are the high level features of <a href="http://github.com/rantav/hector">Hector</a>, currently hosted at github.</p>
+<ul>
+<li>A high-level object oriented interface to cassandra. As noted before, Cassandra&#8217;s out of the box client is a thrift client, which isn&#8217;t always that nice and clean to work with. I wanted to provide higher level and cleaner API. This part was mainly inspired by the mentioned cassandra-java-client. The API is defined in the <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/Keyspace.java">Keyspace</a> interface. See for example methods such as Keyspace.insert() and keyspace.getColumn()</li>
+<li>Failover support. Cassandra is a distributed data store and it may handle very well one or several hosts going down. However, out of the box thrift provides no support for failing clients. What it the client is configured to connect a cassandra host that just happened to be down right now? In hector, if a client is connected to one host in the ring and this host goes down, the client will automatically and transparently search for other available hosts to perform its operation before giving up  and returning an error to its user. There are currently 3 ways to configure the failover policy: FAIL_FAST (no retry, just fail if there are errors, nothing smart), ON_FAIL_TRY_ONE_NEXT_AVAILABLE (try one more host before giving up) and ON_FAIL_TRY_ALL_AVAILABLE (try all available hosts before giving up). See <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/CassandraClient.java">CassandraClient.FailoverPolicy</a>.</li>
+<li>Connection pooling. This is a real necessity for high scale applications. The usual pattern for DAOs (Data Access Objects) is large number of small reads/writes. Clients cannot afford to open a new connection with each and every request, not only because of the overhead in the tcp handshake (thrift uses tcp), but also because of the fact that sockets remain in <a href="http://www.developerweb.net/forum/showthread.php?t=2941">TIME_WAIT</a> so a client may easily run out of available sockets if it operates fast enough. This part was also inspired by cassandra-java-client but was improved in my version. Hector provides connection pooling and a nice framework that manages all its gory details.</li>
+<li>JMX support. It&#8217;s a widely known fact that applications have a life of their own. You built it to do X but it does Y b/c you didn&#8217;t expect Z to happen. Running an application without the ability to monitor it is like walking blindfolded on a dark highway; sooner or later you&#8217;ll get hit by something. Hector exposes JMX for many important runtime metrics, such as number of available connections, idle connections, error statistics and more.</li>
+<li>Support for the Command design pattern to allow clients to concentrate on their business logic and let hector take care of the required plumbing. This is demonstrated in the code above.</li>
+</ul>
+<p>I&#8217;ve been using hector internally, at outbrain and so far so good. I&#8217;d be happy to get the comminuty feedback &#8211; API, implementation, features and so on and hope you can find it useful.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2010/02/23/hector-a-java-cassandra-client/feed/</wfw:commentRss>
+		<slash:comments>93</slash:comments>
+		</item>
+		<item>
+		<title>Running Cassandra as an embedded service</title>
+		<link>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/</link>
+		<comments>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/#comments</comments>
+		<pubDate>Sun, 14 Feb 2010 06:08:45 +0000</pubDate>
+		<dc:creator>Ran Tavory</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://prettyprint.me/?p=255</guid>
+		<description><![CDATA[While developing an application at outbrain, using Cassandra I was looking for a good way to test my app. The application consists of a Cassandra Client package, some Data Access Objects (DAOs) and some bean object that represent the data entities in cassandra. I wanted to test them all. As unit test tradition goes, my [...]]]></description>
+			<content:encoded><![CDATA[<div class="tweetmeme_button" style="float: right; margin-left: 10px;">
+			<a href="http://api.tweetmeme.com/share?url=http%3A%2F%2Fprettyprint.me%2F2010%2F02%2F14%2Frunning-cassandra-as-an-embedded-service%2F"><br />
+				<img src="http://api.tweetmeme.com/imagebutton.gif?url=http%3A%2F%2Fprettyprint.me%2F2010%2F02%2F14%2Frunning-cassandra-as-an-embedded-service%2F&amp;style=normal&amp;b=2" height="61" width="50" /><br />
+			</a>
+		</div>
+<p><a href="http://prettyprint.me/wp-content/uploads/2010/02/cassandra3125.jpg"><img class="size-medium wp-image-257 alignleft" title="cassandra embedded" src="http://prettyprint.me/wp-content/uploads/2010/02/cassandra3125-220x300.jpg" alt="" width="220" height="300" /></a>While developing an application at outbrain, using <a href="http://incubator.apache.org/cassandra/">Cassandra</a> I was looking for a good way to test my app. The application consists of a Cassandra Client package, some Data Access Objects (DAOs) and some bean object that represent the data entities in cassandra. I wanted to test them all.</p>
+<p>As unit test tradition goes, my requirement was zero-configuration, zero preparation, no external dependencies, full isolation, fully reproducible results and fast. Database testing has always been a challenge in this perspective, for example when testing SQL clients in java often <a href="http://hsqldb.org/">HSQLDB</a> is used to to mock the database. Cassandra, however, did not have something ready just yet so I had to build it.</p>
+<p>One way to go was to setup a cassandra instance just for unit testing. There are many downsides to this approach, such as it&#8217;s not zero-configuration, tests need to cleanup before they execute, if two tests are run at the same time by two developers they can collide and change the results in unexpected way, it&#8217;s slow&#8230; out of the question, not good.</p>
+<p>Enter the embedded cassandra server.</p>
+<p>With the help of the community I&#8217;ve built an embedded cassandra service ideal for unit testing and perhaps other uses. I&#8217;ve also built a cleanup utility that helps wipe out all data before the service starts running so the combination of both provides isolation etc. Now each test process runs an in-process, embedded instance of cassandra.</p>
+<p>Below is the source code, already committed to cassandra SCM on trunk. If you want to use it for the current stable release(0.5.0) only a small package rename is required (in trunk some classes moved a bit), and it&#8217;s presented at the end of the post.</p>
+<p>The embedded service:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">package</span> <span style="color: #006699;">org.apache.cassandra.service</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.io.File</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.io.FileOutputStream</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.io.IOException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.io.InputStream</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.io.OutputStream</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.config.DatabaseDescriptor</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.io.util.FileUtils</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.thrift.CassandraDaemon</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.thrift.transport.TTransportException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.slf4j.Logger</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.slf4j.LoggerFactory</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #008000; font-style: italic; font-weight: bold;">/**
+ * An embedded, in-memory cassandra storage service that listens
+ * on the thrift interface as configured in storage-conf.xml
+ * This kind of service is useful when running unit tests of
+ * services using cassandra for example.
+ *
+&nbsp;
+ * This is the implementation of https://issues.apache.org/jira/browse/CASSANDRA-740
+ *
+&nbsp;
+ * How to use:
+ * In the client code create a new thread and spawn it with its {@link Thread#start()} method.
+ * Example:
+ *
+ *      // Tell cassandra where the configuration files are.
+        System.setProperty(&quot;storage-config&quot;, &quot;conf&quot;);
+&nbsp;
+        cassandra = new EmbeddedCassandraService();
+        cassandra.init();
+&nbsp;
+        // spawn cassandra in a new thread
+        Thread t = new Thread(cassandra);
+        t.setDaemon(true);
+        t.start();
+&nbsp;
+ *
+ * @author Ran Tavory (rantav@gmail.com)
+ *
+ */</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">class</span> EmbeddedCassandraService <span style="color: #000000; font-weight: bold;">implements</span> <span style="color: #003399;">Runnable</span>
+<span style="color: #009900;">&#123;</span>
+&nbsp;
+    CassandraDaemon cassandraDaemon<span style="color: #339933;">;</span>
+&nbsp;
+    <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> init<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> TTransportException, <span style="color: #003399;">IOException</span>
+    <span style="color: #009900;">&#123;</span>
+        cassandraDaemon <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> CassandraDaemon<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        cassandraDaemon.<span style="color: #006633;">init</span><span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">null</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+&nbsp;
+    <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> run<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>
+    <span style="color: #009900;">&#123;</span>
+        cassandraDaemon.<span style="color: #006633;">start</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>The data cleaner:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">package</span> <span style="color: #006699;">org.apache.cassandra.contrib.utils.service</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.io.File</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.io.IOException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.util.HashSet</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.util.Set</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.config.DatabaseDescriptor</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.io.util.FileUtils</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #008000; font-style: italic; font-weight: bold;">/**
+ * A cleanup utility that wipes the cassandra data directories.
+ *
+ * @author Ran Tavory (rantav@gmail.com)
+ *
+ */</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">class</span> CassandraServiceDataCleaner <span style="color: #009900;">&#123;</span>
+&nbsp;
+    <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+     * Creates all data dir if they don't exist and cleans them
+     * @throws IOException
+     */</span>
+    <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> prepare<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">IOException</span> <span style="color: #009900;">&#123;</span>
+        makeDirsIfNotExist<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        cleanupDataDirectories<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+&nbsp;
+    <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+     * Deletes all data from cassandra data directories, including the commit log.
+     * @throws IOException in case of permissions error etc.
+     */</span>
+    <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> cleanupDataDirectories<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">IOException</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #000000; font-weight: bold;">for</span> <span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span> s<span style="color: #339933;">:</span> getDataDirs<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+            cleanDir<span style="color: #009900;">&#40;</span>s<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span>
+    <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+     * Creates the data diurectories, if they didn't exist.
+     * @throws IOException if directories cannot be created (permissions etc).
+     */</span>
+    <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> makeDirsIfNotExist<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">IOException</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #000000; font-weight: bold;">for</span> <span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span> s<span style="color: #339933;">:</span> getDataDirs<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+            mkdir<span style="color: #009900;">&#40;</span>s<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span>
+&nbsp;
+    <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+     * Collects all data dirs and returns a set of String paths on the file system.
+     *
+     * @return
+     */</span>
+    <span style="color: #000000; font-weight: bold;">private</span> <span style="color: #003399;">Set</span> getDataDirs<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #003399;">Set</span> dirs <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">HashSet</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #000000; font-weight: bold;">for</span> <span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span> s <span style="color: #339933;">:</span> DatabaseDescriptor.<span style="color: #006633;">getAllDataFileLocations</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+            dirs.<span style="color: #006633;">add</span><span style="color: #009900;">&#40;</span>s<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #009900;">&#125;</span>
+        dirs.<span style="color: #006633;">add</span><span style="color: #009900;">&#40;</span>DatabaseDescriptor.<span style="color: #006633;">getLogFileLocation</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #000000; font-weight: bold;">return</span> dirs<span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+    <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+     * Creates a directory
+     *
+     * @param dir
+     * @throws IOException
+     */</span>
+    <span style="color: #000000; font-weight: bold;">private</span> <span style="color: #000066; font-weight: bold;">void</span> mkdir<span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span> dir<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">IOException</span> <span style="color: #009900;">&#123;</span>
+        FileUtils.<span style="color: #006633;">createDirectory</span><span style="color: #009900;">&#40;</span>dir<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+&nbsp;
+    <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+     * Removes all directory content from file the system
+     *
+     * @param dir
+     * @throws IOException
+     */</span>
+    <span style="color: #000000; font-weight: bold;">private</span> <span style="color: #000066; font-weight: bold;">void</span> cleanDir<span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span> dir<span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">IOException</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #003399;">File</span> dirFile <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">File</span><span style="color: #009900;">&#40;</span>dir<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #000000; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span>dirFile.<span style="color: #006633;">exists</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">&amp;</span>amp<span style="color: #339933;">;&amp;</span>amp<span style="color: #339933;">;</span> dirFile.<span style="color: #006633;">isDirectory</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+            FileUtils.<span style="color: #006633;">delete</span><span style="color: #009900;">&#40;</span>dirFile.<span style="color: #006633;">listFiles</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #009900;">&#125;</span>
+    <span style="color: #009900;">&#125;</span>
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>And an example test that uses both:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">package</span> <span style="color: #006699;">org.apache.cassandra.contrib.utils.service</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">static</span> org.<span style="color: #006633;">junit</span>.<span style="color: #000000; font-weight: bold;">Assert</span>.<span style="color: #006633;">assertEquals</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">static</span> org.<span style="color: #006633;">junit</span>.<span style="color: #000000; font-weight: bold;">Assert</span>.<span style="color: #006633;">assertNotNull</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.io.IOException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.io.UnsupportedEncodingException</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.service.EmbeddedCassandraService</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.thrift.Cassandra</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.thrift.ColumnOrSuperColumn</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.thrift.ColumnPath</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.thrift.ConsistencyLevel</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.thrift.InvalidRequestException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.thrift.NotFoundException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.thrift.TimedOutException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.cassandra.thrift.UnavailableException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.thrift.TException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.thrift.protocol.TBinaryProtocol</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.thrift.protocol.TProtocol</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.thrift.transport.TSocket</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.thrift.transport.TTransport</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.apache.thrift.transport.TTransportException</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.junit.BeforeClass</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">org.junit.Test</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #008000; font-style: italic; font-weight: bold;">/**
+ * Example how to use an embedded and a data cleaner.
+ *
+ * @author Ran Tavory (rantav@gmail.com)
+ *
+ */</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">class</span> CassandraServiceTest <span style="color: #009900;">&#123;</span>
+&nbsp;
+    <span style="color: #000000; font-weight: bold;">private</span> <span style="color: #000000; font-weight: bold;">static</span> EmbeddedCassandraService cassandra<span style="color: #339933;">;</span>
+&nbsp;
+    <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+     * Set embedded cassandra up and spawn it in a new thread.
+     *
+     * @throws TTransportException
+     * @throws IOException
+     * @throws InterruptedException
+     */</span>
+    @BeforeClass
+    <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #000066; font-weight: bold;">void</span> setup<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> TTransportException, <span style="color: #003399;">IOException</span>,
+            <span style="color: #003399;">InterruptedException</span> <span style="color: #009900;">&#123;</span>
+        <span style="color: #666666; font-style: italic;">// Tell cassandra where the configuration files are.</span>
+        <span style="color: #666666; font-style: italic;">// Use the test configuration file.</span>
+        <span style="color: #003399;">System</span>.<span style="color: #006633;">setProperty</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;storage-config&quot;</span>, <span style="color: #0000ff;">&quot;../../test/conf&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+        CassandraServiceDataCleaner cleaner <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> CassandraServiceDataCleaner<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        cleaner.<span style="color: #006633;">prepare</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        cassandra <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> EmbeddedCassandraService<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        cassandra.<span style="color: #006633;">init</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #003399;">Thread</span> t <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">Thread</span><span style="color: #009900;">&#40;</span>cassandra<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        t.<span style="color: #006633;">setDaemon</span><span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">true</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        t.<span style="color: #006633;">start</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>   
+&nbsp;
+    @Test
+    <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> testInProcessCassandraServer<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>
+            <span style="color: #000000; font-weight: bold;">throws</span> <span style="color: #003399;">UnsupportedEncodingException</span>, InvalidRequestException,
+            UnavailableException, TimedOutException, TException,
+            NotFoundException <span style="color: #009900;">&#123;</span>
+        Cassandra.<span style="color: #006633;">Client</span> client <span style="color: #339933;">=</span> getClient<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+        <span style="color: #003399;">String</span> key_user_id <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;1&quot;</span><span style="color: #339933;">;</span>
+&nbsp;
+        <span style="color: #000066; font-weight: bold;">long</span> timestamp <span style="color: #339933;">=</span> <span style="color: #003399;">System</span>.<span style="color: #006633;">currentTimeMillis</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        ColumnPath cp <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> ColumnPath<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Standard1&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        cp.<span style="color: #006633;">setColumn</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;name&quot;</span>.<span style="color: #006633;">getBytes</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;utf-8&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+        <span style="color: #666666; font-style: italic;">// insert</span>
+        client.<span style="color: #006633;">insert</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Keyspace1&quot;</span>, key_user_id, cp, <span style="color: #0000ff;">&quot;Ran&quot;</span>.<span style="color: #006633;">getBytes</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;UTF-8&quot;</span><span style="color: #009900;">&#41;</span>,
+                timestamp, ConsistencyLevel.<span style="color: #006633;">ONE</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+        <span style="color: #666666; font-style: italic;">// read</span>
+        ColumnOrSuperColumn got <span style="color: #339933;">=</span> client.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Keyspace1&quot;</span>, key_user_id, cp,
+                ConsistencyLevel.<span style="color: #006633;">ONE</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+        <span style="color: #666666; font-style: italic;">// assert</span>
+        assertNotNull<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Got a null ColumnOrSuperColumn&quot;</span>, got<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        assertEquals<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Ran&quot;</span>, <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">String</span><span style="color: #009900;">&#40;</span>got.<span style="color: #006633;">getColumn</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>, <span style="color: #0000ff;">&quot;utf-8&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+&nbsp;
+    <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+     * Gets a connection to the localhost client
+     *
+     * @return
+     * @throws TTransportException
+     */</span>
+    <span style="color: #000000; font-weight: bold;">private</span> Cassandra.<span style="color: #006633;">Client</span> getClient<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000000; font-weight: bold;">throws</span> TTransportException <span style="color: #009900;">&#123;</span>
+        TTransport tr <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> TSocket<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;localhost&quot;</span>, <span style="color: #cc66cc;">9170</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        TProtocol proto <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> TBinaryProtocol<span style="color: #009900;">&#40;</span>tr<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        Cassandra.<span style="color: #006633;">Client</span> client <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> Cassandra.<span style="color: #006633;">Client</span><span style="color: #009900;">&#40;</span>proto<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        tr.<span style="color: #006633;">open</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+        <span style="color: #000000; font-weight: bold;">return</span> client<span style="color: #339933;">;</span>
+    <span style="color: #009900;">&#125;</span>
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>To use this source code in v0.5.0 a small package rename is required:<br />
+org.apache.cassandra.io.util.FileUtils =&gt; org.apache.cassandra.utils.FileUtils<br />
+org.apache.thrift.transport.TTransportException =&gt; org.apache.transport.TTransportException<br />
+org.apache.cassandra.thrift.CassandraDaemon =&gt; org.apache.cassandra.CassandraDaemon</p>
+<p>One nifty detail: When running multiple tests serially, make sure to spawn each test in a separate JVM (fork mode) since cassandra doesn&#8217;t shut down all threads immediately. Running each in separate jvm ensures the previous test dies before the next one begins.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://prettyprint.me/2010/02/14/running-cassandra-as-an-embedded-service/feed/</wfw:commentRss>
+		<slash:comments>20</slash:comments>
+		</item>
+	</channel>
+</rss>

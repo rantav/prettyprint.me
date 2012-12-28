@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Introduction to NOSQL and cassandra, part 2</title>
+	<atom:link href="http://prettyprint.me/2010/01/20/introduction-to-nosql-and-cassandra-part-2/feed/" rel="self" type="application/rss+xml" />
+	<link>http://prettyprint.me/2010/01/20/introduction-to-nosql-and-cassandra-part-2/</link>
+	<description>by Ran Tavory</description>
+	<lastBuildDate>Mon, 01 Aug 2011 08:29:01 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.2</generator>
+	<item>
+		<title>By: ehcache.net</title>
+		<link>http://prettyprint.me/2010/01/20/introduction-to-nosql-and-cassandra-part-2/comment-page-1/#comment-6539</link>
+		<dc:creator>ehcache.net</dc:creator>
+		<pubDate>Sat, 12 Mar 2011 06:43:12 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=241#comment-6539</guid>
+		<description>&lt;strong&gt;Introduction to NOSQL and cassandra, part 2...&lt;/strong&gt;
+
+In part 1 of this talk I presented few of the theoretical concepts behind nosql and cassandra. In this talk we deep dive into the Cassandra API and...</description>
+		<content:encoded><![CDATA[<p><strong>Introduction to NOSQL and cassandra, part 2&#8230;</strong></p>
+<p>In part 1 of this talk I presented few of the theoretical concepts behind nosql and cassandra. In this talk we deep dive into the Cassandra API and&#8230;</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Links about Apache Cassandra &#171; Waltersf&#39;s Blog</title>
+		<link>http://prettyprint.me/2010/01/20/introduction-to-nosql-and-cassandra-part-2/comment-page-1/#comment-350</link>
+		<dc:creator>Links about Apache Cassandra &#171; Waltersf&#39;s Blog</dc:creator>
+		<pubDate>Wed, 03 Mar 2010 21:37:32 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=241#comment-350</guid>
+		<description>[...] Links about Apache&#160;Cassandra Arquivado em: Uncategorized &#8212; Tags:cassandra, nosql &#8212; waltersf @ 9:37 pm   Nice introduction about Cassandra Althought the video is in Hebrew, you can read the slides (in English). http://prettyprint.me/2010/01/20/introduction-to-nosql-and-cassandra-part-2/ [...]</description>
+		<content:encoded><![CDATA[<p>[...] Links about Apache&nbsp;Cassandra Arquivado em: Uncategorized &#8212; Tags:cassandra, nosql &#8212; waltersf @ 9:37 pm   Nice introduction about Cassandra Althought the video is in Hebrew, you can read the slides (in English). <a href="http://prettyprint.me/2010/01/20/introduction-to-nosql-and-cassandra-part-2/" rel="nofollow">http://prettyprint.me/2010/01/20/introduction-to-nosql-and-cassandra-part-2/</a> [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/01/20/introduction-to-nosql-and-cassandra-part-2/comment-page-1/#comment-136</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Fri, 29 Jan 2010 07:24:13 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=241#comment-136</guid>
+		<description>Hi Mehar, one of the differences b/w SQL and Column oriented stores such as Cassandra is that you have to think very good when inserting your data, about how you&#039;re going to retrieve it. Unlike SQL, in cassandra you only have primary keys, no secondary indexes. What you&#039;re describing cannot simply be achieved in cassandra unless you plan for it ahead of time.
+So if, for example, you create a CF Categories which is keyed by &quot;Category1&quot; etc and holds the list of all records belonging to Category1 then that would be possible. But the usual case is that this scheme also calls for a lot of data denormalizations and repetition, so there&#039;s a tradeoff.
+You may also be interested in &lt;a href=&quot;http://github.com/digg/lazyboy&quot; rel=&quot;nofollow&quot;&gt;lazyboy&lt;/a&gt;, which sort of implements secondary indexes scheme over cassandra.</description>
+		<content:encoded><![CDATA[<p>Hi Mehar, one of the differences b/w SQL and Column oriented stores such as Cassandra is that you have to think very good when inserting your data, about how you&#8217;re going to retrieve it. Unlike SQL, in cassandra you only have primary keys, no secondary indexes. What you&#8217;re describing cannot simply be achieved in cassandra unless you plan for it ahead of time.<br />
+So if, for example, you create a CF Categories which is keyed by &#8220;Category1&#8243; etc and holds the list of all records belonging to Category1 then that would be possible. But the usual case is that this scheme also calls for a lot of data denormalizations and repetition, so there&#8217;s a tradeoff.<br />
+You may also be interested in <a href="http://github.com/digg/lazyboy" rel="nofollow">lazyboy</a>, which sort of implements secondary indexes scheme over cassandra.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Mehar Chaitanya</title>
+		<link>http://prettyprint.me/2010/01/20/introduction-to-nosql-and-cassandra-part-2/comment-page-1/#comment-134</link>
+		<dc:creator>Mehar Chaitanya</dc:creator>
+		<pubDate>Fri, 29 Jan 2010 06:04:00 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=241#comment-134</guid>
+		<description>Hi Ran
+
+I got some idea about cassandra after reading the above
+
+We had some requirement like below
+
+  I have a table which has the columns like           Category_name,Section_name,article,is_published_by  with  multiple records in the table. 
+
+I want to retrieve a query based on condition like belongs some category_name &#039;X&#039; so then all values which belongs to X category will be retrieved along with other 3 columns
+
+For E.g.,
+
+select * from Table where category_name =&#039;Category1&#039;;
+
+Here we are using category_name as key and retrieving all the records
+
+
+Please let me know if it would be possible.
+
+Can you please help me on this and kindly share your views.</description>
+		<content:encoded><![CDATA[<p>Hi Ran</p>
+<p>I got some idea about cassandra after reading the above</p>
+<p>We had some requirement like below</p>
+<p>  I have a table which has the columns like           Category_name,Section_name,article,is_published_by  with  multiple records in the table. </p>
+<p>I want to retrieve a query based on condition like belongs some category_name &#8216;X&#8217; so then all values which belongs to X category will be retrieved along with other 3 columns</p>
+<p>For E.g.,</p>
+<p>select * from Table where category_name =&#8217;Category1&#8242;;</p>
+<p>Here we are using category_name as key and retrieving all the records</p>
+<p>Please let me know if it would be possible.</p>
+<p>Can you please help me on this and kindly share your views.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

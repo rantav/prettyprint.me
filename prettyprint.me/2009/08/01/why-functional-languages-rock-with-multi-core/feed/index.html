@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Why functional languages rock with multi-core</title>
+	<atom:link href="http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/feed/" rel="self" type="application/rss+xml" />
+	<link>http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/</link>
+	<description>by Ran Tavory</description>
+	<lastBuildDate>Mon, 01 Aug 2011 08:29:01 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.2</generator>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/comment-page-1/#comment-8181</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Tue, 24 May 2011 04:32:44 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=123#comment-8181</guid>
+		<description>@david, I think we&#039;re not disagreeing and indeed message passing has its own set of problems (and so does STM). 
+My main theme was (and that was almost 2y ago) that if in the past imperative languages were attractive b/c of their low latency and close to the metal efficiency then today and in the future these kind of optimizations would seem less and less appealing to many types of apps that want to scale horizontally b/c the abstraction of shared memory is harder to scale than the abstraction of message passing (as an example). And functional languages encourage message passing more than they do shared memory. 
+BTW, it&#039;s great to have this discussion over comment, usually the breadth of comments on blogs is, well... of different kind ;)</description>
+		<content:encoded><![CDATA[<p>@david, I think we&#8217;re not disagreeing and indeed message passing has its own set of problems (and so does STM).<br />
+My main theme was (and that was almost 2y ago) that if in the past imperative languages were attractive b/c of their low latency and close to the metal efficiency then today and in the future these kind of optimizations would seem less and less appealing to many types of apps that want to scale horizontally b/c the abstraction of shared memory is harder to scale than the abstraction of message passing (as an example). And functional languages encourage message passing more than they do shared memory.<br />
+BTW, it&#8217;s great to have this discussion over comment, usually the breadth of comments on blogs is, well&#8230; of different kind <img src='http://prettyprint.me/wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: david karapetyan</title>
+		<link>http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/comment-page-1/#comment-8170</link>
+		<dc:creator>david karapetyan</dc:creator>
+		<pubDate>Mon, 23 May 2011 16:55:45 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=123#comment-8170</guid>
+		<description>@ran I am not disagreeing with better and higher level concurrency constructs but I don&#039;t understand what you mean &quot;they don&#039;t share state&quot;. Erlang and AKKA (Scala/Java) still allow sharing state but they do it with message passing instead of shared variables. In most cases this works out better than using locks and shared variables but it&#039;s got its own problems, e.g. messages get dropped or pile up, implicit ordering assumptions about message arrivals don&#039;t hold, etc. If you&#039;d like a general overview on such things I recommend http://skillsmatter.com/podcast/scala/talk-by-haskell-expert-simon-peyton-jones/js-1434. It&#039;s a talk by Simon Peyton Jones about various approaches to concurrency and parallelism. He mostly focuses on STM but it&#039;s still a pretty good talk.</description>
+		<content:encoded><![CDATA[<p>@ran I am not disagreeing with better and higher level concurrency constructs but I don&#8217;t understand what you mean &#8220;they don&#8217;t share state&#8221;. Erlang and AKKA (Scala/Java) still allow sharing state but they do it with message passing instead of shared variables. In most cases this works out better than using locks and shared variables but it&#8217;s got its own problems, e.g. messages get dropped or pile up, implicit ordering assumptions about message arrivals don&#8217;t hold, etc. If you&#8217;d like a general overview on such things I recommend <a href="http://skillsmatter.com/podcast/scala/talk-by-haskell-expert-simon-peyton-jones/js-1434" rel="nofollow">http://skillsmatter.com/podcast/scala/talk-by-haskell-expert-simon-peyton-jones/js-1434</a>. It&#8217;s a talk by Simon Peyton Jones about various approaches to concurrency and parallelism. He mostly focuses on STM but it&#8217;s still a pretty good talk.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/comment-page-1/#comment-8163</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Mon, 23 May 2011 07:13:44 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=123#comment-8163</guid>
+		<description>@david you make good points but I would add that functional languages not only make you think in higher levels but since they don&#039;t share state, they also make you think of programming that doesn&#039;t require state and sharing it (or require to less extent). I don&#039;t agree that they are the most trivial tasks necessarily. If you look at how those problems are solved with Erlang, AKKA (Scala/Java Actors) and other languages then you&#039;d agree that the problems are real. 
+It&#039;s not always &quot;pure&quot; functional, what that I can agree but they are much more functional than they are imperative. 
+The symptom I see with many imperative language programmers such as Java is that they although they could use higher level abstractions that don&#039;t require explicite sync and state management, they tend to use lower level ones just b/c they can and in most cases, that&#039;s what they were taught. Functional languages suffer less from that.</description>
+		<content:encoded><![CDATA[<p>@david you make good points but I would add that functional languages not only make you think in higher levels but since they don&#8217;t share state, they also make you think of programming that doesn&#8217;t require state and sharing it (or require to less extent). I don&#8217;t agree that they are the most trivial tasks necessarily. If you look at how those problems are solved with Erlang, AKKA (Scala/Java Actors) and other languages then you&#8217;d agree that the problems are real.<br />
+It&#8217;s not always &#8220;pure&#8221; functional, what that I can agree but they are much more functional than they are imperative.<br />
+The symptom I see with many imperative language programmers such as Java is that they although they could use higher level abstractions that don&#8217;t require explicite sync and state management, they tend to use lower level ones just b/c they can and in most cases, that&#8217;s what they were taught. Functional languages suffer less from that.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: david karapetyan</title>
+		<link>http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/comment-page-1/#comment-8156</link>
+		<dc:creator>david karapetyan</dc:creator>
+		<pubDate>Sun, 22 May 2011 23:56:19 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=123#comment-8156</guid>
+		<description>Functional languages usually do a better job when it comes to obviously parallel computations like a + b where a and b don&#039;t depend on shared state but I haven&#039;t seen much evidence of benefits when it comes to not so obvious parallel algorithms. Synchronization and state management are facts of life and if you don&#039;t need synchronization and explicit state management then the imperative paradigm is just as good as the functional one, just spin up a thread for each independent unit of computation and you&#039;re good to go. You can design the most beautiful parallel algorithm using your favorite functional language and it will all come to a grinding halt when the different parts of your algorithm start requesting non-parallel resources like files.
+
+Now if you&#039;d said we need more declarative languages because such languages let us focus on the big picture instead of the low level details and functional languages are a good example of the declarative paradigm then I&#039;d agree with you but I don&#039;t think that&#039;s what you were going for and you just sound like another functional programming zealot championing the one true way for the future of computing.</description>
+		<content:encoded><![CDATA[<p>Functional languages usually do a better job when it comes to obviously parallel computations like a + b where a and b don&#8217;t depend on shared state but I haven&#8217;t seen much evidence of benefits when it comes to not so obvious parallel algorithms. Synchronization and state management are facts of life and if you don&#8217;t need synchronization and explicit state management then the imperative paradigm is just as good as the functional one, just spin up a thread for each independent unit of computation and you&#8217;re good to go. You can design the most beautiful parallel algorithm using your favorite functional language and it will all come to a grinding halt when the different parts of your algorithm start requesting non-parallel resources like files.</p>
+<p>Now if you&#8217;d said we need more declarative languages because such languages let us focus on the big picture instead of the low level details and functional languages are a good example of the declarative paradigm then I&#8217;d agree with you but I don&#8217;t think that&#8217;s what you were going for and you just sound like another functional programming zealot championing the one true way for the future of computing.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Dominate functional languages and rule the Cloud &#171; Life under the cross</title>
+		<link>http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/comment-page-1/#comment-6705</link>
+		<dc:creator>Dominate functional languages and rule the Cloud &#171; Life under the cross</dc:creator>
+		<pubDate>Tue, 22 Mar 2011 00:07:54 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=123#comment-6705</guid>
+		<description>[...] Tavory got there first with his blog on &#8220;Why functional languages rock with multi-core&#8221; but didn&#8217;t go deep into the reasons why, for those of us with a background in software [...]</description>
+		<content:encoded><![CDATA[<p>[...] Tavory got there first with his blog on &#8220;Why functional languages rock with multi-core&#8221; but didn&#8217;t go deep into the reasons why, for those of us with a background in software [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Dave Bechtel</title>
+		<link>http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/comment-page-1/#comment-299</link>
+		<dc:creator>Dave Bechtel</dc:creator>
+		<pubDate>Thu, 25 Feb 2010 22:52:47 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=123#comment-299</guid>
+		<description>Forth lives on!</description>
+		<content:encoded><![CDATA[<p>Forth lives on!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Gary Mawdsley</title>
+		<link>http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/comment-page-1/#comment-34</link>
+		<dc:creator>Gary Mawdsley</dc:creator>
+		<pubDate>Mon, 16 Nov 2009 17:56:16 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=123#comment-34</guid>
+		<description>very interesting...just reading about clojure myself....it is tough trying to shift thinking into a functional programming world...but interesting..will take a bit of practice
+
+clearly its not practical for nothing ever to be shared between processes, however I can appreciate that mutable data has to be mitigated....the idea of software transaction memory seems to fit the bill quite nicely ;-)</description>
+		<content:encoded><![CDATA[<p>very interesting&#8230;just reading about clojure myself&#8230;.it is tough trying to shift thinking into a functional programming world&#8230;but interesting..will take a bit of practice</p>
+<p>clearly its not practical for nothing ever to be shared between processes, however I can appreciate that mutable data has to be mitigated&#8230;.the idea of software transaction memory seems to fit the bill quite nicely <img src='http://prettyprint.me/wp-includes/images/smilies/icon_wink.gif' alt=';-)' class='wp-smiley' /> </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ori Lahav</title>
+		<link>http://prettyprint.me/2009/08/01/why-functional-languages-rock-with-multi-core/comment-page-1/#comment-33</link>
+		<dc:creator>Ori Lahav</dc:creator>
+		<pubDate>Mon, 03 Aug 2009 09:47:37 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=123#comment-33</guid>
+		<description>Good post Ran.
+one might say that the answer of the imperative languages to the &quot;multi-core world&quot; is multi-threaded programs.
+WRONG!!!!
+1. multi-threaded programming in language that &quot;share stuff&quot; basically requires threads synchronization which makes things run slowly.
+2. the more threads you have, the more context switches the CPU does - this is eventually not a simple task.
+
+what functional programming is offering - run max 1 process per CPU core and share nothing between your processes.
+
+simple to say but requires change in the way of &quot;thinking about your software&quot;.</description>
+		<content:encoded><![CDATA[<p>Good post Ran.<br />
+one might say that the answer of the imperative languages to the &#8220;multi-core world&#8221; is multi-threaded programs.<br />
+WRONG!!!!<br />
+1. multi-threaded programming in language that &#8220;share stuff&#8221; basically requires threads synchronization which makes things run slowly.<br />
+2. the more threads you have, the more context switches the CPU does &#8211; this is eventually not a simple task.</p>
+<p>what functional programming is offering &#8211; run max 1 process per CPU core and share nothing between your processes.</p>
+<p>simple to say but requires change in the way of &#8220;thinking about your software&#8221;.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

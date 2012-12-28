@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Beware of the Singleton</title>
+	<atom:link href="http://prettyprint.me/2009/06/24/beware-of-the-singleton/feed/" rel="self" type="application/rss+xml" />
+	<link>http://prettyprint.me/2009/06/24/beware-of-the-singleton/</link>
+	<description>by Ran Tavory</description>
+	<lastBuildDate>Mon, 01 Aug 2011 08:29:01 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.2</generator>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2009/06/24/beware-of-the-singleton/comment-page-1/#comment-2429</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Thu, 01 Jul 2010 09:04:16 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=154#comment-2429</guid>
+		<description>if in your code they are not singletons then that&#039;s fine</description>
+		<content:encoded><![CDATA[<p>if in your code they are not singletons then that&#8217;s fine</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Glide</title>
+		<link>http://prettyprint.me/2009/06/24/beware-of-the-singleton/comment-page-1/#comment-2428</link>
+		<dc:creator>Glide</dc:creator>
+		<pubDate>Thu, 01 Jul 2010 08:40:42 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=154#comment-2428</guid>
+		<description>If I&#039;m using a framework like Spring and have all of the beans that Spring controls as singletons (by default I think)... but I&#039;m using all of those beans as instance variables with setters and getters, is that still considered bad for unit testing?
+
+For example:
+class A {
+   SingletonBeanObject B;
+   public B getSingletonBeanObject(){//impl}
+   public void setB(SingleBeanObject){//impl}
+}</description>
+		<content:encoded><![CDATA[<p>If I&#8217;m using a framework like Spring and have all of the beans that Spring controls as singletons (by default I think)&#8230; but I&#8217;m using all of those beans as instance variables with setters and getters, is that still considered bad for unit testing?</p>
+<p>For example:<br />
+class A {<br />
+   SingletonBeanObject B;<br />
+   public B getSingletonBeanObject(){//impl}<br />
+   public void setB(SingleBeanObject){//impl}<br />
+}</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Eran</title>
+		<link>http://prettyprint.me/2009/06/24/beware-of-the-singleton/comment-page-1/#comment-32</link>
+		<dc:creator>Eran</dc:creator>
+		<pubDate>Sat, 24 Oct 2009 14:30:51 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=154#comment-32</guid>
+		<description>2 other fun aspects of the Singleton pattern you forgot to mention, are the dependency cycles that usually get created by the ease of access, and the architectural violations (lower layers calling higher layers).
+
+Although it is possible to create dependency cycles when using DI, it is impossible to do so when you use constructor injection only. Using constructor injection only, also allows you to write immutable classes which are thread safe, and less bug prone.</description>
+		<content:encoded><![CDATA[<p>2 other fun aspects of the Singleton pattern you forgot to mention, are the dependency cycles that usually get created by the ease of access, and the architectural violations (lower layers calling higher layers).</p>
+<p>Although it is possible to create dependency cycles when using DI, it is impossible to do so when you use constructor injection only. Using constructor injection only, also allows you to write immutable classes which are thread safe, and less bug prone.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: rantav</title>
+		<link>http://prettyprint.me/2009/06/24/beware-of-the-singleton/comment-page-1/#comment-31</link>
+		<dc:creator>rantav</dc:creator>
+		<pubDate>Thu, 25 Jun 2009 11:55:43 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=154#comment-31</guid>
+		<description>Hi Hagai, I agree that when used properly singletons don&#039;t conflict with unit-tests.
+Problem is that more often than not, what you&#039;d see is that there&#039;s an empty constructor (and only an empty one) and the singleton is hardcoded into the implementation which makes testing impossible.
+
+I agree that when used correctly, a singleton is a powerful machanism,</description>
+		<content:encoded><![CDATA[<p>Hi Hagai, I agree that when used properly singletons don&#8217;t conflict with unit-tests.<br />
+Problem is that more often than not, what you&#8217;d see is that there&#8217;s an empty constructor (and only an empty one) and the singleton is hardcoded into the implementation which makes testing impossible.</p>
+<p>I agree that when used correctly, a singleton is a powerful machanism,</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Hagai Cibulski</title>
+		<link>http://prettyprint.me/2009/06/24/beware-of-the-singleton/comment-page-1/#comment-30</link>
+		<dc:creator>Hagai Cibulski</dc:creator>
+		<pubDate>Thu, 25 Jun 2009 10:55:55 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=154#comment-30</guid>
+		<description>IMO using singletons doesn&#039;t conflict with resource decoupling for unit tests. E.g You could add a default constructor to DataBean that instantiates it with the real DB:
+
+public DataBean() {
+ this(Database.INSTANCE);
+}
+
+and then producrtion code uses new DataBean() and test code uses new DataBean(new new ockDatabaseImplementation());</description>
+		<content:encoded><![CDATA[<p>IMO using singletons doesn&#8217;t conflict with resource decoupling for unit tests. E.g You could add a default constructor to DataBean that instantiates it with the real DB:</p>
+<p>public DataBean() {<br />
+ this(Database.INSTANCE);<br />
+}</p>
+<p>and then producrtion code uses new DataBean() and test code uses new DataBean(new new ockDatabaseImplementation());</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

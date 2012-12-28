@@ -1,0 +1,677 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<title>PrettyPrint.me - Part 3</title>
+<meta name="generator" content="WordPress 3.2" /> <!-- leave this for stats -->
+<link rel="alternate" type="application/rss+xml" title="PrettyPrint.me RSS Feed" href="../../feed/index.html" />
+<link rel="pingback" href="../../xmlrpc.php" />
+<link rel="stylesheet" type="text/css" media="all" href="../../wp-content/themes/retrospective/style.css" />
+<!--[if lte IE 7]>
+	<link rel="stylesheet" type="text/css" media="all" href="http://prettyprint.me/wp-content/themes/retrospective/ie.css" />
+<![endif]-->
+<!--[if lte IE 6]>
+	<link rel="stylesheet" type="text/css" media="all" href="http://prettyprint.me/wp-content/themes/retrospective/ie6.css" />
+<![endif]--> 
+<meta name="verify-v1" content="iFkC+FAFtOQ601MZ4pU4juKjv2UEYbdQNeezoVgCUyE=" >
+<link rel='stylesheet' id='contact-form-7-css'  href='../../wp-content/plugins/contact-form-7/styles747d.css?ver=2.4.5' type='text/css' media='all' />
+<script type='text/javascript' src='../../wp-includes/js/l10na17a.js?ver=20101110'></script>
+<script type='text/javascript' src='../../wp-includes/js/jquery/jquery51a2.js?ver=1.6.1'></script>
+<script type='text/javascript' src='../../wp-content/plugins/google-analyticator/external-tracking.min6fb3.js?ver=6.1.3'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../xmlrpc0db0.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='PrettyPrint.me' href='../../index.html' />
+<meta name="generator" content="WordPress 3.2" />
+
+<!-- All in One SEO Pack 1.6.13.3 by Michael Torbert of Semper Fi Web Design[209,230] -->
+<link rel="canonical" href="index.html" />
+<!-- /all in one seo pack -->
+
+<link rel="stylesheet" href="../../wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+<!-- Google Analytics Tracking by Google Analyticator 6.1.3: http://ronaldheft.com/code/analyticator/ -->
+<script type="text/javascript">
+	var analyticsFileTypes = [''];
+	var analyticsEventTracking = 'enabled';
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-2694026-6']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</head>
+
+<body>
+<div id="header">
+<a href="../../index.html" title="PrettyPrint.me">
+<div id="logo">
+<p>by Ran Tavory</p>
+</div>
+</a>
+<div id="top_navlist">
+<ul id="navlist">
+<li class="page_item page-item-213"><a href="../../about-2/index.html" title="About.me">About.me</a></li>
+<li class="page_item page-item-368"><a href="../../contact/index.html" title="Contact">Contact</a></li>
+</ul>
+</div><!--//top_navlist-->
+</div><!--//header-->
+
+<div id="container"><!--container -->
+<!-- #content -->
+<div id="content">
+
+
+      <div class="post" id="post-143">
+      <h1><a href="../../2009/06/19/defaults-a-convenience-or-a-time-bomb/index.html" rel="bookmark" title="Permalink to Defaults &#8211; a convenience or a time bomb?">Defaults &#8211; a convenience or a time bomb?</a></h1>
+      <p class="postmetadata">June 19th, 2009 | <span>Comments Off</span></p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="../../2009/06/19/defaults-a-convenience-or-a-time-bomb/index.html"></a></div>
+<p><img class="size-thumbnail wp-image-148 alignright" title="Time Bomb" src="../../wp-content/uploads/2009/06/time_bomb-150x150.jpg" alt="Time Bomb" width="150" height="150" />All programmers at all languages are familiar with the concept of default values.<br />
+Many languages allow default parameter values when calling a functions, some provide a function overloading mechanism which is an expansion of this idea.</p>
+<p>For example in python you can have named parameters with default values:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">def</span> multiply<span style="color: black;">&#40;</span>v, mult=<span style="color: #ff4500;">2.0</span><span style="color: black;">&#41;</span>
+  <span style="color: #ff7700;font-weight:bold;">return</span> v <span style="color: #66cc66;">*</span> mult
+&nbsp;
+multiply<span style="color: black;">&#40;</span><span style="color: #ff4500;">5</span><span style="color: black;">&#41;</span> <span style="color: #808080; font-style: italic;"># returns 10.0</span>
+multiply<span style="color: black;">&#40;</span><span style="color: #ff4500;">5</span>, <span style="color: #ff4500;">3.0</span><span style="color: black;">&#41;</span> <span style="color: #808080; font-style: italic;"># returns 15.0</span>
+multiply<span style="color: black;">&#40;</span><span style="color: #ff4500;">5</span>, mult=<span style="color: #ff4500;">3.0</span><span style="color: black;">&#41;</span> <span style="color: #808080; font-style: italic;"># returns 15.0; it's the same as before, only using a named parameter</span></pre></div></div>
+
+<p>The concept of default values is found not only in function but in many other places, such as <a href="http://en.wikipedia.org/wiki/.properties">Java Property files</a>.<br />
+Java implements by default a nice <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Properties.html">properties mechanism</a> which lets you quite easily separate between program logic and its data. Just create a my-properties.properties file, instantiate a Properties object and read properties from the file.</p>
+<p>my-properties.properties</p>
+<pre>me.prettyprint.my_value=nice!</pre>
+<p>In Java:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #003399;">Properties</span> props <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">Properties</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #003399;">URL</span> url <span style="color: #339933;">=</span> <span style="color: #003399;">ClassLoader</span>.<span style="color: #006633;">getSystemResource</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;my-properties.properties&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+props.<span style="color: #006633;">load</span><span style="color: #009900;">&#40;</span>url.<span style="color: #006633;">openStream</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #003399;">String</span> myValue <span style="color: #339933;">=</span> props.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;me.prettyprint.my_value&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>The properties mechanism is quite convenient and useful; However, in my opinion they went a bit too far with regards to convenience by adding yet another <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Properties.html#getProperty(java.lang.String,%20java.lang.String)">Properties.getValue(String key, String defaultValue)</a> method.<br />
+Now you can do this:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">// If me.prettyprint.my_value doesn't exist, assign &quot;awful&quot; to myValue</span>
+<span style="color: #003399;">String</span> myValue <span style="color: #339933;">=</span> props.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;me.prettyprint.my_value&quot;</span>, <span style="color: #0000ff;">&quot;awful&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>That&#8217;s an example of how default values are more of a time-bomb then they are a convenience. Imagine the following quite typical accidents that happen to programmers daily:</p>
+<ul>
+<li>Accidentally mistype me.prettyprinl.ny_value in your Java code</li>
+<li>Accidentally mistype ne.prettyprimt.my_value in the properties file</li>
+<li>Accidentally mistype the file name ClassLoader.getSystemResource(&#8220;my-propetries.properties&#8221;)</li>
+<li>Forget to package the properties file in your jar; or package it in the wrong way.</li>
+<li>&#8230; you get it, right? It&#8217;s so easy to make these mistakes that eventually you will; or the next programmer to edit your files will&#8230;</li>
+</ul>
+<p>The problem is that since there are default values, the defaults are loaded and you have absolutely no clue that something is going wrong here. The compiler won&#8217;t help you b/c you&#8217;re not making a syntax error. The program may continue to run fine or appear to run fine until&#8230;</p>
+<p>To make this situation even worse, many programmers (including myself for a long time) set their defaults to the exact same value as the ones in the properties files.  So what happens is that even if you mistype something once, everything works well by loading the default value, but when you go to your production environment and want to change a property, nothing changes. The property is changed in the file, yet, but it&#8217;s not loaded to the program variable because of some silly typos. That is the time-bomb!</p>
+<p>Defensive programming means &#8211; program as if everything could go wrong; Assumption is the mother of all fuck-ups; Assume nothing! While this is somewhat extreme, I tend to agree to that approach. What could go wrong here is programmers typos or similar small mistakes. Assume they will happen and protect your code against them. Don&#8217;t use Properties.getValue(value, devaultValue); Only use Properties.getValue(value).</p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="../../2009/06/19/defaults-a-convenience-or-a-time-bomb/index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		              </div>
+      <!-- <p class="postmetadata2">Published in <a href="http://prettyprint.me/category/uncategorized/" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a> -->
+      <!-- by <php the_author(); ?> , June 19th, 2009 --> 
+      <br />
+      	</p></p>
+    </div>
+      <div class="post" id="post-133">
+      <h1><a href="../../2009/06/17/yet-another-visual-diff-for-git/index.html" rel="bookmark" title="Permalink to Yet another visual diff for git">Yet another visual diff for git</a></h1>
+      <p class="postmetadata">June 17th, 2009 | <span>Comments Off</span></p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="../../2009/06/17/yet-another-visual-diff-for-git/index.html"></a></div>
+<p>I&#8217;m relatively new to git and I&#8217;m already in love with it, but there was one thing that bugged me and I couldn&#8217;t get a good answer anywhere else, so I wrote my own thing, posting it so maybe you can find it helpful.</p>
+<p>The problem: Use a visual diff tool for git; <strong>and view all diffs at once</strong>.</p>
+<p>All other solutions show me how to use a visual diff tool for git but they all have a common weakness &#8211; they show only one file at a time, which is a bummer b/c many times what I&#8217;d like to do is look at all the changed files and switch between them going back and forth.</p>
+<p>So, as mentioned there are already many posted solutions how to set up visual diff in git for various platforms including linux, windows, osx (just <a href="http://www.google.com/search?client=safari&amp;rls=en-us&amp;q=git+visual+diff&amp;ie=UTF-8&amp;oe=UTF-8">Google it</a>), so all I had to do is implement a really small change to one of them.</p>
+<p>Step 1: Create a wrapper script in /usr/bin/git-diffmerge-wrapper.sh</p>
+
+<div class="wp_syntax"><div class="code"><pre class="shell" style="font-family:monospace;">#!/bin/sh
+# diff is called by git with 7 parameters:
+# path old-file old-hex old-mode new-file new-hex new-mode
+&nbsp;
+cp $2 %2-keepme
+diffmerge &quot;$2-keepme&quot; &quot;$5&quot; &amp;
+sleep 5 &amp;&amp; rm $2-keepme &amp;</pre></div></div>
+
+<p>Don&#8217;t forget to chmod +x /usr/bin/git-diffmerge-wrapper.sh</p>
+<p>Step 2: Configure git to use your script</p>
+<pre class="prettyprint"><code><span class="pln">$ git config </span><span class="pun">--</span><span class="kwd">global</span><span class="pln"> diff</span><span class="pun">.</span><span class="pln">external /usr/bin/git-diffmerge-wrapper.sh</span></code></pre>
+<p>That&#8217;s all!</p>
+<p>I use os x so for linux systems it&#8217;s basically the same script. Windows might have to change a bit, but I&#8217;m not that good and win&#8230;</p>
+<p>I assume you have <a href="http://www.sourcegear.com/diffmerge/">diffmerge</a> installed. If not, either use a different visual diff tool or download and install it (free).</p>
+<p>Here&#8217;s the trick : when git runs a a diff it creates temporary files for each index file and deletes them right after the external diff program for that specific file exited. So what I did is simple copy the files to other files ($2-keepme), run the diff in the background, sleep for 5 seconds to make sure the diff program reads the files and then delete them for clean up.</p>
+<p><strong>cp $2 %2-keepme</strong><br />
+diffmerge &#8220;$2<strong>-keepme</strong>&#8221; &#8220;$5&#8243; <strong>&#038;</strong><br />
+<strong>sleep 5 &amp;&amp; rm $2-keepme &#038;</strong></p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="../../2009/06/17/yet-another-visual-diff-for-git/index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		              </div>
+      <!-- <p class="postmetadata2">Published in <a href="http://prettyprint.me/category/uncategorized/" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a> -->
+      <!-- by <php the_author(); ?> , June 17th, 2009 --> 
+      <br />
+      	</p></p>
+    </div>
+      <div class="post" id="post-31">
+      <h1><a href="../../2009/06/08/flash-encryption-no-way-dude/index.html" rel="bookmark" title="Permalink to Flash and encryption? No way dude!">Flash and encryption? No way dude!</a></h1>
+      <p class="postmetadata">June 8th, 2009 | <span>Comments Off</span></p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="../../2009/06/08/flash-encryption-no-way-dude/index.html"></a></div>
+<p><img class="size-full wp-image-69 alignleft" title="flash" src="../../wp-content/uploads/2009/05/adobe-flash-player-icon.jpg" alt="flash" width="137" height="137" /></p>
+<p>I was asked by a fellow worker whether flash can be? Short answer: <strong>no</strong>. Long answer below.</p>
+<p>But why would you even want to encrypt flash? I asked.</p>
+<p>He told me about a product he&#8217;s working on, some kind of hook for online games which identifies cheaters and bots as they play in real-time  by collecting many signals looking at some smart patters etc. I realized, ok, this guy really needs to hide his top-secret code from hackers, he doesn&#8217;t want them to be able to read his code and break his top-secret sauce, plus his code needs to run on the client to be able to collect its signals =&gt; he&#8217;s in trouble. Flash code just can not be encrypted, tough luck.</p>
+<p>But before getting to that conclusion I researched a bit and found out there are quite a few companies and products that have already thought about this problem and have come out with almost-good-enough products called <strong>code obfuscators</strong>. It appears that flash developers (me being one) are concerned about their work getting stolen. You work hard making an online game or a video player or mp3 player, put it on your site and baam, someone downloads your swf, runs it by a <strong>flash decompiler</strong> and has source code access to your hard work; now he can implement slight changes, brand it as his and get your fame.  Code obfuscators try to solve this problem by making it difficult for a hacker to <strong>reverse engineer</strong>, or decompile the code. Put another way, code obfuscators want to protect your work from being copied. Only that sadly they can&#8217;t <img src='../../wp-includes/images/smilies/icon_sad.gif' alt=':(' class='wp-smiley' /> . They may do a decent job at making it <strong>somewhat</strong> <strong>harder to reverse engineer</strong> the code but they cannot and will never be able to completely protect your code, not even theoretically and that is the key point.</p>
+<p>It&#8217;s important to realize that code on the client cannot simply be encrypted. There are other solutions to the problem but let&#8217;s establish the theory first. When code runs on your computer, and it doesn&#8217;t matter weather it&#8217;s flash or anything else, the computer needs to understand the code in order to run it, it needs to be able to read it. Now, as long as you have physical access to your computer, and I assume you do, you can hack it no matter how hard it&#8217;s encrypted. Let us assume the code is indeed encrypted; at some stage the computer will have to run it, so <strong>it will have to decrypt it</strong>; In the flash case it&#8217;s the flash bytecode that needs to be run by the flash VM (like in Java VM flash has it&#8217;s own bytecode and VM), so in order to run the code the computer will have to <strong>decrypt</strong> the code first; To the best of my knowledge, no CPU can run encrypted code and no flash VM can run encrypted flash bytecode; if the computer is able the decrypt the code, so can a hacker decrypt it, simply by running the same lines as the computer does; if the computer cannot decrypt the code, if won&#8217;t run it, so in that sense your code is pretty safe, but at the same time not usable.</p>
+<p>What flash obfuscators do is not encryption (although some of them brand themselves unrightfuly so), they simply apply various transformations on the code to make it harder to read. They rename variables to unreadable names, they run transformations on <em>for</em> and <em>while</em> loops etc, and it is indeed a bummer to try to read their output; if I were to copy source code from a game I&#8217;d go for the one that did not get obfuscated, so in that sense they do a reasonable job but they are <strong>not cryptographically secure</strong>; a hacker with enough time at his hand will be able to crack them.</p>
+<p>What do you do, then? he asked me. I really need to protect my code but I also need to run it on the client, so what do I do?</p>
+<p>There are several ways to go around this. One is: perform only the simple dumb signal collection on the client and send it to a server and let the secret code run on a server, not on the client. There is no general high level solution to the problem, it&#8217;s all very specific to the application, so in this case I suggested him to run the analysis on the server side, but in other cases the solution may be different, but the only thing that&#8217;s important to understand is that you can&#8217;t protect code on the client.</p>
+<p>Keep safe <img src='../../wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> </p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="../../2009/06/08/flash-encryption-no-way-dude/index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		              </div>
+      <!-- <p class="postmetadata2">Published in <a href="http://prettyprint.me/category/uncategorized/" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a> -->
+      <!-- by <php the_author(); ?> , June 8th, 2009 --> 
+      <br />
+      	</p></p>
+    </div>
+      <div class="post" id="post-114">
+      <h1><a href="../../2009/06/03/required-css-islands/index.html" rel="bookmark" title="Permalink to Required: CSS islands">Required: CSS islands</a></h1>
+      <p class="postmetadata">June 3rd, 2009 | <a href="../../2009/06/03/required-css-islands/index.html#comments" title="Comment on Required: CSS islands">5 Comments &#187;</a></p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="../../2009/06/03/required-css-islands/index.html"></a></div>
+<p><img class="alignright size-full wp-image-116" title="sheets" src="../../wp-content/uploads/2009/05/sheets.gif" alt="sheets" width="293" height="212" />Hey CSS guys, how about a CSS island tag?!</p>
+<p>This is what I&#8217;m talking about:</p>
+<pre>&lt;html&gt;
+&lt;style&gt;
+h1 {
+ font-size: bigger;
+}
+&lt;/style&gt;
+&lt;body&gt;
+lots of html code....
+&lt;cssisland resets="h1;h2;div.img;#id"&gt;
+&lt;style&gt;
+h1 {
+ font-size: smaller;
+}
+&lt;/style&gt;
+here all page css code is preserved except for h1, h2, div.img and #id
+h1 has a smaller font-size only within the scope of this block.
+&lt;/cssisland&gt;
+more html code... Here h1 has font-size bigger again.
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p><strong>Here&#8217;s the problem:</strong> It&#8217;s very common that web pages are constructed by many sources. For example in my <a href="../../about/index.html">about page</a> I have a stack overflow badge. Most of the content of this page was constructed by me, but this badge is from stackoverflow.com. The badge widget uses some CSS styles that might conflict with my page styles. For example it may use h1 or default fonts etc. The widget author can&#8217;t possibly know who&#8217;s going to use her widget, in what pages or how those pages are constructed and so it&#8217;s very likely that there will be a <strong>CSS conflict</strong>. The browser will know what to do with the CSS conflict, after all that&#8217;s how CSS is designed, it&#8217;ll find what needs to cascade what, but the problem is that either <strong>the widget is going to look awful</strong> b/c it&#8217;s author didn&#8217;t think of setting some CSS properties that have odd values on my page or that <strong>the page suffers</strong> b/c the widget has changes some CSS attribute that messes up the page.</p>
+<p>One possible solution to this problem of CSS conflict may be using an iFrame, but this is also a very limited solution b/c sometimes you don&#8217;t want to use an iframe and you do want to preserve most of the page styles. See <a href="../../2009/05/30/widgets-iframe-vs-inline/index.html">my previous post on the subject</a>.</p>
+<p>The common practice today, which pretty much sucks (IMO&#8230;), is to set all style attributes inline, for example:</p>
+<pre>&lt;html&gt;
+&lt;style&gt;
+h1 {
+ font-size: bigger;
+}
+&lt;/style&gt;
+&lt;body&gt;
+lots of html code....
+&lt;h1 <strong>style="font-size: smaller"</strong>&gt;My great widget&lt;/h1&gt;
+more html code... Here h1 has font-size bigger again.
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>Here we set the h1 font-size as an inline style attribute but this sucks b/c the code is ugly and not very robust.</p>
+<p>To do it nicely you&#8217;d want to add a &lt;style&gt; block but you can&#8217;t. If you do:</p>
+<pre>&lt;html&gt;
+&lt;style&gt;
+h1 {
+ font-size: bigger;
+}
+&lt;/style&gt;
+&lt;body&gt;
+lots of html code....
+<strong>&lt;style&gt;
+h1 {
+ font-size: smaller;
+}
+&lt;/style&gt;</strong>
+&lt;h1&gt;My great widget&lt;/h1&gt;
+
+more html code... Here h1 has font-size bigger again.
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>&#8230; then you&#8217;re going to mess up the page display by changing all h1 on it.</p>
+<p>So what I&#8217;m suggesting is a css-island block which isolates all CSS definitions declared inside it and as a convenience may also reset other CSS selectors defined on the page. This is a &#8220;scratch&#8221; idea, so optimizations are in place but as a general thought, how does it sound?</p>
+<p>Does that sound like a good idea?</p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="../../2009/06/03/required-css-islands/index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		              </div>
+      <!-- <p class="postmetadata2">Published in <a href="http://prettyprint.me/category/uncategorized/" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a> -->
+      <!-- by <php the_author(); ?> , June 3rd, 2009 --> 
+      <br />
+      	</p></p>
+    </div>
+      <div class="post" id="post-71">
+      <h1><a href="../../2009/05/30/widgets-iframe-vs-inline/index.html" rel="bookmark" title="Permalink to Widgets &#8211; iframe vs. inline">Widgets &#8211; iframe vs. inline</a></h1>
+      <p class="postmetadata">May 30th, 2009 | <a href="../../2009/05/30/widgets-iframe-vs-inline/index.html#comments" title="Comment on Widgets &#8211; iframe vs. inline">7 Comments &#187;</a></p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="../../2009/05/30/widgets-iframe-vs-inline/index.html"></a></div>
+<p><img class="size-full wp-image-104 alignright" title="Inspector Gadget" src="../../wp-content/uploads/2009/05/inspectorgadget_v1.jpg" alt="Inspector Gadget" width="256" height="359" />When writing a widget, should you use an <strong>iFrame</strong> or make the widget <strong>inline</strong>?</p>
+<p>Widgets are small web applications that can easily be added to any web page. They are sometimes called Gadgets and are vastly used in growing number of web pages, blogs, social sites, personalized home pages such as iGoogle, my Yahoo, netvibes etc. In this blog I use several widgets, such as the RSS counter to the right which displays how many users are subscribed to this blog (don&#8217;t worry, it&#8217;ll grow, that&#8217;s a new blog <img src='../../wp-includes/images/smilies/icon_wink.gif' alt=';-)' class='wp-smiley' /> ). Widgets are great in the sense that they are small reusable piece of functionality that even non-programmers can utilize to enrich their site.</p>
+<p>I&#8217;ve written several such widgets over the time both &#8220;raw&#8221; widgets that can get embedded in any site as well as iGoogle gadgets which are more structured, worpress*, typepad and blogger widgets, so I&#8217;m happy to share my experience.</p>
+<p>As a widget author, for widgets that run on the client side (simple embeddable HTML code) you have the choice of writing your widget inside an iframe or simply inline the page and make it part of the dom of the hosting page. The rest of the post discusses the pros and cons of both methods.</p>
+<h3>How is it technically done?</h3>
+<p>How to use an iframe or how to implement an inline widget?</p>
+<p><strong>Iframes</strong> are somewhat easier to implement. The following example renders a simple iframe widget:<br />
+<code>&lt;iframe src='http://my-great-widget.com/widgwt' width="100" height="100" frameborder='0'&gt; &lt;/iframe&gt;</code></p>
+<p>frameborder=&#8217;0&#8242; is used to make sure the ifrmae doesn&#8217;t have a border so it looks more natural on the page. The http://my-great-widget.com/widget is responsible of serving the widget content as a complete HTML page.</p>
+<p><strong>Inline</strong> gadgets might look like this:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">function</span> createMyWidgetHtml<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+ <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #3366CC;">&quot;Hello world of widgets&quot;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span>
+document.<span style="color: #660066;">getElementById</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'myWidget'</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">innerHTML</span> <span style="color: #339933;">=</span> createMyWidgetHtml<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>As you can see, the function createMyWidgetHtml() it responsible for creating the actual widget content and does not necessarily have to talk to a server to do that. In the iframe example there <strong>must be a server</strong>. In the inline example there does not need to be a server, although if needed, it&#8217;s possible to get data from the server, which actually is a very common case, widgets typically do call server side code. Using the inline method server side code is invoked by means of <a href="http://ajaxpatterns.org/On-Demand_Javascript">on-demmand javascript</a>.<strong><br />
+</strong></p>
+<p>So, to summarize, in the iframe case we simply place an iframe HTML code and point the source of the iframe to a sever location which actually serves the content of the widget. In the inline case we create the content locally using javascript. You may of course combine usage of iframe with javascript as well as use of the inline method with server side calls, you&#8217;re not restricted by that, but the paths start differentially.</p>
+<h3>So what is the big deal? What&#8217;s the difference?</h3>
+<p>There are several important differences, so here starts the interesting part of the post.</p>
+<h4>Security.</h4>
+<p>iFrame widgets are more secure.</p>
+<p>What risks do gadgets impose and who&#8217;s actually being put at risk? The user of the site and the site&#8217;s reputation are at risk.</p>
+<p>With inline gadgets the browser thinks that the source of the gadget code code comes from the hosting site. Let&#8217;s assume you&#8217;re browsing your favorite mail application http://my-wonderful-email.com and this mail application has installed a widget that displays a clock from http://great-clock-widgets.com/. If that widgets is implemented as an inline widget the browser thinks that the widget&#8217;s code originated at my-wonderful-email.com and not at great-clock-widgets.com and so it&#8217;ll let the widget&#8217;s code ultimately get access to the cookies owned by my-wonderful-email.com and the widget&#8217;s evil author will steal your email. It&#8217;s important to realize that browsers don&#8217;t care about where the javascript file is hosted; as long as the code runs on the same frame, the browser regards all code as originationg at the frame&#8217;s domain. So, you as a user get hurt by losing control over your email account and my-wonderful-email gets hurt by losing its reputation.</p>
+<p>If the same clock would have gotten implemented inside an iframe and the iframe source is different from the page source (which is the common case, e.g. the page source is my-wonderful-email.com and the gadget source is great-clock-widgets.com) then the browser would not allow the clock widgets access to the page cookies, nor will it allow access to any other part of the hosting document, including the host page dom. That&#8217;s way more secure. As a matter of fact, personal home pages such as iGoogle don&#8217;t even allow inline gadgets, only iframe gadgets are allowed. (inline gadgets are allowed only in rare cases, only after thorough inspection by the iGoogle team to make sure they&#8217;re not malicious)</p>
+<p>To sum up, iframe widgets are way more secure. However, they are also way more limited in functionality. Next we&#8217;ll discuss what you lose in functionality.</p>
+<h4>Look and feel</h4>
+<p>In the look and feel battle inline gadgets (usually**) win. The nice thing about them is that they can be made to look as part of the page. They can inherit CSS styles from the page, including fonts, colors, text size etc. Iframes, OTHO must define their CSS from the grounds up so it&#8217;s pretty hard for them to blend nicely in the page.</p>
+<p>But what&#8217;s even more important is that iframes must declare what their size is going to be. When adding an iframe to a page you must include a width and a height property and if you don&#8217;t, the browser will use some default settings. Now, if your widget is a clock widget that&#8217;s easy enough b/c you know exacly what size you want it to be, but in many cases you don&#8217;t know ahead of time how much space your widget is going to take. If, for example you&#8217;re authoring a widget that displays a list of some sort and you don&#8217;t know how long this list is going to be or how wide each item is going to be. Usually in HTML this is not a big deal because HTML is a <a href="http://en.wikipedia.org/wiki/Declarative_programming">declarative based language </a>so all you need to do is tell the browser what you want to display and the browser will figure out a reasonable layout for it, however with iframe this is not the case; with ifrmaes browsers demand that you tell it exactly what the iframe size is and it will not figure it out by itself. This is a real problem for widget authors that want to use iframes &#8211; if you require too much space the page will have voids in it and if you specify too little the page will have scrollbars in it, god forbids.</p>
+<p>Look and feel wise, inline wins. But note that this really depends on your widget application. If all you want to do is a clock, you may get along with an iframe just as well.</p>
+<h4>Server side vs. Client side</h4>
+<p>IFrmaes require you specify a src URL so when implementing a widget using an iframe you <strong>must</strong> have server side code. This could both be a limitation and a headache to some (owning a server, domain name etc, dealing with load, paying network bills etc) but to others this is actually a point in favor of iframes b/c it let&#8217;s you completely write your widgets in server side technologies, so you can write a lot of the code and actually almost all of it using your favorite server side technology whether it be asp.net, django, ror, jsp, struts , perl or other dinosaurs. When implementing an inline gadget you&#8217;ll find yourself more and more practicing your javascript Ninja.</p>
+<h3>What&#8217;s the decision algorithm then?</h3>
+<p><strong>Widget authors:</strong> If the widget can be implemented as an iframe, prefer an Iframe simply for preserving users security and trust. If a widget requires inlining (and the medium allows that, e.g. not iGoogle and friends) use inline but dare not exploit users trust!</p>
+<p><strong>Widget installers:</strong> When installing a widget in your blog you don&#8217;t see a &#8220;safe for users&#8221; ribbon on the widgets. How can you tell if the widget is safe or not? There are two alternatives I can suggest: 1) trust the vendor 2) read the code. Either you trust the widget provider and install it anyway or you take the time to read its code and determine yourself whether it&#8217;s trustworthy or not. Reality is that most site owners don&#8217;t bother reading code or are not even aware of the risk they&#8217;re putting their users at, and so widget providers are blindly trusted. In many cases this is not an issue since blogs don&#8217;t usually hold personal information about their readers. I suspect things will start changing once there are few high profile exploits (and I hope it&#8217;ll never get to it).</p>
+<p><strong>Users:</strong> Usres are kept in the dark. Just as there are no &#8220;safe for users&#8221; ribbons on widgets site owners install, there are no &#8220;safe to use&#8221; sites and basically users are kept in the dark and have no idea, even if they have the technical skills, whether or not the site they are using contains widgets, whether the widgets are inline or not and whether they are malicious. Although in theory a trained developer can inspect the code up-front, before running it in her browser and losing her email account to a hacker, however this is not practical and there should be no expectation that users en mass will do that. IMO this is an unfortunate condition and I only hope attackers will not find a way of taking advantage of that and doom the wonderful open widget culture on the web.</p>
+<p>Happy widgeting folks!</p>
+<hr />* Some blog platforms have a somewhat different structures for widgets and they may sometimes have both widgets and plugins that may correlate in their functionality, but for the matter of the discussion here I&#8217;ll lously use the term widget to discuss the &#8220;raw&#8221; type which consists of client side javascript code</p>
+<p>** Although in most cases you&#8217;d want widgets to inherit styles from the hosting page to make them look consistent with it, sometimes you actually don&#8217;t want the widget to inherit styles from the page, so in this case iFrames let you start your CSS from scratch.</p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="../../2009/05/30/widgets-iframe-vs-inline/index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		              </div>
+      <!-- <p class="postmetadata2">Published in <a href="http://prettyprint.me/category/uncategorized/" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a> -->
+      <!-- by <php the_author(); ?> , May 30th, 2009 --> 
+      <br />
+      	</p></p>
+    </div>
+      <div class="post" id="post-14">
+      <h1><a href="../../2009/05/21/sometimes-look-on-the-bright-side-of-life/index.html" rel="bookmark" title="Permalink to Sometimes look on the bright side of life">Sometimes look on the bright side of life</a></h1>
+      <p class="postmetadata">May 21st, 2009 | <span>Comments Off</span></p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="../../2009/05/21/sometimes-look-on-the-bright-side-of-life/index.html"></a></div>
+<p>I&#8217;m a big fan of <a href="http://www.codinghorror.com/blog/archives/000021.html">Jeff Atwood</a>, author of <a href="http://www.codinghorror.com/">coding-horror</a> and, co-author of the <a href="http://itc.conversationsnetwork.org/series/stackoverflow.html">stack-overflow podcast</a> so when I started this new blog I thought wouldn&#8217;t it be cool if I found a cool domain name a-la coding-horror or stack-overflow or such? But then I realized that all those names have negative connotations: <a href="http://stackoverflow.com/"><strong>stack-overflow</strong></a> (see the immortal <a href="http://insecure.org/stf/smashstack.html">smashing the stack for fun and for profit</a>),<strong> <a href="http://www.codinghorror.com/">coding-horror</a></strong>, the new <strong><a href="http://serverfault.com/beta-access">server-fault</a></strong> site and there&#8217;s another cool site, <strong><a href="http://thedailywtf.com/">The Daily WTF</a></strong>&#8230;</p>
+<p>I&#8217;ve decided I&#8217;d like to, at least sometimes, if not always look on the bright side of life</p>
+<p><object width="425" height="344" data="http://www.youtube.com/v/jHPOzQzk9Qo&amp;hl=en&amp;fs=1" type="application/x-shockwave-flash"><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://www.youtube.com/v/jHPOzQzk9Qo&amp;hl=en&amp;fs=1" /><param name="allowfullscreen" value="true" /></object></p>
+<p>So I chose<em><strong> PrettyPrint.me</strong></em> to stay on a positive note.</p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="../../2009/05/21/sometimes-look-on-the-bright-side-of-life/index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		              </div>
+      <!-- <p class="postmetadata2">Published in <a href="http://prettyprint.me/category/uncategorized/" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a> -->
+      <!-- by <php the_author(); ?> , May 21st, 2009 --> 
+      <br />
+      	</p></p>
+    </div>
+      <div class="post" id="post-18">
+      <h1><a href="../../2009/05/20/the-hitchhikers-guide-to-bookmarklet-authoring/index.html" rel="bookmark" title="Permalink to The hitchhikers guide to bookmarklet authoring">The hitchhikers guide to bookmarklet authoring</a></h1>
+      <p class="postmetadata">May 20th, 2009 | <a href="../../2009/05/20/the-hitchhikers-guide-to-bookmarklet-authoring/index.html#comments" title="Comment on The hitchhikers guide to bookmarklet authoring">5 Comments &#187;</a></p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="../../2009/05/20/the-hitchhikers-guide-to-bookmarklet-authoring/index.html"></a></div>
+<p>I&#8217;ve written several <a href="http://en.wikipedia.org/wiki/Bookmarklet">bookmarklets</a> lately so I wanted to write a tutorial/Q&amp;A to help newbees and share what I&#8217;ve learned. Please leave comments if you have questions or you think I got something wrong and good luck with your first bookmarklet.</p>
+<p><img class="alignnone size-full wp-image-59" title="Count Bookmarklet" src="../../wp-content/uploads/2009/05/picture-1.png" alt="Count Bookmarklet" width="371" height="164" /></p>
+<h5>What are bookmarklets?, <em><br />
+</em></h5>
+<p>Bookmarklets are small plugins/extensions to your browser. They are called that way because they&#8217;re implemented using the browser&#8217;s built-in <em>Bookmarks</em> mechanism (although IE uses a different terminology, <em>Favorites</em>, they are still called bookmarklets even in IE jargon). Example bookmarklets are <a href="http://charcount.appspot.com/">Count</a> which I authored which counts characters of the text you select. There are plenty of other useful <a href="http://www.bmlet.com/Bookmarklets/">bookmarklet examples here</a> as well.</p>
+<h5>How to install a bookmarklet?</h5>
+<p>Bookmarklet&#8217;s don&#8217;t really require installation. They are simply links you can add to your bookmarks toolbar. There are several ways to do that (depending on your OS and browser), so here&#8217;s a short explanation that tries to catch them all.</p>
+<ul>
+<li>Right click the bookmarklet link</li>
+<li>Select &#8220;Bookmark this link&#8221; (on FF) or similar wording in IE/other browsers</li>
+<li>That&#8217;s all, really</li>
+</ul>
+<p>Now that your bookmarklet is installed, simply click it to use it. For example if you&#8217;ve installed the Count bookmarklet, when you want to count characters simply click the bookmark. So, bookmarklets are best described as &#8220;additional browser buttons&#8221;.</p>
+<p>One tweak is that some browsers tend to hide their bookmarks folder, so you have to configure your browser to show it so you have all buttons at hand and don&#8217;t have to click through the bookmarks toolbar in order to get to them. It&#8217;s usually done by either right clicking the navigation bar area or similar technique.</p>
+<p>A lot of browsers simply let you drag and drop the bookmarklet to the bookmarks toolbar, so that&#8217;s much easier.</p>
+<p>There&#8217;s also a video I found that explains how to install (a different) bookmarklet <a href="http://blog.sharinglinks.com/video-how-to-install-bookmarklet-into-firefox/34/">here</a>.</p>
+<h5>How to write a bookmarklet?</h5>
+<p>Alright, let&#8217;s get down to business  and write some software!</p>
+<p>This is your first bookmarklet: <a href="javascript:alert(&quot;Hello first bookmarklet world&quot;)">Say hello</a> and here&#8217;s the code:</p>
+<p><code>&lt;a href="javascript:alert("Hello first bookmarklet world")"&gt;Say hello&lt;/a&gt;</code></p>
+<p>That&#8217;s easy, right? All you have to do is add a link at your web page and set the href of that link to javascript:&#8230; We&#8217;ll talk about this javascript: more later. Now all your users have to do is add this link to their bookmarks and that&#8217;s it.</p>
+<h5>What does javascript: stand for?</h5>
+<p>A URL is comprised of several sections. For example in http://www.google.com/ we have www.google.com as the host name and http as <strong>the protocol</strong>. Browsers know all sorts of protocols, to name a few http, https, ftp, irc and yes, javascript as well. Sometimes a browser relayes a protocol to the operating system, such as the case wtih irc or ed2k but at least for http, https and javascript the browser handles them by itself. So when you have an &lt;a href=&#8217;javascript:&#8230;&#8221;&gt; it actually tells the browser to run javascript when the user clicks on that link. A simple extension to this is what makes bookmarklet so powerful &#8211; if you have a bookmark wtih a link that starts with javascript: as its protocol, the browser will, instead of navigating to a different page, simply run that javascript <strong>in the context of the current page</strong>. This is great because now you&#8217;re able to add functionality to other pages. For example , you may count characters on any page you visit. Many bookmarklets operate on the current page, but they strictly don&#8217;t have to, they can be independent of the page such as the Say hello bookmarklet above, which simply doesn&#8217;t care about what page the user is currently browsing, but to me the real power of bookmarklets is to be able to interact with the page.</p>
+<p>You may know about plugins/extensions/toolbars, which in many cases also operate on the &#8220;current page&#8221;, so if you&#8217;re wondering what&#8217;s the difference between an extension and a bookmarklet, that&#8217;s a good question, but we&#8217;ll get to that later.</p>
+<h5>Let&#8217;s write a non-trivial bookmarklet</h5>
+<p>In the previous example we had a simple bookmarklet that only says hello. That&#8217;s cute, but not that useful. Let&#8217;s do a real one then, one that counts the number of words on the current page.</p>
+<p>First, let&#8217;s write just the javascript code, run it and only then turn it into a bookmarklet. I like to use firebug for writing short snippets of code and testing them, so just copy the code below, paste it into firebug console and run it.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">var</span> t <span style="color: #339933;">=</span> document.<span style="color: #660066;">body</span>.<span style="color: #660066;">innerHTML</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// Gets all body content</span>
+t <span style="color: #339933;">=</span> t.<span style="color: #660066;">replace</span><span style="color: #009900;">&#40;</span><span style="color: #009966; font-style: italic;">/&lt;(.|\n)*?&gt;/g</span><span style="color: #339933;">,</span><span style="color: #3366CC;">''</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// Removes all html tags</span>
+t <span style="color: #339933;">=</span> t.<span style="color: #660066;">replace</span><span style="color: #009900;">&#40;</span><span style="color: #009966; font-style: italic;">/\s+/g</span><span style="color: #339933;">,</span><span style="color: #3366CC;">' '</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// Crunch consecutive whitespaces</span>
+<span style="color: #000066;">alert</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Length: '</span> <span style="color: #339933;">+</span> t.<span style="color: #660066;">split</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">' '</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">length</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// split by spaces and count length</span></pre></div></div>
+
+<p>Now stay tuned because this is important. To turn this piece of javascript code to a bookmarklet we&#8217;ll need to apply several transformations, so let&#8217;s do them one step at a time.</p>
+<p>1. First step is trivial, remove comments.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">var</span> t <span style="color: #339933;">=</span> document.<span style="color: #660066;">body</span>.<span style="color: #660066;">innerHTML</span><span style="color: #339933;">;</span>
+t <span style="color: #339933;">=</span> t.<span style="color: #660066;">replace</span><span style="color: #009900;">&#40;</span><span style="color: #009966; font-style: italic;">/&lt;(.|\n)*?&gt;/g</span><span style="color: #339933;">,</span><span style="color: #3366CC;">''</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+t <span style="color: #339933;">=</span> t.<span style="color: #660066;">replace</span><span style="color: #009900;">&#40;</span><span style="color: #009966; font-style: italic;">/\s+/g</span><span style="color: #339933;">,</span><span style="color: #3366CC;">' '</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #000066;">alert</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Length: '</span> <span style="color: #339933;">+</span> t.<span style="color: #660066;">split</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">' '</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">length</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>2. Next we need to crunch it all to one line. Bookmarks should not have newlines in them (although some browsers are OK with that, let&#8217;s play it clean)</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">var</span> t <span style="color: #339933;">=</span> document.<span style="color: #660066;">body</span>.<span style="color: #660066;">innerHTML</span><span style="color: #339933;">;</span> t<span style="color: #339933;">=</span> t.<span style="color: #660066;">replace</span><span style="color: #009900;">&#40;</span><span style="color: #009966; font-style: italic;">/&amp;lt;(.|\n)*?&amp;gt;/g</span><span style="color: #339933;">,</span><span style="color: #3366CC;">''</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> t <span style="color: #339933;">=</span> t.<span style="color: #660066;">replace</span><span style="color: #009900;">&#40;</span><span style="color: #009966; font-style: italic;">/\s+/g</span><span style="color: #339933;">,</span><span style="color: #3366CC;">' '</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #000066;">alert</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Length: '</span> <span style="color: #339933;">+</span> t.<span style="color: #660066;">split</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">' '</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">length</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>Later we&#8217;ll introduce an automated tool that does all that, but for now it&#8217;s instructive that you do it yourself.</p>
+<p>3. Next, wrap it all in a function construct. This is the most importance point, so pay attension.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><span style="color: #003366; font-weight: bold;">var</span> t <span style="color: #339933;">=</span> document.<span style="color: #660066;">body</span>.<span style="color: #660066;">innerHTML</span><span style="color: #339933;">;</span> t<span style="color: #339933;">=</span> t.<span style="color: #660066;">replace</span><span style="color: #009900;">&#40;</span><span style="color: #009966; font-style: italic;">/&amp;lt;(.|\n)*?&amp;gt;/g</span><span style="color: #339933;">,</span><span style="color: #3366CC;">''</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> t <span style="color: #339933;">=</span> t.<span style="color: #660066;">replace</span><span style="color: #009900;">&#40;</span><span style="color: #009966; font-style: italic;">/\s+/g</span><span style="color: #339933;">,</span><span style="color: #3366CC;">' '</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #000066;">alert</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Length: '</span> <span style="color: #339933;">+</span> t.<span style="color: #660066;">split</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">' '</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">length</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span></pre></div></div>
+
+<p>Let&#8217;s talk about what just happened here. We wrapped the code inside this weird construct <em>(function(){&#8230;})()</em>. What does it mean?</p>
+<p>What you see here is an <strong>anonymous function</strong> definition followed immediately by the function execution. JavaScript is great in allowing anonymous functions and what we get from it is two important things. First we get namespace safety &#8211; if there was another variable on the page named t if will not get overrun. Bookmarklet need to be good citizens and if you run over the local page variable no one will want to use your bookmarklet so you have to be careful. Keep in mind that you have no control over what page your bookmarklet is run at, so you don&#8217;t know whether that page has already defined a variable named t or not. Now, you could have gotten away with using __my_ugly_bookmarklet_unique_variable_name as a somewhat unique var name on the page in hope no one gets as smart as you making up var names, but c&#8217;mon, this is way un-elegant. And there&#8217;s more.</p>
+<p>The second thing you get from using the anonymous function construct is even more important &#8211; A single statement. Remember the talk about protocols before, the javascript: protocol? So, the thing is that javascript: protocol may only accept one statement. So if the statement is a simple alert() that&#8217;s fine but if your program has more than a single statement, (and that&#8217;s why we call them non-trivial) then you need to wrap all the statements in one big block. That block is this function construct.</p>
+<p>So, let&#8217;s get back to the function construct and see what we have.</p>
+<p>First, we have an anonymous function</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>...<span style="color: #660066;">code</span>...<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>Next, we wrap this function definition in braces to make sure associativity works for us:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>...<span style="color: #660066;">code</span>...<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span></pre></div></div>
+
+<p>And next, we invoke this function</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>...<span style="color: #660066;">code</span>...<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span></pre></div></div>
+
+<p>By invoking the function we effectively run the code inside the function, which is exactly what we need. OK, so that was the hard part, now the easy part.</p>
+<p>4. Next, add an &lt;a href=&#8221;javascript:&#8221; to it</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #339933;">&lt;</span>a href<span style="color: #339933;">=</span><span style="color: #3366CC;">&quot;javascript:(function(){var t = document.body.innerHTML; t= t.replace(/&amp;lt;(.|<span style="color: #000099; font-weight: bold;">\n</span>)*?&amp;gt;/g,''); t = t.replace(/<span style="color: #000099; font-weight: bold;">\s</span>+/g,' '); alert('Length: ' + t.split(' ').length);})()&quot;</span><span style="color: #339933;">&gt;</span>Count words on page<span style="color: #339933;">&lt;/</span>a<span style="color: #339933;">&gt;</span></pre></div></div>
+
+<p>So, with step 4 you have your bookmarklet ready. Let&#8217;s summarize all steps so far</p>
+<p>0. Write the javascript code for the bookmarklet. This is the heart of your application where all logic goes. All the rest are more or less trivial plumbing once you get the hang of it. I use Firebug for testing small snippets of code, and usually just save the javascript I develop in a local file.</p>
+<p>1. remove comments</p>
+<p>2. crunch into one line</p>
+<p>3. wrap in (function(){&#8230;})()</p>
+<p>4. Add the &lt;a href=&#8221;javascript code on an HTML page (this is optional by the way, only if you want other ppl to see your bookmarklet)</p>
+<p>About code crunching, otherwise known as <strong>javascript-minification </strong>or<strong> compression</strong>, there are automated tools to help you do that. They remove comments, remove newlines and extra whitespaces, so what I do is keep the js file well formatted and only when I want to deploy it, I run it through the minifier. An online minifier version is also available, which is quite handy <a href="http://fmarcia.info/jsmin/test.html">here</a> and a downloadable minifier from Yahoo <a href="http://developer.yahoo.com/yui/compressor/">here<br />
+</a></p>
+<p>Now you are ready to write your first bookmarklet. In the next sections we&#8217;ll dig into more advanced techniques and some meta discussions.</p>
+<h5>Bookmarklets vs. extensions</h5>
+<p>A short recap: Bookmarklets are small extensions to the browser&#8217;s functionality implemented as a simple bookmark. What are browser extensions then (also called add-ons, sometimes plugins, sometimes toolbars etc)? They are also extensions to the common browser functionality. There are dozens of examples extensions such as the Google Toolbar, Yahoo, MSN and so many more. So what is the difference b/w a bookmarklet and an extension?</p>
+<p>Well, there are many differences but I&#8217;ll only talk about a few which I think matter the most and would hopefully help you determine whether you want to write a bookmarklet or an extension</p>
+<p><strong>Functionality</strong>. Functionality wise I think extensions win. Browser extensions can do so much more than bookmarklets. They can open a sidebar, they can have as many buttons as they like (instead of  just one), they can have more than just buttons, they can have text boxes, graphics, control the mouse cursor ans so much more. A user can play with the extension settings to personalize it etc. Bookmarklets are much simpler and don&#8217;t provide all that rich functionality. They are bookmarks, and they will always look like bookmarks, you can&#8217;t make them use a logo (except for your site&#8217;s favicon, but that&#8217;s lame and doesn&#8217;t work by default on all browsers). Functionality wise, extensions win. But wait, there&#8217;s more.</p>
+<p><strong>Ease of development.</strong> If you&#8217;ve read this tutorial you can write a bookmarklet. It&#8217;s that easy. To write a bookmarklet you need to know about the usual web stuff, javascript, css, html, but that&#8217;s all, no need to learn something specific except from what is in this blog. Extensions are a whole different story. Firefox extensions, which are relatively easy to make compared to IE toolbars make you learn about XUL and about the special firefox extensions registry, they make you create an xpi, an installable version etc. IE is much much worse in that sense. Now, all that is definitly possible of course, people have been doing it for a long time, but you have to admit this is order of magnitude more complex than the javascript, html and css you already know. In ease of development bookmarklets win.</p>
+<p><strong>Interoperability</strong>. When authoring a bookmarklet, just like authoring a web site, you write them for all browsers. All browsers have support for bookmarks, hence all browsers support bookmarklets. OTOH, not all browsers support extensions and those that do (IE, FF) have a whole different structure for doing that. If you choose the bookmarklet way, by definition you develop for all platforms. If you choose the extensions way you&#8217;d have to write one extension for IE (good luck with that), one for FF, you can&#8217;t write extensions for Safari, which happens to be my favorite browser, none for Opera and I rest my case. Interoperability wise, bookmarklets win.</p>
+<p><strong>User-friendliness</strong>. I don&#8217;t know. I think some users are more confirmable with extensions just because they are one-click to install (or several clicks) whereas bookmarklets require you to add a bookmark, which as silly as it may sound, some ppl are having real hard time with that. So I think the installation process of toolbars is better at least for some users. OTOH, I think advanced users much prefer bookmarklets b/c they feel more in control when installing them. When I install a browser extension I think very hard on whether this extension is going to slow my browser down, or wheather it&#8217;s going to change my layout, or whether it&#8217;s going to take some preceaus browser real-estate. As a minimalist I prefer bookmarkletrs as I&#8217;m in full control &#8211; they hardly take up space, they can&#8217;t operate and slow my browser down unless I click them, so I&#8217;m in control. But I see why some users prefer extensions. Let&#8217;s call it a tie then.</p>
+<p>The bottom line is this: for your applicaton you should determine whether to use an extension or a bookmarklet according to the following criteria:</p>
+<ul>
+<li>What functionality do you want to provide? Some things just can&#8217;t be done using a bookmarklet.</li>
+<li>What browsers would you like to support? Not all browsers support extensions, and even those who do require you to rewrite your code for them</li>
+<li>Do you have time to develop an extension? In most cases extensions are order of magnitude harder to implement.</li>
+<li>What is your audience? It is going to be comfortable with a bookmarklet? Is it going to be comfortable with an extension? This is sometimes hard to figure out, BTW, but that&#8217;s how life is&#8230;</li>
+</ul>
+<h5>Advanced: Loading code from remote server</h5>
+<p>In the <a href="http://charcount.appspot.com/">Count</a> bookmarklet I authored I use jQuery to display a nice floating window and animations. I chose to use jQuery and animations make the whole thing look nicer. I could have gotten through with a simple alert() message but it just didn&#8217;t feel right.</p>
+<p>Now, the challenge is twofold:</p>
+<ul>
+<li>bookmarklets have limited space in them, which means you can&#8217;t crunch so much code into them, and definitly not the whole jQuery library. I don&#8217;t remember what the exact limitation is and I&#8217;d bet different browsers have different limitation, but it&#8217;s safe to assume that 1024 chars are about the max since this is a normal limitation HTTP imposes in URLs. Anyway, even if it was 2000, 4000 or more that wouldn&#8217;t have been enough.</li>
+<li>Say you want  to upgrade your bookmarklet &#8211; fix a bug or add a feature. If all the code would have been implemented inside the bookmarklet itself, you&#8217;d have to ask all your users who already installed that to remove and reinstall, then you&#8217;re in big trouble.</li>
+</ul>
+<p>So, what you want to do is have a bookmarklet that actually loads javascriopt to the page from a remote server. That way it&#8217;s simple to ugdate your bookmarklet.</p>
+<p>To load javascript to a page that&#8217;s actually already fully loaded we use a technique called <strong>dynamic script injection</strong>, which is common to other applications such as jsonp and here&#8217;s how it works:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">var</span> s <span style="color: #339933;">=</span> document.<span style="color: #660066;">createElement</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'script'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// Create a script dom element</span>
+s.<span style="color: #660066;">setAttribute</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'src'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'http://charcount.appspot.com/s/jquery.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// Set the element source to the js file you want to load</span>
+s.<span style="color: #660066;">setAttribute</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'type'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'text/javascript'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+document.<span style="color: #660066;">body</span>.<span style="color: #660066;">appendChild</span><span style="color: #009900;">&#40;</span>s<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// attaching the element to the body (or to head) results in the browser loading the script and executing it. That's just how browser magic works, which is cool... all browsers do that!</span></pre></div></div>
+
+<p>So the trick is to attach a &lt;script&gt; dom element to the head (or body) which results in browser execution. How cool is that? By the way, don&#8217;t try to use document.write(&#8220;&lt;script..&#8221;), it will not work. Once a page is fully loaded calling document.write simply messes everything up and you&#8217;re likely to find your browser unstble if you choose to do that (beleive me, I tried <img src='../../wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> )</p>
+<p>Loading a script from a remote server is very cool and it opens up interesting possibilities. You&#8217;re no longer bound to writing very very compact code and you can use 3rd party libraries, so that&#8217;s awesome. There are, however. a small tradeoff and a few gotchas:</p>
+<ul>
+<li>The tradeoff is in performance. If all your code is local the browser runs it very fast whereas if you have to load remote resources depending on your server availability, this may be slower. It&#8217;s usually not a big deal, but I had to mention this.</li>
+<li>You need to have a server. Or at least something static that can serve javascript.</li>
+<li>Gotcha: be careful not to load your script more than once. If the user clicks on your bookmarklet again and again you don&#8217;t want to load your js files over and over again. There&#8217;s a simple way to guard agains this, look at the example below.</li>
+</ul>
+<p>To prevent your scripts from being loaded more than once you make use a guard, a variable or a page element that gets initialized in the js file and the bookmarklet code checks for its existence. Here&#8217;s an example from the Count bookmarklet:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;">javascript<span style="color: #339933;">:</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><span style="color: #000066; font-weight: bold;">if</span><span style="color: #009900;">&#40;</span>document.<span style="color: #660066;">getElementById</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'__wc_display'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>__wc_refresh<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>return<span style="color: #009900;">&#125;</span> <span style="color: #006600; font-style: italic;">// That was the guard. The rest of the code will load the js files</span>
+&nbsp;
+window.__wc_base<span style="color: #339933;">=</span><span style="color: #3366CC;">'http://charcount.appspot.com/'</span><span style="color: #339933;">;</span>var<span style="color: #339933;">%</span>20d<span style="color: #339933;">=</span>document<span style="color: #339933;">;</span>var<span style="color: #339933;">%</span>20s<span style="color: #339933;">=</span>d.<span style="color: #660066;">createElement</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'script'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>s.<span style="color: #660066;">setAttribute</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'src'</span><span style="color: #339933;">,</span>__wc_base<span style="color: #339933;">+</span><span style="color: #3366CC;">'s/jquery.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>s.<span style="color: #660066;">setAttribute</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'type'</span><span style="color: #339933;">,</span><span style="color: #3366CC;">'text/javascript'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>d.<span style="color: #660066;">body</span>.<span style="color: #660066;">appendChild</span><span style="color: #009900;">&#40;</span>s<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>s<span style="color: #339933;">=</span>d.<span style="color: #660066;">createElement</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'script'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>s.<span style="color: #660066;">setAttribute</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'src'</span><span style="color: #339933;">,</span>__wc_base<span style="color: #339933;">+</span><span style="color: #3366CC;">'s/wc.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>s.<span style="color: #660066;">setAttribute</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'type'</span><span style="color: #339933;">,</span><span style="color: #3366CC;">'text/javascript'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>d.<span style="color: #660066;">body</span>.<span style="color: #660066;">appendChild</span><span style="color: #009900;">&#40;</span>s<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span></pre></div></div>
+
+<h5>Bookmarklets Dos and Don&#8217;ts</h5>
+<p><span style="color: #008000;">DO</span>: Be polite. Remember, you&#8217;re not running your own show here, you&#8217;re only a guest on some other page. Do what you need to do but don&#8217;t stand in the user&#8217;s way and make it use a bookmarklet-block (as if there&#8217;s something like that&#8230; I just made it up, but you get the point &#8211; be polite).</p>
+<p><span style="color: #ff0000;">DON&#8217;T</span> mess with user privacy. You&#8217;re a guest, don&#8217;t forget that. NEVER look at cookies. Users trust you when they install, don&#8217;t betray that trust. Both bookmarklets and browser extensions are able to compromise security.</p>
+<p><span style="color: #008000;">DO</span>: graceful degregate. In case your server is not up or something else is going wrong, make sure that your bookmarklet leaves the browser in good condition. No javascript errors, no broken page etc.</p>
+<p><span style="color: #008000;">DO</span>: Test multiple browsers. It&#8217;s unfortunate, but very common for code to work perfect on one browsr and be completely broken on another. You must test at least the commonly used browsers, it&#8217;s a pain, but it&#8217;s a must.</p>
+<p><span style="color: #ff0000;">DONT</span> burn CPU, don&#8217;t leak memory. That&#8217;s true not only for bookmarklets, but is especially true for them. Messing with your own site is one thing, but messing with another site is a whole different story. You&#8217;re a guest, behave!</p>
+<p>I hope this tutorial was useful. Pleae feel free to leave cometns if you feel something is missing.</p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="../../2009/05/20/the-hitchhikers-guide-to-bookmarklet-authoring/index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		              </div>
+      <!-- <p class="postmetadata2">Published in <a href="http://prettyprint.me/category/uncategorized/" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a> -->
+      <!-- by <php the_author(); ?> , May 20th, 2009 --> 
+      <br />
+      	</p></p>
+    </div>
+      <div class="post" id="post-5">
+      <h1><a href="../../2009/05/17/hello-pretty-world/index.html" rel="bookmark" title="Permalink to Hello Pretty World">Hello Pretty World</a></h1>
+      <p class="postmetadata">May 17th, 2009 | <span>Comments Off</span></p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="../../2009/05/17/hello-pretty-world/index.html"></a></div>
+<div>As professional programmers you&#8217;re familiar with the term Pretty-print. Getting a cool domain name isn&#8217;t easy these days, so after weeks in search I was happy to finally get PrettyPrint.me how cool is that?</div>
+<div>Code aesthetics and readability is just one of the things I care about the most when writing code.I&#8217;m a professional software developer with experience in software methodology and web frontends in particular. I hope to share my wisdom on this blog and learn as I go.</div>
+<div>
+<p>Print it then, and keep it pretty</p>
+
+<div class="wp_syntax"><div class="code"><pre class="javascript" style="font-family:monospace;"><span style="color: #003366; font-weight: bold;">function</span> startBlog<span style="color: #009900;">&#40;</span>pretty<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+ prettyPrint<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;Hello &quot;</span> <span style="color: #339933;">+</span> <span style="color: #009900;">&#40;</span>pretty <span style="color: #339933;">?</span> <span style="color: #3366CC;">&quot;Pretty &quot;</span> <span style="color: #339933;">:</span> <span style="color: #3366CC;">&quot;&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">+</span> <span style="color: #3366CC;">&quot;World!&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span>
+startBlog<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">true</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p><img class="size-full wp-image-24" title="Hello World" src="../../wp-content/uploads/2009/05/hello_world.png" alt="Hello World" width="240" height="180" /></div>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="../../2009/05/17/hello-pretty-world/index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		              </div>
+      <!-- <p class="postmetadata2">Published in <a href="http://prettyprint.me/category/uncategorized/" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a> -->
+      <!-- by <php the_author(); ?> , May 17th, 2009 --> 
+      <br />
+      	</p></p>
+    </div>
+    
+  <div class="navigation">
+    <div class="alignleft"></div>
+    <div class="alignright"><a href="../2/index.html" >Next Entries &raquo;</a></div>
+  </div>
+  
+ 
+ 
+</div><!-- //content -->
+
+<div id="sidebar"><!-- sidebar -->
+
+<p class="rssfeed"><a class="rsslink" href="../../feed/index.html"></a>
+<p><a href="http://feeds2.feedburner.com/PrettyPrintMe"><img src="http://feeds2.feedburner.com/~fc/PrettyPrintMe?bg=3069B0&amp;fg=fffdfa&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a></p>
+</p>
+
+<h2>Search</h2>
+<form method="get" id="searchform" class="search" action="http://prettyprint.me/">
+<input type="text" name="s" value="Type keywords and hit enter..." onfocus="if (this.value == 'Type keywords and hit enter...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Type keywords and hit enter...';}" />
+</form>
+
+<!--
+<h2>Categories</h2>
+<ul>
+		<li class="cat-item cat-item-1"><a href="http://prettyprint.me/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+</ul>
+-->
+
+<h2>Blog Archives</h2>
+<ul>
+  	<li><a href='../../2011/07/index.html' title='July 2011'>July 2011</a></li>
+	<li><a href='../../2011/02/index.html' title='February 2011'>February 2011</a></li>
+	<li><a href='../../2011/01/index.html' title='January 2011'>January 2011</a></li>
+	<li><a href='../../2010/08/index.html' title='August 2010'>August 2010</a></li>
+	<li><a href='../../2010/05/index.html' title='May 2010'>May 2010</a></li>
+	<li><a href='../../2010/04/index.html' title='April 2010'>April 2010</a></li>
+	<li><a href='../../2010/03/index.html' title='March 2010'>March 2010</a></li>
+	<li><a href='../../2010/02/index.html' title='February 2010'>February 2010</a></li>
+	<li><a href='../../2010/01/index.html' title='January 2010'>January 2010</a></li>
+	<li><a href='../../2009/11/index.html' title='November 2009'>November 2009</a></li>
+	<li><a href='../../2009/10/index.html' title='October 2009'>October 2009</a></li>
+	<li><a href='../../2009/09/index.html' title='September 2009'>September 2009</a></li>
+	<li><a href='../../2009/08/index.html' title='August 2009'>August 2009</a></li>
+	<li><a href='../../2009/06/index.html' title='June 2009'>June 2009</a></li>
+	<li><a href='../../2009/05/index.html' title='May 2009'>May 2009</a></li>
+</ul>
+
+<!--
+<h2>Links</h2>
+<ul>
+  <li><a href="http://wordpress.org/development/">Development Blog</a></li>
+<li><a href="http://codex.wordpress.org/">Documentation</a></li>
+<li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
+<li><a href="http://wordpress.org/extend/ideas/">Suggest Ideas</a></li>
+<li><a href="http://wordpress.org/support/">Support Forum</a></li>
+<li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
+<li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+</ul>
+-->
+
+<!--
+<h2>Meta</h2>
+<ul>
+    <li><a href="http://prettyprint.me/wp-login.php">Log in</a></li>
+  <li><a href="http://www.wordpress.org/">WordPress</a></li>
+    <li><a href="http://validator.w3.org/check?uri=referer">XHTML</a></li>
+</ul>
+-->
+
+ 
+
+
+</div> <!--//sidebar  -->
+
+</div><!--//container-->
+
+<div id="footer-container">
+	
+<div id="footer">
+
+<div id="footerleft">
+		<h2>About</h2>
+  <p>Restrospective focuses on clean typography and modern colors and design.</p>
+  </div>
+
+<div id="footermid">
+		<h2>Profiles, Links</h2>
+	<ul>
+  	<li><a href="http://www.linkedin.com/in/rantav">LinkedIn</a></li>
+  	<li><a href="http://tavory.com/">Homepage</a></li>
+  	<li><a href="http://twitter.com/rantav">Twitter</a></li>
+  	<li><a href="http://reversim.com/">(Hebrew podcast I run) רברס עם פלטפורמה</a></li>
+  	<li><a href="http://friendfeed.com/rantav">FriendFeed</a></li>
+  	<li><a href="http://gbsheli.com/">Google Blog Sheli (my older blog, mostly Hebrew)</a></li>
+  	<li><a href="http://www.facebook.com/people/Ran-Tavory/543122173">Facebook</a></li>
+  </ul>
+  </div>
+
+<div id="footerright">
+	<!--
+	<h2>Recent Readers</h2>
+-->
+  <!--	Paste JavaScript from MyBlogLog or other services -->
+
+  </div>
+
+</div><!--//footer-->
+
+<div class="copyright">
+	Copyright &copy; <a href="../../index.html">PrettyPrint.me</a> &middot; All rights reserved.<br />
+	
+	Powered by <a href="http://wordpress.org/">WordPress</a> and <a href="http://blogbuildingu.com/retrospective">Retrospective theme</a> &middot; Design & code by <a href="http://blogbuildingu.com/">Hendry Lee</a>.
+
+<script type='text/javascript' src='../../wp-content/plugins/contact-form-7/jquery.formd20f.js?ver=2.52'></script>
+<script type='text/javascript' src='../../wp-content/plugins/contact-form-7/scripts747d.js?ver=2.4.5'></script>
+<script src="../../wp-content/plugins/tweetmeme/button.js" type="text/javascript"></script></div>
+
+</div><!--//footer-container-->
+
+</body>
+
+<!-- Mirrored from prettyprint.me/page/3/ by HTTrack Website Copier/3.x [XR&CO'2010], Fri, 28 Dec 2012 23:03:39 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+</html>

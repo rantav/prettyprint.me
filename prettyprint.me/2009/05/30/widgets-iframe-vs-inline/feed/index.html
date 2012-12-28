@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Widgets &#8211; iframe vs. inline</title>
+	<atom:link href="http://prettyprint.me/2009/05/30/widgets-iframe-vs-inline/feed/" rel="self" type="application/rss+xml" />
+	<link>http://prettyprint.me/2009/05/30/widgets-iframe-vs-inline/</link>
+	<description>by Ran Tavory</description>
+	<lastBuildDate>Mon, 01 Aug 2011 08:29:01 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.2</generator>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2009/05/30/widgets-iframe-vs-inline/comment-page-1/#comment-7001</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Mon, 04 Apr 2011 04:56:52 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=71#comment-7001</guid>
+		<description>Google&#039;s app engine is certainly a good option. It&#039;s limited in some ways, so it&#039;s not a general purpose backend, but for hosting a scalable service for a widget it&#039;s pretty good.
+By browser&#039;s security model, an iframe does not have access to the hosting page and this includes the URL of the hosting page. You can, however, pass that URL as you call your widget, e.g instead of simply embedding an iframe with a link to your widget, embed a script which builds this iframe and passes the link of the hosting page to it.</description>
+		<content:encoded><![CDATA[<p>Google&#8217;s app engine is certainly a good option. It&#8217;s limited in some ways, so it&#8217;s not a general purpose backend, but for hosting a scalable service for a widget it&#8217;s pretty good.<br />
+By browser&#8217;s security model, an iframe does not have access to the hosting page and this includes the URL of the hosting page. You can, however, pass that URL as you call your widget, e.g instead of simply embedding an iframe with a link to your widget, embed a script which builds this iframe and passes the link of the hosting page to it.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Dhanika</title>
+		<link>http://prettyprint.me/2009/05/30/widgets-iframe-vs-inline/comment-page-1/#comment-7000</link>
+		<dc:creator>Dhanika</dc:creator>
+		<pubDate>Mon, 04 Apr 2011 04:39:12 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=71#comment-7000</guid>
+		<description>Thanks for the nice post!
+
+I&#039;m writing a widget these days &amp; thought to prefer iframe method for that. But I have few questions regarding this.
+1. Is there any free reliable site where we can host our server side code &amp; which can also handle the load? (Will Google Code or Google app engine help for this)
+2. When using iframe method, can I track the URLs of the sites who use my widget &amp; any method to get that stats?
+
+Waiting for your answers. Thanks in advance!</description>
+		<content:encoded><![CDATA[<p>Thanks for the nice post!</p>
+<p>I&#8217;m writing a widget these days &amp; thought to prefer iframe method for that. But I have few questions regarding this.<br />
+1. Is there any free reliable site where we can host our server side code &amp; which can also handle the load? (Will Google Code or Google app engine help for this)<br />
+2. When using iframe method, can I track the URLs of the sites who use my widget &amp; any method to get that stats?</p>
+<p>Waiting for your answers. Thanks in advance!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Neeraj</title>
+		<link>http://prettyprint.me/2009/05/30/widgets-iframe-vs-inline/comment-page-1/#comment-5353</link>
+		<dc:creator>Neeraj</dc:creator>
+		<pubDate>Wed, 12 Jan 2011 10:20:48 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=71#comment-5353</guid>
+		<description>Links inside iframe (on our php page) wont be read by search engines. But link in iframe tag itself will get the google juice from client page. In short we can get get google juice for our widget page but not Homepage or any other page that we want to. Add a link outside iframe, then we get juice but in this we cant prevent user from removing our link(most precious in the world).</description>
+		<content:encoded><![CDATA[<p>Links inside iframe (on our php page) wont be read by search engines. But link in iframe tag itself will get the google juice from client page. In short we can get get google juice for our widget page but not Homepage or any other page that we want to. Add a link outside iframe, then we get juice but in this we cant prevent user from removing our link(most precious in the world).</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: rantav</title>
+		<link>http://prettyprint.me/2009/05/30/widgets-iframe-vs-inline/comment-page-1/#comment-21</link>
+		<dc:creator>rantav</dc:creator>
+		<pubDate>Sat, 26 Sep 2009 08:06:36 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=71#comment-21</guid>
+		<description>The answer re what search engines would do actually depends on the search engine itself and different engines may behave differently.
+My bet is that search engines currently don&#039;t index javascript generated content at all (although I read that google is experimenting this) and if your widget is javascript generated, as many widgets are, then your content is not indexed no matter if it&#039;s an iframe or not.
+If your widget isn&#039;t javascript generated (it&#039;s generated on the server side, such as a wordpress plugin) then my *bet* is that google would associate any iframe content to the actual page it&#039;s included at and not to your server. Again, this is partially guess work and is really up to the search engine to decide on that.</description>
+		<content:encoded><![CDATA[<p>The answer re what search engines would do actually depends on the search engine itself and different engines may behave differently.<br />
+My bet is that search engines currently don&#8217;t index javascript generated content at all (although I read that google is experimenting this) and if your widget is javascript generated, as many widgets are, then your content is not indexed no matter if it&#8217;s an iframe or not.<br />
+If your widget isn&#8217;t javascript generated (it&#8217;s generated on the server side, such as a wordpress plugin) then my *bet* is that google would associate any iframe content to the actual page it&#8217;s included at and not to your server. Again, this is partially guess work and is really up to the search engine to decide on that.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Forest</title>
+		<link>http://prettyprint.me/2009/05/30/widgets-iframe-vs-inline/comment-page-1/#comment-20</link>
+		<dc:creator>Forest</dc:creator>
+		<pubDate>Thu, 24 Sep 2009 15:09:38 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=71#comment-20</guid>
+		<description>I&#039;m just conjuring up the idea of building a widget for my niche.
+
+If I produced this as an iframe widget and the widget it would simply be called a php page that I created that is the widget....
+
+So will the hyperlinks in that iframed php page be read by the search engine as coming from the origin of the iframe or from the page hosting the widget?
+
+I basically wanted to know if I got 1000 people to install my widget that had a link back to my site, would I get 1000 new backlinks or would they not be counted because they are within an iframe?
+
+I started to look at an inline javascript widget and it&#039;s just too much for me!! Php seems easier.</description>
+		<content:encoded><![CDATA[<p>I&#8217;m just conjuring up the idea of building a widget for my niche.</p>
+<p>If I produced this as an iframe widget and the widget it would simply be called a php page that I created that is the widget&#8230;.</p>
+<p>So will the hyperlinks in that iframed php page be read by the search engine as coming from the origin of the iframe or from the page hosting the widget?</p>
+<p>I basically wanted to know if I got 1000 people to install my widget that had a link back to my site, would I get 1000 new backlinks or would they not be counted because they are within an iframe?</p>
+<p>I started to look at an inline javascript widget and it&#8217;s just too much for me!! Php seems easier.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: rantav</title>
+		<link>http://prettyprint.me/2009/05/30/widgets-iframe-vs-inline/comment-page-1/#comment-19</link>
+		<dc:creator>rantav</dc:creator>
+		<pubDate>Sat, 30 May 2009 18:32:15 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=71#comment-19</guid>
+		<description>Hi Ori, that&#039;s a valid point, I agree, with inline gadgets the main document may finish loading slower so this is another point in favor of iframes.</description>
+		<content:encoded><![CDATA[<p>Hi Ori, that&#8217;s a valid point, I agree, with inline gadgets the main document may finish loading slower so this is another point in favor of iframes.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ori Lahav</title>
+		<link>http://prettyprint.me/2009/05/30/widgets-iframe-vs-inline/comment-page-1/#comment-18</link>
+		<dc:creator>Ori Lahav</dc:creator>
+		<pubDate>Sat, 30 May 2009 08:33:24 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=71#comment-18</guid>
+		<description>Ran
+nice post.
+one thing to mention about this issue is load time and page delay.
+with IFrame based widgets, as they are running on an &quot;inner window&quot; the widget load is not disturbing the main page load. however - with inline widgets, if not implemented correctly, they can delay content loading which is sometimes... very bad!</description>
+		<content:encoded><![CDATA[<p>Ran<br />
+nice post.<br />
+one thing to mention about this issue is load time and page delay.<br />
+with IFrame based widgets, as they are running on an &#8220;inner window&#8221; the widget load is not disturbing the main page load. however &#8211; with inline widgets, if not implemented correctly, they can delay content loading which is sometimes&#8230; very bad!</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

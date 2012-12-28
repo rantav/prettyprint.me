@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: JMX in Hector</title>
+	<atom:link href="http://prettyprint.me/2010/04/03/jmx-in-hector/feed/" rel="self" type="application/rss+xml" />
+	<link>http://prettyprint.me/2010/04/03/jmx-in-hector/</link>
+	<description>by Ran Tavory</description>
+	<lastBuildDate>Mon, 01 Aug 2011 08:29:01 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.2</generator>
+	<item>
+		<title>By: Gagan</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-5312</link>
+		<dc:creator>Gagan</dc:creator>
+		<pubDate>Mon, 10 Jan 2011 08:35:52 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-5312</guid>
+		<description>Here are steps for newbe like me - 
+
+Non production test environment - 
+Disabling Security
+
+To disable both password authentication and SSL (no security), set these system properties when you start the JVM:
+
+com.sun.management.jmxremote.authenticate=false
+com.sun.management.jmxremote.ssl=false
+
+Warning: This configuration is insecure: any remote user who knows (or guesses) your JMX port number and host name will be able to monitor and control your Java application and platform. While it may be acceptable for development, it is not recommended for production systems.
+
+To enable monitoring and management from remote systems, set this system property when you start the JVM:
+
+com.sun.management.jmxremote.port=portNum
+
+where portNum is the port number through which you want to enable JMX/RMI connections.  Be sure to specify an unused port number.
+
+Ref - http://download.oracle.com/javase/1.5.0/docs/guide/management/agent.html#auth</description>
+		<content:encoded><![CDATA[<p>Here are steps for newbe like me &#8211; </p>
+<p>Non production test environment &#8211;<br />
+Disabling Security</p>
+<p>To disable both password authentication and SSL (no security), set these system properties when you start the JVM:</p>
+<p>com.sun.management.jmxremote.authenticate=false<br />
+com.sun.management.jmxremote.ssl=false</p>
+<p>Warning: This configuration is insecure: any remote user who knows (or guesses) your JMX port number and host name will be able to monitor and control your Java application and platform. While it may be acceptable for development, it is not recommended for production systems.</p>
+<p>To enable monitoring and management from remote systems, set this system property when you start the JVM:</p>
+<p>com.sun.management.jmxremote.port=portNum</p>
+<p>where portNum is the port number through which you want to enable JMX/RMI connections.  Be sure to specify an unused port number.</p>
+<p>Ref &#8211; <a href="http://download.oracle.com/javase/1.5.0/docs/guide/management/agent.html#auth" rel="nofollow">http://download.oracle.com/javase/1.5.0/docs/guide/management/agent.html#auth</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Hector API v2 &#124; PrettyPrint.me</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-2893</link>
+		<dc:creator>Hector API v2 &#124; PrettyPrint.me</dc:creator>
+		<pubDate>Fri, 06 Aug 2010 11:27:37 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-2893</guid>
+		<description>[...] extensive jmx support [...]</description>
+		<content:encoded><![CDATA[<p>[...] extensive jmx support [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-1023</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Sun, 16 May 2010 21:27:58 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-1023</guid>
+		<description>that&#039;s cool, didn&#039;t know about cloc</description>
+		<content:encoded><![CDATA[<p>that&#8217;s cool, didn&#8217;t know about cloc</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Elazar Leibovich</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-1022</link>
+		<dc:creator>Elazar Leibovich</dc:creator>
+		<pubDate>Sun, 16 May 2010 21:24:04 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-1022</guid>
+		<description>Oops, wrong post, I meant to mention that on the post where you mentioned how you counted Cassandra&#039;s SLOC.</description>
+		<content:encoded><![CDATA[<p>Oops, wrong post, I meant to mention that on the post where you mentioned how you counted Cassandra&#8217;s SLOC.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Elazar Leibovich</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-1021</link>
+		<dc:creator>Elazar Leibovich</dc:creator>
+		<pubDate>Sun, 16 May 2010 21:23:23 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-1021</guid>
+		<description>Instead of using unmaintainable bash trickery to kind SLOC, use CLOC.
+
+http://cloc.sourceforge.net/
+
+It has support for many programming languages.</description>
+		<content:encoded><![CDATA[<p>Instead of using unmaintainable bash trickery to kind SLOC, use CLOC.</p>
+<p><a href="http://cloc.sourceforge.net/" rel="nofollow">http://cloc.sourceforge.net/</a></p>
+<p>It has support for many programming languages.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: ibillguo</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-593</link>
+		<dc:creator>ibillguo</dc:creator>
+		<pubDate>Fri, 16 Apr 2010 01:55:53 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-593</guid>
+		<description>Hi Ran Tavory,
+Cassandra 0.6.0 release version is available now
+Any timeline for hector on supporting official release?</description>
+		<content:encoded><![CDATA[<p>Hi Ran Tavory,<br />
+Cassandra 0.6.0 release version is available now<br />
+Any timeline for hector on supporting official release?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-574</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Wed, 14 Apr 2010 04:52:06 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-574</guid>
+		<description>Yes, it&#039;s in the 0.6.0 branch and in the downloads page http://github.com/rantav/hector/tree/0.6.0
+http://github.com/rantav/hector/downloads</description>
+		<content:encoded><![CDATA[<p>Yes, it&#8217;s in the 0.6.0 branch and in the downloads page <a href="http://github.com/rantav/hector/tree/0.6.0" rel="nofollow">http://github.com/rantav/hector/tree/0.6.0</a><br />
+<a href="http://github.com/rantav/hector/downloads" rel="nofollow">http://github.com/rantav/hector/downloads</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Dan</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-571</link>
+		<dc:creator>Dan</dc:creator>
+		<pubDate>Tue, 13 Apr 2010 22:39:07 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-571</guid>
+		<description>Does Hector have Cassandra 0.6 support (released in the last couple days)?  Any plans?</description>
+		<content:encoded><![CDATA[<p>Does Hector have Cassandra 0.6 support (released in the last couple days)?  Any plans?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: ibillguo</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-530</link>
+		<dc:creator>ibillguo</dc:creator>
+		<pubDate>Tue, 06 Apr 2010 02:10:07 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-530</guid>
+		<description>Thanks, it&#039;s working</description>
+		<content:encoded><![CDATA[<p>Thanks, it&#8217;s working</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ran Tavory</title>
+		<link>http://prettyprint.me/2010/04/03/jmx-in-hector/comment-page-1/#comment-521</link>
+		<dc:creator>Ran Tavory</dc:creator>
+		<pubDate>Sun, 04 Apr 2010 07:39:06 +0000</pubDate>
+		<guid isPermaLink="false">http://prettyprint.me/?p=285#comment-521</guid>
+		<description>Java&#039;s JMX coverage is pretty extensive and way out of scope here....
+See for example http://java.sun.com/developer/technicalArticles/J2SE/jmx.html
+
+A simple start would be to using the jconsole UI tool &lt;a href=&quot;http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html&quot; rel=&quot;nofollow&quot;&gt;http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html&lt;/a&gt;</description>
+		<content:encoded><![CDATA[<p>Java&#8217;s JMX coverage is pretty extensive and way out of scope here&#8230;.<br />
+See for example <a href="http://java.sun.com/developer/technicalArticles/J2SE/jmx.html" rel="nofollow">http://java.sun.com/developer/technicalArticles/J2SE/jmx.html</a></p>
+<p>A simple start would be to using the jconsole UI tool <a href="http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html" rel="nofollow">http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html</a></p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

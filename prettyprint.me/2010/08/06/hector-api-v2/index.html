@@ -1,0 +1,786 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<title>Hector API v2 | PrettyPrint.me</title>
+<meta name="generator" content="WordPress 3.2" /> <!-- leave this for stats -->
+<link rel="alternate" type="application/rss+xml" title="PrettyPrint.me RSS Feed" href="../../../../feed/index.html" />
+<link rel="pingback" href="../../../../xmlrpc.php" />
+<link rel="stylesheet" type="text/css" media="all" href="../../../../wp-content/themes/retrospective/style.css" />
+<!--[if lte IE 7]>
+	<link rel="stylesheet" type="text/css" media="all" href="http://prettyprint.me/wp-content/themes/retrospective/ie.css" />
+<![endif]-->
+<!--[if lte IE 6]>
+	<link rel="stylesheet" type="text/css" media="all" href="http://prettyprint.me/wp-content/themes/retrospective/ie6.css" />
+<![endif]--> 
+<meta name="verify-v1" content="iFkC+FAFtOQ601MZ4pU4juKjv2UEYbdQNeezoVgCUyE=" >
+<link rel="alternate" type="application/rss+xml" title="PrettyPrint.me &raquo; Hector API v2 Comments Feed" href="feed/index.html" />
+<link rel='stylesheet' id='contact-form-7-css'  href='../../../../wp-content/plugins/contact-form-7/styles747d.css?ver=2.4.5' type='text/css' media='all' />
+<script type='text/javascript' src='../../../../wp-includes/js/l10na17a.js?ver=20101110'></script>
+<script type='text/javascript' src='../../../../wp-includes/js/jquery/jquery51a2.js?ver=1.6.1'></script>
+<script type='text/javascript' src='../../../../wp-content/plugins/google-analyticator/external-tracking.min6fb3.js?ver=6.1.3'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='PrettyPrint.me' href='../../../../index.html' />
+<link rel='start' title='Hello Pretty World' href='../../../../2009/05/17/hello-pretty-world/index.html' />
+<link rel='prev' title='Understanding Cassandra Code Base' href='../../../05/02/understanding-cassandra-code-base/index.html' />
+<link rel='next' title='Continuous Deployment at outbrain' href='../../../../2011/01/24/continuous-deployment-at-outbrain/index.html' />
+<meta name="generator" content="WordPress 3.2" />
+<link rel='shortlink' href='../../../../indexeffc.html?p=322' />
+
+<!-- All in One SEO Pack 1.6.13.3 by Michael Torbert of Semper Fi Web Design[209,231] -->
+<meta name="description" content="Update: This post is now close for comments. If you have any questions please feel free to subscribe and ask at hector-users@googlegroups.com Update: The API" />
+<link rel="canonical" href="index.html" />
+<!-- /all in one seo pack -->
+<meta name="tweetmeme-title" content="Hector API v2" />
+<link rel="stylesheet" href="../../../../wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+<!-- Google Analytics Tracking by Google Analyticator 6.1.3: http://ronaldheft.com/code/analyticator/ -->
+<script type="text/javascript">
+	var analyticsFileTypes = [''];
+	var analyticsEventTracking = 'enabled';
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-2694026-6']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</head>
+
+<body>
+<div id="header">
+<a href="../../../../index.html" title="PrettyPrint.me">
+<div id="logo">
+<p>by Ran Tavory</p>
+</div>
+</a>
+<div id="top_navlist">
+<ul id="navlist">
+<li class="page_item page-item-213"><a href="../../../../about-2/index.html" title="About.me">About.me</a></li>
+<li class="page_item page-item-368"><a href="../../../../contact/index.html" title="Contact">Contact</a></li>
+</ul>
+</div><!--//top_navlist-->
+</div><!--//header-->
+
+<div id="container"><!--container -->
+<!-- #content -->
+<div id="content">
+
+    <div class="post" id="post-322">
+      <h1>Hector API v2</h1>
+      <p class="postmetadata"> </p>
+      
+      <div class="entry">
+        <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><a class="tm_button" rel="&amp;style=normal&amp;b=2" href="index.html"></a></div>
+<p>Update: This post is now close for comments. If you have any questions please feel free to subscribe and ask at <a href="https://groups.google.com/forum/#!forum/hector-users">hector-users@googlegroups.com</a></p>
+<p><strong>Update:</strong> The API was change a bit, it was mainly package renaming and interface extractions. To get a consistent snapshot of the api usage have a look at github on the release tag for example for 0.6.*:<br />
+<a href="http://github.com/rantav/hector/blob/0.6.0-17/src/main/java/me/prettyprint/cassandra/examples/ExampleDaoV2.java">http://github.com/rantav/hector/blob/0.6.0-17/src/main/java/me/prettyprint/cassandra/examples/ExampleDaoV2.java</a><br />
+and <a href="http://github.com/rantav/hector/blob/0.6.0-17/src/test/java/me/prettyprint/hector/api/ApiV2SystemTest.java">http://github.com/rantav/hector/blob/0.6.0-17/src/test/java/me/prettyprint/hector/api/ApiV2SystemTest.java</a></p>
+<p>and for 0.7.*<br />
+<a href="http://github.com/rantav/hector/blob/0.7.0-18/src/main/java/me/prettyprint/cassandra/examples/ExampleDaoV2.java">http://github.com/rantav/hector/blob/0.7.0-18/src/main/java/me/prettyprint/cassandra/examples/ExampleDaoV2.java</a><br />
+and <a href="http://github.com/rantav/hector/blob/0.7.0-18/src/test/java/me/prettyprint/hector/api/ApiV2SystemTest.java">http://github.com/rantav/hector/blob/0.7.0-18/src/test/java/me/prettyprint/hector/api/ApiV2SystemTest.java</a></p>
+<p><a href="../../../../wp-content/uploads/2010/08/Hector.jpg"><img class="alignright size-thumbnail wp-image-323" title="Hector" src="../../../../wp-content/uploads/2010/08/Hector-150x150.jpg" alt="" width="150" height="150" /></a><a href="http://github.com/rantav/hector">Hector</a> is a high level java client for the <a href="http://cassandra.apache.org/">cassandra database</a>. It was <a href="../../../02/23/hector-a-java-cassandra-client/index.html">first released some six months ago</a> and was coined  as the de-facto java client for cassandra.</p>
+<p>There is a large <a href="http://groups.google.com/group/hector-users">community</a> of users and companies who run their production high scale systems based on hector.</p>
+<p>The main benefits hector adds to the existing thrift based interface are:</p>
+<ul>
+<li>connection pooling</li>
+<li><a href="../../../04/03/jmx-in-hector/index.html">extensive jmx support</a></li>
+<li>failover</li>
+<li><a href="../../../03/03/load-balancing-and-improved-failover-in-hector/index.html">simple load balancing</a></li>
+<li>high level java based API</li>
+</ul>
+<p>Since the time hector was first written, first by me, then with the good help of other community members (of note is Nathan McCall) it&#8217;s gained popularity even in the face of &#8220;competition&#8221; so to speak, in an open source manner.</p>
+<p>However, one thing that I&#8217;ve always felt we can improve is the API. When writing the first version of hector the premise was that users are comfortable with the current level of the thrift API so hector should maintain an API similar in spirit. Hector may make things more type safe (such as when replacing all the ColumnOrSuperColumn types with specific Column or a SuperColumn typed methods) but in general I figured I should introduce as little new concepts as possible so that new users who are already familiar with the thrift way can easily learn the new library.</p>
+<p>I was wrong.</p>
+<p>As it turns out, users don&#8217;t learn the thrift API and then go use hector. Most users tend to just skip the thrift API and start with hector. Fait enough. But then I&#8217;m asked why did I make such a funny API&#8230; They are right, users of hector should not suffer from the limitations of the thrift API.</p>
+<p>Add to that the complexity of dealing with failover, which clients need not care about at the API level (and in the v1 API they did) and some complex anonymous classes and the <a href="http://en.wikipedia.org/wiki/Command_pattern">Command pattern</a> users need to understand (if only we could have closures in java&#8230;) then we get a less than ideal API.</p>
+<p>So the conclusion was clear: <strong>an API v2 was needed</strong>.</p>
+<p>The new API uses the same proven hector implementation underneath but exposes a cleaner interface to the users. It also makes meta operations such as cluster management explicit.</p>
+<p>We&#8217;re all coders, so enough talkin, let&#8217;s see some code&#8230;</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">// Create a cluster</span>
+Cluster c <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">getOrCreateCluster</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;MyCluster&quot;</span>, <span style="color: #0000ff;">&quot;cassandra1:9160&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// Choose a keyspace</span>
+KeyspaceOperator ko <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">createKeyspaceOperator</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Keyspace1&quot;</span>, c<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// create an string extractor. I'll explain that later</span>
+StringExtractor se <span style="color: #339933;">=</span> StringExtractor.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// insert value</span>
+Mutator m <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">createMutator</span><span style="color: #009900;">&#40;</span>keyspaceOperator<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+m.<span style="color: #006633;">insert</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span>, <span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span>, createColumn<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span>, <span style="color: #0000ff;">&quot;value1&quot;</span>, se, se<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #666666; font-style: italic;">// Now read a value</span>
+<span style="color: #666666; font-style: italic;">// Create a query</span>
+ColumnQuery q <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">createColumnQuery</span><span style="color: #009900;">&#40;</span>keyspaceOperator, se, se<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// set key, name, cf and execute</span>
+Result<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span> r <span style="color: #339933;">=</span> q.<span style="color: #006633;">setKey</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">setName</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">setColumnFamily</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">execute</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #666666; font-style: italic;">// read value from the result</span>
+HColumn c <span style="color: #339933;">=</span> r.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #003399;">String</span> value <span style="color: #339933;">=</span>  c.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span>value<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p><strong>Clusters</strong> are identified by their name, in this case <em>MyCluster.</em> A call to getOrCreateCluster(&#8220;MyCluster&#8221;, hostport) would create a new cluster if it doesn&#8217;t exist, but return a previously created one if it does. The Cluster object represents the client&#8217;s view of the cassandra cluster. A program may hold several Cluster instances, although typically one is sufficient.</p>
+<p>A <strong>KeyspaceOperator</strong> is the object used to make operations (reads, writes) on specific keyspaces. A program can create many of those.</p>
+<p>The <strong>StringExtractor</strong> is interesting&#8230; <strong>Hector provides type safety</strong> for column names and column values. Recall that in cassandra column names are byte[] and column values are byte[] too. So usually the programmer is required to translate those bytes back and forth to actual java objects. When designing the API we wanted to simplify this work and provide a type-safe API. Note that in the next lines we use HColumn&lt;String, String&gt; which is a column who&#8217;s name is of type String and value is also of type String as well as ColumnQuery&lt;String, String&gt; which is a query that returns columns with String names and String values. We could also have chosen to have columns with String names but Long values HColumn&lt;String,Long&gt; where it makes sense for the application.</p>
+<p>To provide this type safety hector defines an Extractor&lt;T&gt; interface.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #008000; font-style: italic; font-weight: bold;">/**
+ * Extracts a type T from the given bytes, or vice a versa.
+ *
+ * In cassandra column names and column values (and starting with 0.7.0 row keys) are all byte[].
+ * To allow type safe conversion in java and keep all conversion code in one place we define the
+ * Extractor interface.
+ * Implementors of the interface define type conversion according to their domains. A predefined
+ * set of common extractors can be found in the extractors package, for example
+ * {@link StringExtractor}.
+ *
+ * @author Ran Tavory
+ *
+ * @param   The type to which data extraction should work.
+ */</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">interface</span> Extractor <span style="color: #009900;">&#123;</span>
+&nbsp;
+  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Extract bytes from the obj of type T
+   * @param obj
+   * @return
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">byte</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> toBytes<span style="color: #009900;">&#40;</span>T obj<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+  <span style="color: #008000; font-style: italic; font-weight: bold;">/**
+   * Extract an object of type T from the bytes.
+   * @param bytes
+   * @return
+   */</span>
+  <span style="color: #000000; font-weight: bold;">public</span> T fromBytes<span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">byte</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> bytes<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>Hector provides a set of default and commonly used implementations of extractors, such as <em>StringExtractor</em> and <em>LongExtractor</em> (see <em>package me.prettyprint.cassandra.extractors</em>). Users of Hector are expected to implement their own application-specific extractors. The interface is pretty straight forward and simple, you only need to implement two methods which convert your type to/from byte[]. Extractors are <a href="http://en.wikipedia.org/wiki/Purely_functional">purely functional</a> which means that they don&#8217;t have side effects and have no state. Using extractors, the API adds simplicity, <a href="http://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> and type safety.</p>
+<p>Next we create a mutator and insert a value:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">Mutator m <span style="color: #339933;">=</span> HFactory.<span style="color: #006633;">createMutator</span><span style="color: #009900;">&#40;</span>keyspaceOperator<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+m.<span style="color: #006633;">insert</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span>, <span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span>,
+    HFactory.<span style="color: #006633;">createColumn</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span>, <span style="color: #0000ff;">&quot;value1&quot;</span>, se, se<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>The class HFactory (&#8220;Hector Factory&#8221;) has a set of many useful static factory methods. I usually just <em>import static me.prettyprint.cassandra.model.HFactory.*</em> and get all it&#8217;s public method as short method names, so the previous line can be written as:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">Mutator m <span style="color: #339933;">=</span> createMutator<span style="color: #009900;">&#40;</span>keyspaceOperator<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+m.<span style="color: #006633;">insert</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span>, <span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span>, createColumn<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span>, <span style="color: #0000ff;">&quot;value1&quot;</span>, se, se<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>Note again the use of the StringExtractor (se) when creating a column. The column gets a String name and a String value so it needs a <em>StringExtractor</em> to assist it in serializing and desiaralizing the strings to byte[]. As a matter of fact, we&#8217;ve noticed that it&#8217;s so common for use to use columns of type HColumn&lt;String,String&gt; that we decided we add a utility factory method: <em>createStringColumn(name, value)</em> which is a bit shorter than <em>createColumn(name, value, nameExtractor,  valueExtractor). </em>You may create your convenience factories as well and are welcome to contribute them back to hector.</p>
+<p>Next to reading the value. We&#8217;d like to read a simple column value given by its key (key1), and column name (column1).</p>
+<p>We create a ColumnQuery&lt;N,V&gt; where N is the type of the column name and V is the type of the column value (in this case, again it&#8217;s String, String)</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">ColumnQuery q <span style="color: #339933;">=</span> createColumnQuery<span style="color: #009900;">&#40;</span>keyspaceOperator, se, se<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>Next we set the query attributes &#8211; key, column and column family, and execute it.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">q.<span style="color: #006633;">setKey</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+setName<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+setColumnFamily<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+Result<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span> r <span style="color: #339933;">=</span> execute<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>The 4 lines above can also be written shortly as a one liner due to method chaining.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">Result<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span> r <span style="color: #339933;">=</span> q.<span style="color: #006633;">setKey</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;key1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">setName</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;column1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">setColumnFamily</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;ColumnFamily1&quot;</span><span style="color: #009900;">&#41;</span>.
+        <span style="color: #006633;">execute</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>What we see here is another feature of the API called <a href="http://en.wikipedia.org/wiki/Method_chaining">method chaining</a>. By convention all setters return a pointer to <em>this</em> so that it&#8217;s easy to <em>setX(x).setY(y).setZ(z)</em>.<br />
+You can even call <em>execute()</em> on the same line, e.g. <em>Result&lt;T&gt; r = q.setX(x).setY(y).execute()</em>.</p>
+<p><strong>execute()</strong> returns a typed <strong>Result&lt;T&gt;</strong> object. Note again the type safety. In this case we have Result&lt;HColumn&lt;String, String&gt;&gt; since the query is of type ColumnQuery&lt;String, String&gt;. In general we have ColumnQuery&lt;N, V&gt;.execute() =&gt; Result&lt;HColumn&lt;N, V&gt;&gt;</p>
+<p>So far we&#8217;ve looked at the ColumnQuery&lt;N,V&gt; but as a matter of fact there an many other types of Queries, in this example we query a simple column but the API defines all types of query use cases allowed by the thrift API, all implement the Query&lt;T&gt; interface:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #008000; font-style: italic; font-weight: bold;">/**
+ * The Query interface defines the common parts of all hector queries, such as {@link ColumnQuery}.
+ *
+ * The common usage pattern is to create a query, set the required query attributes and invoke
+ * {@link Query#execute()} such as in the following example:
+ *
+ * Note that all query mutators, such as setName or setColumnFamily always return the Query object
+ * so it's easy to write strings such as &lt;code&gt;q.setKey(x).setName(y).setColumnFamily(z).execute();&lt;/code&gt;
+ *
+ * @author Ran Tavory
+ *
+ * @param  Result type. For example HColumn or HSuperColumn
+ */</span>
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">interface</span> Query <span style="color: #009900;">&#123;</span>
+  <span style="color: #339933;">&lt;</span>q<span style="color: #339933;">&gt;&amp;</span>gt<span style="color: #339933;">;</span> Q setColumnFamily<span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span> cf<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  Result execute<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">&lt;/</span>q<span style="color: #339933;">&gt;</span></pre></div></div>
+
+<p>There are <em>ColumnQuery&lt;N,V&gt;</em>, <em>SuperColumnQuery&lt;SN,N,V&gt;</em>, <em>SliceQuery&lt;N,V&gt;</em>, <em>SuperSliceQuery&lt;SN,N,V&gt;</em>, <em>SubSliceQuery&lt;SN,N,V&gt;</em>, <em>RangeSlicesQuery&lt;N,V&gt;</em> and more&#8230; All query objects are type safe, so they return the only type the should return and the compiler keeps you safe.</p>
+<p>To read the value off of a result object just call Result.get(). Here again we provide type safety so in this case the result is of type HColumn&lt;String,String&gt;</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #666666; font-style: italic;">// read value from the result</span>
+HColumn c <span style="color: #339933;">=</span> r.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>A <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/model/Result.java">Result</a> , apart from holding the actual value also has some nice metadata, such as <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/model/ExecutionResult.java#L29">getExecutionTimeMicro()</a> and <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/model/Result.java#L21">getQuery()</a>. We plan to add more to that.</p>
+<p>Lastly we print out the string.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #003399;">String</span> value <span style="color: #339933;">=</span>  c.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span>value<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>In this case value is of type String. If the column would have been defined as follows: HColumn&lt;String, Long&gt; then we&#8217;d have</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #003399;">Long</span> value <span style="color: #339933;">=</span> c.<span style="color: #006633;">getValue</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.</pre></div></div>
+
+<p>The new API has other nice additions such as an improved exception hierarchy (all exceptions extend HectorException which is a RuntimeException and there&#8217;s a translation b/w the thrift exception and the hector ones, see <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/service/ExceptionsTranslatorImpl.java">ExceptionTranslator</a>), no dependency on thrift and more.</p>
+<p>It&#8217;s important to note that the new API does not rely on thrift anymore, so users who want to use avro as their transport are able to do it without changing their implementation (after cassandra really supports avro, and we add that to hector).</p>
+<p>Support for cassandra 0.7.0 is underway, and with the new API should be relatively easy to add.</p>
+<p>An extensive list of tests of the entire query/mutate API is available at <a href="http://github.com/rantav/hector/blob/master/src/test/java/me/prettyprint/cassandra/model/ApiV2SystemTest.java">ApiV2SystemTest</a></p>
+<p>To sum up, here&#8217;s a short list of new concepts introcuded by the v2 API and its main benefits</p>
+<ul>
+<li>All previous functionality provided by hector remains. You still get connection pooling, JMX etc. The old API is still in place, untouched (except for some small exception hierarchy refinements) so if you have existing code already working with hector it won&#8217;t break. We do plan to phase out the older API just so we have only one concise API , but as of now it&#8217;s left untouched.</li>
+<li>Clear and simple Mutator API calls. Mutator.insert(), Mutator.delete(), and for batch operations: Mutator.addInsertion().addInsertion().addDeletion().execute()</li>
+<li> Extensive, yet very simple query support. The API supports all types of queries supported by cassandra as a simple and type-safe java API. You can query for columns, super-columns, sub-columns (subcolumns of supercolumn), ranges, slices, multigets etc.</li>
+<li>Simple and concise exception hierarchy based on HectorException which extends a RuntimeException, so you don&#8217;t need to get your code dirty with try-catch where you don&#8217;t necessarily want to. You can still of course handle all exception types, the information is not lost, but code is much much cleaner when you don&#8217;t care to.</li>
+<li>No dependency on thrift (or on avro). The v2 API is completely independent of the wire protocol. When avro is finally implemented by cassandra all you have to do is tell hector whether you want to use thrift/avro and that&#8217;s all, no other code changes. Hector provides its own (type safe) objects such as HColumn&lt;N,V&gt; or HSuperColumn&lt;SN,N,V&gt;</li>
+<li>Type safety and separation of concerns. You implement (or reuse) a typed Extractor&lt;T&gt; and need not care about those byte[]s anymore.</li>
+</ul>
+<p>Lastly, we marked the new API as &#8220;beta&#8221; not because it&#8217;s not ready, but purely because we want to get your feedback. We&#8217;d like to leave it as beta for a few more weeks to get the developers feedback and if everyone&#8217;s happy release it as final, so do feel free to <a href="http://groups.google.com/group/hector-users">let us know</a> how you feel about it.<br />
+The API is available on the <a href="http://github.com/rantav/hector/downloads">downloads page</a> and is marked as 0.6.0-15.</p>
+<script type='text/javascript'>
+		<!--
+		//OBSTART:do_NOT_remove_this_comment
+		var OutbrainPermaLink="index.html";
+		if(typeof(OB_Script)!='undefined'){OutbrainStart();} else {
+		var OB_PlugInVer="7.0.0.0_Regular";;var OB_raterMode="stars";var OB_recMode="rec";var OBITm="1263219542";var OB_Script=true;var OB_langJS="";document.write(unescape("%3Cscript src='http://widgets.outbrain.com/OutbrainRater.js' type='text/javascript'%3E%3C/script%3E"));}
+		//OBEND:do_NOT_remove_this_comment
+		//-->
+		</script>
+		      </div>
+      <p class="postmetadata2">Published in <a href="../../../../category/uncategorized/index.html" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a><!-- by <php the_author(); ?> -->, August 6th, 2010 <br />
+      	</p>
+    </div>
+    
+	<!--
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+		<rdf:Description rdf:about="http://prettyprint.me/2010/08/06/hector-api-v2/"
+    dc:identifier="http://prettyprint.me/2010/08/06/hector-api-v2/"
+    dc:title="Hector API v2"
+    trackback:ping="http://prettyprint.me/2010/08/06/hector-api-v2/trackback/" />
+</rdf:RDF>	-->
+
+  
+<!-- You can start editing here. -->
+
+<div class="boxcomments">
+
+
+
+
+	<h2 id="comments">27 Responses to &#8220;Hector API v2&#8221;</h2>
+
+	<ol class="commentlist">
+	
+		
+<li class="odd" id="comment-2899">
+
+			
+        <p>Ah, great news.  I was leaning towards pelops just because of its API but was a little nervous b/c Hector like you said was the defacto.  </p>
+<p>Exciting to give it a try.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/884ec97e9f81461adbf09f6d22ed82b3?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong><a href='http://www.debugging.com/' rel='external nofollow' class='url'>Salman</a></strong> on <a href="#comment-2899" title="">Aug 6, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-2967">
+
+			
+        <p>does the Cluster object thread-safe?<br />
+i mean, several threads own/use one Cluster object</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/adc59265c4df1b1a2dce8be4f4ae493e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>levy</strong> on <a href="#comment-2967" title="">Aug 11, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-2968">
+
+			
+        <p>A Cluster is thread safe, yes, and is meant to be reused by different threads.<br />
+I&#8217;ll add that to the class docs</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-2968" title="">Aug 11, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-3011">
+
+			
+        <p>With API v2, how can I count columns in a column family or a super column? I can not find a query to do that.</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/10ca2f82046ee89ff79d4f3e622dae97?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>gfremex</strong> on <a href="#comment-3011" title="">Aug 15, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-3016">
+
+			
+        <p>That&#8217;s a use case I haven&#8217;t coded yet, it&#8217;s easy to do, just didn&#8217;t get to it yet&#8230;<br />
+Do you have a suggestion how would you like to see the API defined?</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-3016" title="">Aug 15, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-3023">
+
+			
+        <p>Maybe a CountQuery can do that.</p>
+<p>I tried to write a method to get columns count by using API V2. But I failed because of restricted access to some methods.</p>
+<p>For example, I want to call KeyspaceOperator.doExecute(KeyspaceOperationCallback koc) with a customized koc which can use a ks passed in to get columns count. However doExecute() is invisible in my code.</p>
+<p>Can you release a new API version as soon as possible or tell me how I could get columns count?</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/10ca2f82046ee89ff79d4f3e622dae97?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>gfremex</strong> on <a href="#comment-3023" title="">Aug 16, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-3024">
+
+			
+        <p>Hi, sorry for the delay and not adding this in the first round of the API, I&#8217;ve just committed this, check it out on <a href="http://github.com/rantav/hector/commit/501e4d79a86e07bc157c9bdff24b11e7908e81e6" rel="nofollow">http://github.com/rantav/hector/commit/501e4d79a86e07bc157c9bdff24b11e7908e81e6</a></p>
+<p>It&#8217;s in master as well as on 0.6.0 but I haven&#8217;t made a release with it yet, I&#8217;m waiting for a few more changes to go it</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-3024" title="">Aug 16, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-3072">
+
+			
+        <p>Use the new API V2.How can I insert a column or columns in a supercolumn what is already  exist.<br />
+In new API I only find create a new supercolumn insert the the table.</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/70dc4ef3e91ff6803e4b5c8c850b45c6?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>GongZhi</strong> on <a href="#comment-3072" title="">Aug 21, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-3075">
+
+			
+        <p>Please post your questions to <a href="mailto:hector-users@googlegroups.com">hector-users@googlegroups.com</a> (and subscribe).<br />
+When you add subcolumns to an existing supercolumn it will not remove the previous columns in that SC, so simple create a new SC with subcolumns and insert them, it&#8217;s additive.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-3075" title="">Aug 21, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-3087">
+
+			
+        <p>Thanks a lot!</p>
+<p>Now I can count columns/super columns in an easy way!</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/10ca2f82046ee89ff79d4f3e622dae97?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>gfremex</strong> on <a href="#comment-3087" title="">Aug 23, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-3088">
+
+			
+        <p>I hava solved the problem today and subscribe the group</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/70dc4ef3e91ff6803e4b5c8c850b45c6?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>GongZhi</strong> on <a href="#comment-3088" title="">Aug 23, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-3095">
+
+			
+        <p>Couple of things.. and please correct me if I am wrong.. </p>
+<p>I checked out he master branch.. and Extractor has been renamed as Serializer, StringExtractor as StringSerializer.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/26e2c80d3473670fa31342bccb75362a?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>atin</strong> on <a href="#comment-3095" title="">Aug 24, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-3096">
+
+			
+        <p>yes, this is correct, that&#8217;s part of the feedback we&#8217;re getting from the mailing list, you&#8217;re welcome to join <a href="http://groups.google.com/group/hector-users" rel="nofollow">http://groups.google.com/group/hector-users</a></p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-3096" title="">Aug 24, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-3102">
+
+			
+        <p>How do I do a multiColumnget query using the V2 api. I know for V1 I can do s.th like<br />
+keyspace.multigetColumn(keys, columnpath).. but which Query does it map to in V2</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/26e2c80d3473670fa31342bccb75362a?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>atin</strong> on <a href="#comment-3102" title="">Aug 25, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-3104">
+
+			
+        <p>@atin for a standard column: MultigetSliceQuery and call setColumnNames(cName) if you only need a single column<br />
+See the test here ApiV2SystemTest.testMultigetSliceQuery()</p>
+<p>If it&#8217;s a super then there are the MultigetSuperSliceQuery and MultigetSubSlilceQuery, one is for getting a set of supercolumns and the other for getting a set of columns under one specific supercolumn</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-3104" title="">Aug 25, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-3105">
+
+			
+        <p>I keep getting this error.. </p>
+<p>me.prettyprint.cassandra.model.HectorTransportException: org.apache.thrift.protocol.TProtocolException: Required field &#8216;predicate&#8217; was not present! Struct: multiget_slice_args(keyspace:SITP, keys:[USER_1282727830168], column_parent:ColumnParent(column_family:USERLINE), predicate:null, consistency_level:QUORUM)<br />
+	at me.prettyprint.cassandra.service.ExceptionsTranslatorImpl.translate(ExceptionsTranslatorImpl.java:24)<br />
+	at me.prettyprint.cassandra.service.KeyspaceImpl$14.execute(KeyspaceImpl.java:451)<br />
+	at me.prettyprint.cassandra.service.KeyspaceImpl$14.execute(KeyspaceImpl.java:438)<br />
+	at me.prettyprint.cassandra.service.Operation.executeAndSetResult(FailoverOperator.java:366)<br />
+	at me.prettyprint.cassandra.service.FailoverOperator.operateSingleIteration(FailoverOperator.java:175)<br />
+	at me.prettyprint.cassandra.service.FailoverOperator.operate(FailoverOperator.java:84)<br />
+	at me.prettyprint.cassandra.service.KeyspaceImpl.operateWithFailover(KeyspaceImpl.java:151)<br />
+	at me.prettyprint.cassandra.service.KeyspaceImpl.multigetSlice(KeyspaceImpl.java:455)<br />
+	at me.prettyprint.cassandra.model.MultigetSliceQuery$1.doInKeyspace(MultigetSliceQuery.java:44)<br />
+	at me.prettyprint.cassandra.model.MultigetSliceQuery$1.doInKeyspace(MultigetSliceQuery.java:38)<br />
+	at me.prettyprint.cassandra.model.KeyspaceOperationCallback.doInKeyspaceAndMeasure(KeyspaceOperationCallback.java:12)<br />
+	at me.prettyprint.cassandra.model.KeyspaceOperator.doExecute(KeyspaceOperator.java:47)<br />
+	at me.prettyprint.cassandra.model.MultigetSliceQuery.execute(MultigetSliceQuery.java:37)</p>
+<p>Any ideas??</p>
+<p>Sorry for the botheration</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/26e2c80d3473670fa31342bccb75362a?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>atin</strong> on <a href="#comment-3105" title="">Aug 25, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-3106">
+
+			
+        <p>@atin it&#8217;s best to follow this on <a href="mailto:hector-users@googlegroups.com">hector-users@googlegroups.com</a><br />
+Could I ask you to register and post more details there?<br />
+Can you pls send your code and I&#8217;ll try to repro it locally and fix?</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-3106" title="">Aug 25, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-3177">
+
+			
+        <p>Are there any quick example usages available anywhere?<br />
+I&#8217;ve been using Cassandra for abotu 6 months but i&#8217;ve always used the thrift interface so if any examples are available please point out where i can get a hold of em.<br />
+thanks</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/dfefebfbba2c14fc30c9c390dd5482f3?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong><a href='http://www.picoble.com/' rel='external nofollow' class='url'>robinsonc494</a></strong> on <a href="#comment-3177" title="">Sep 1, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-3183">
+
+			
+        <p>You can see some public examples here: <a href="http://github.com/rantav/hector/blob/master/src/main/java/me/prettyprint/cassandra/examples/ExampleDaoV2.java" rel="nofollow">ExampleDaoV2</a> and here <a href="http://github.com/rantav/hector/blob/master/src/test/java/me/prettyprint/cassandra/model/ApiV2SystemTest.java" rel="nofollow">ApiV2SystemTest</a>.<br />
+If you need to see what other folks do I suggest you ask more specific questions at the mailing list <a href="http://groups.google.com/group/hector-users" rel="nofollow">hector-users</a></p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-3183" title="">Sep 1, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+			
+<li class="odd" id="comment-3968">
+
+			
+        <p>Hi,<br />
+  Is it possible to set multiple columns(in the same column family) for a single key in a single insert method? or do i have to do two separate inserts with different column names ?</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/5b66eb36a42f6263f65a28b29b9f3b2c?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Karthik</strong> on <a href="#comment-3968" title="">Oct 25, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-4204">
+
+			
+        <p>Can I use hector-0.7.*  for Cassandra-0.6.5 server?</p>
+        
+        <img alt='' src='http://1.gravatar.com/avatar/703f27928af10319c253ee67af6edd81?s=28&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Sam</strong> on <a href="#comment-4204" title="">Nov 10, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-4209">
+
+			
+        <p>@Sam no, you need to use hector 0.6.0-* for cassadra 0.6.*, just b/c of the thrift compatibility requirements.</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-4209" title="">Nov 10, 2010</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="odd" id="comment-5501">
+
+			
+        <p>Hi,<br />
+is only the Cluster thread safe, or is the Keyspace also thread safe?</p>
+<p>-Stephan</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/cdf3da6330bac6a93c62b51d1697af1e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Stephan</strong> on <a href="#comment-5501" title="">Jan 20, 2011</a> </p>
+        	
+        
+	</li>
+		
+		
+		
+<li class="mycomment" id="comment-5504">
+
+			
+        <p>A cluster is thread safe, yes</p>
+        
+        <img alt='' src='http://0.gravatar.com/avatar/2cdc5c3059c40c76d5ca7bec8d149f9e?s=28&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D28&amp;r=G' class='avatar avatar-28 photo' height='28' width='28' />        
+        <p style="margin-bottom:5px;">By <strong>Ran Tavory</strong> on <a href="#comment-5504" title="">Jan 20, 2011</a> </p>
+        	
+        
+	</li>
+		
+		
+				
+	</ol>
+	
+	
+
+	<h2 id="trackbacks">3 Trackback(s)</h2>
+	
+	<ol class="tblist">
+	
+
+	<li id="comment-3748">
+		Oct 6, 2010: <a href='http://www.geekontheloose.com/programming/java/cassandra-0-7-and-hector-for-noobs/' rel='external nofollow' class='url'>Cassandra 0.7 and Hector for Noobs | Geek on the Loose</a>			</li>
+	
+		
+
+	<li id="comment-5960">
+		Feb 13, 2011: <a href='https://wiki.auckland.ac.nz/display/BeSTGRID/Cassandra' rel='external nofollow' class='url'>Confluence: BeSTGRID</a>			</li>
+	
+		
+
+	<li id="comment-8219">
+		May 25, 2011: <a href='https://kb.amee.com/pages/viewpage.action?pageId=1114748' rel='external nofollow' class='url'>Confluence: Engineering Team</a>			</li>
+	
+		
+
+	</ol>
+
+	
+
+	<p id="comments-closed">Sorry, comments for this entry are closed at this time.</p>
+</div>  
+ 
+ 
+</div><!-- //content -->
+
+<div id="sidebar"><!-- sidebar -->
+
+<p class="rssfeed"><a class="rsslink" href="../../../../feed/index.html"></a>
+<p><a href="http://feeds2.feedburner.com/PrettyPrintMe"><img src="http://feeds2.feedburner.com/~fc/PrettyPrintMe?bg=3069B0&amp;fg=fffdfa&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a></p>
+</p>
+
+<h2>Search</h2>
+<form method="get" id="searchform" class="search" action="http://prettyprint.me/">
+<input type="text" name="s" value="Type keywords and hit enter..." onfocus="if (this.value == 'Type keywords and hit enter...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Type keywords and hit enter...';}" />
+</form>
+
+<!--
+<h2>Categories</h2>
+<ul>
+		<li class="cat-item cat-item-1"><a href="http://prettyprint.me/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+</ul>
+-->
+
+<h2>Blog Archives</h2>
+<ul>
+  	<li><a href='../../../../2011/07/index.html' title='July 2011'>July 2011</a></li>
+	<li><a href='../../../../2011/02/index.html' title='February 2011'>February 2011</a></li>
+	<li><a href='../../../../2011/01/index.html' title='January 2011'>January 2011</a></li>
+	<li><a href='../../index.html' title='August 2010'>August 2010</a></li>
+	<li><a href='../../../05/index.html' title='May 2010'>May 2010</a></li>
+	<li><a href='../../../04/index.html' title='April 2010'>April 2010</a></li>
+	<li><a href='../../../03/index.html' title='March 2010'>March 2010</a></li>
+	<li><a href='../../../02/index.html' title='February 2010'>February 2010</a></li>
+	<li><a href='../../../01/index.html' title='January 2010'>January 2010</a></li>
+	<li><a href='../../../../2009/11/index.html' title='November 2009'>November 2009</a></li>
+	<li><a href='../../../../2009/10/index.html' title='October 2009'>October 2009</a></li>
+	<li><a href='../../../../2009/09/index.html' title='September 2009'>September 2009</a></li>
+	<li><a href='../../../../2009/08/index.html' title='August 2009'>August 2009</a></li>
+	<li><a href='../../../../2009/06/index.html' title='June 2009'>June 2009</a></li>
+	<li><a href='../../../../2009/05/index.html' title='May 2009'>May 2009</a></li>
+</ul>
+
+<!--
+<h2>Links</h2>
+<ul>
+  <li><a href="http://wordpress.org/development/">Development Blog</a></li>
+<li><a href="http://codex.wordpress.org/">Documentation</a></li>
+<li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
+<li><a href="http://wordpress.org/extend/ideas/">Suggest Ideas</a></li>
+<li><a href="http://wordpress.org/support/">Support Forum</a></li>
+<li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
+<li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+</ul>
+-->
+
+<!--
+<h2>Meta</h2>
+<ul>
+    <li><a href="http://prettyprint.me/wp-login.php">Log in</a></li>
+  <li><a href="http://www.wordpress.org/">WordPress</a></li>
+    <li><a href="http://validator.w3.org/check?uri=referer">XHTML</a></li>
+</ul>
+-->
+
+ 
+
+
+</div> <!--//sidebar  -->
+
+</div><!--//container-->
+
+<div id="footer-container">
+	
+<div id="footer">
+
+<div id="footerleft">
+		<h2>About</h2>
+  <p>Restrospective focuses on clean typography and modern colors and design.</p>
+  </div>
+
+<div id="footermid">
+		<h2>Profiles, Links</h2>
+	<ul>
+  	<li><a href="http://www.linkedin.com/in/rantav">LinkedIn</a></li>
+  	<li><a href="http://tavory.com/">Homepage</a></li>
+  	<li><a href="http://twitter.com/rantav">Twitter</a></li>
+  	<li><a href="http://reversim.com/">(Hebrew podcast I run) רברס עם פלטפורמה</a></li>
+  	<li><a href="http://friendfeed.com/rantav">FriendFeed</a></li>
+  	<li><a href="http://gbsheli.com/">Google Blog Sheli (my older blog, mostly Hebrew)</a></li>
+  	<li><a href="http://www.facebook.com/people/Ran-Tavory/543122173">Facebook</a></li>
+  </ul>
+  </div>
+
+<div id="footerright">
+	<!--
+	<h2>Recent Readers</h2>
+-->
+  <!--	Paste JavaScript from MyBlogLog or other services -->
+
+  </div>
+
+</div><!--//footer-->
+
+<div class="copyright">
+	Copyright &copy; <a href="../../../../index.html">PrettyPrint.me</a> &middot; All rights reserved.<br />
+	
+	Powered by <a href="http://wordpress.org/">WordPress</a> and <a href="http://blogbuildingu.com/retrospective">Retrospective theme</a> &middot; Design & code by <a href="http://blogbuildingu.com/">Hendry Lee</a>.
+
+<script type='text/javascript' src='../../../../wp-content/plugins/contact-form-7/jquery.formd20f.js?ver=2.52'></script>
+<script type='text/javascript' src='../../../../wp-content/plugins/contact-form-7/scripts747d.js?ver=2.4.5'></script>
+<script src="../../../../wp-content/plugins/tweetmeme/button.js" type="text/javascript"></script></div>
+
+</div><!--//footer-container-->
+
+</body>
+
+<!-- Mirrored from prettyprint.me/2010/08/06/hector-api-v2/ by HTTrack Website Copier/3.x [XR&CO'2010], Fri, 28 Dec 2012 23:00:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+</html>
